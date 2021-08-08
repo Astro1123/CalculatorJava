@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import OS.*;
 
 public class Draw {
     // Card1
@@ -567,8 +568,9 @@ public class Draw {
     
     JButton Button(String str) {
         JButton btn = new JButton();
-	int strlen = str.length();
-	if (str.matches("√|π|÷|×")) {
+	    int strlen = str.length();
+	    PlatformUtils pu = new PlatformUtils();
+	    if (str.matches("√|π|÷|×") && !pu.isMac()) {
 	        if (strlen == 1 || strlen == 2) {
         	    btn = new JButton(String.format("%2s  ",str));
         	} else if (strlen == 3 || strlen == 4) {
@@ -577,7 +579,7 @@ public class Draw {
         	    btn = new JButton(String.format("%4s",str));
         	}
 
-	} else {
+	    } else {
 	        if (strlen == 0) { 
         	    btn = new JButton(String.format("%5s",str));
         	} else if (strlen == 1 || strlen == 2) {
@@ -587,7 +589,7 @@ public class Draw {
         	} else {
         	    btn = new JButton(String.format("%s",str));
         	}
-	}
+	    }
         btn.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
         return btn;
     }
