@@ -567,7 +567,6 @@ public class Draw {
     
     JButton Button(String str) {
         JButton btn = new JButton();
-        btn.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
         if (str.length() == 0) { 
             btn = new JButton(String.format("%5s",str));
         } else if (str.length() == 1 || str.length() == 2) {
@@ -577,6 +576,7 @@ public class Draw {
         } else {
             btn = new JButton(String.format("%s",str));
         }
+        btn.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
         return btn;
     }
 }
