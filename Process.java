@@ -79,7 +79,7 @@ public class Process {
                 if (line.indexOf(" ") == -1 || line.endsWith(" ")) {
                     line+=" 0.0";
                 }
-                words = line.split("[\s]+",2);
+                words = line.split("[\\s]+",2);
                 list.add(words[0].replace("\n",""));
                 list.add(words[1].replace("\n",""));
             }
