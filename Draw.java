@@ -570,7 +570,7 @@ public class Draw {
         JButton btn = new JButton();
 	    int strlen = str.length();
 	    PlatformUtils pu = new PlatformUtils();
-	    if (str.matches("√|π|÷|×") && !pu.isMac()) {
+	    if (str.matches("√|π|÷|×") && pu.isWindows()) {
 	        if (strlen == 1 || strlen == 2) {
         	    btn = new JButton(String.format("%2s  ",str));
         	} else if (strlen == 3 || strlen == 4) {
