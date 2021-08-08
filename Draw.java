@@ -567,11 +567,11 @@ public class Draw {
     
     JButton Button(String str) {
         JButton btn = new JButton();
-        if (str.length() == 0) { 
+        if (str.length() + (str.equals("√")?1:0) == 0) { 
             btn = new JButton(String.format("%5s",str));
-        } else if (str.length() == 1 || str.length() == 2) {
+        } else if (str.length() + (str.equals("√")?1:0) == 1 || str.length() + (str.equals("√")?1:0) == 2) {
             btn = new JButton(String.format("%3s  ",str));
-        } else if (str.length() == 3 || str.length() == 4) {
+        } else if (str.length() + (str.equals("√")?1:0) == 3 || str.length() + (str.equals("√")?1:0) == 4) {
             btn = new JButton(String.format("%4s ",str));
         } else {
             btn = new JButton(String.format("%s",str));
