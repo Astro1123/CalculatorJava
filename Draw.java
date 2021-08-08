@@ -567,15 +567,27 @@ public class Draw {
     
     JButton Button(String str) {
         JButton btn = new JButton();
-        if (str.length() + (str.equals("√")?1:0) == 0) { 
-            btn = new JButton(String.format("%5s",str));
-        } else if (str.length() + (str.equals("√")?1:0) == 1 || str.length() + (str.equals("√")?1:0) == 2) {
-            btn = new JButton(String.format("%3s  ",str));
-        } else if (str.length() + (str.equals("√")?1:0) == 3 || str.length() + (str.equals("√")?1:0) == 4) {
-            btn = new JButton(String.format("%4s ",str));
-        } else {
-            btn = new JButton(String.format("%s",str));
-        }
+	int strlen = str.length();
+	if (str.matches("√|π|÷|×")) {
+	        if (strlen == 1 || strlen == 2) {
+        	    btn = new JButton(String.format("%2s  ",str));
+        	} else if (strlen == 3 || strlen == 4) {
+        	    btn = new JButton(String.format("%3s ",str));
+        	} else {
+        	    btn = new JButton(String.format("%4s",str));
+        	}
+
+	} else {
+	        if (strlen == 0) { 
+        	    btn = new JButton(String.format("%5s",str));
+        	} else if (strlen == 1 || strlen == 2) {
+        	    btn = new JButton(String.format("%3s  ",str));
+        	} else if (strlen == 3 || strlen == 4) {
+        	    btn = new JButton(String.format("%4s ",str));
+        	} else {
+        	    btn = new JButton(String.format("%s",str));
+        	}
+	}
         btn.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
         return btn;
     }
