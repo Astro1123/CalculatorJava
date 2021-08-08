@@ -206,6 +206,10 @@ public class Process {
 			if (yd.compareTo(new BigDecimal(0)) == 0) x = FalsePosition1(calc,x,xc,listc3,typelistc3);
         	x1 = new BigDecimal(x);
         	xc=x;
+			if (cal.calc(listc).compareTo(new BigDecimal(0)) == 0) {
+				x=x0;
+				break;
+			}
 			x = x1.subtract(cal.calc(listc).divide(yd, 15, BigDecimal.ROUND_HALF_UP)).doubleValue();
 			dx1 = dx0;
 			dx0 = x-xc;
@@ -249,6 +253,10 @@ public class Process {
 			if (yd.compareTo(new BigDecimal(0)) == 0) break;
         	x1 = new BigDecimal(x);
         	//System.out.println(listc);
+			if (cal.calc(listc).compareTo(new BigDecimal(0)) == 0) {
+				x=x0;
+				break;
+			}
 			x = x1.subtract(cal.calc(listc).divide(yd, 15, BigDecimal.ROUND_HALF_UP)).doubleValue();
 			if (cal.calc(listc).compareTo(new BigDecimal(0)) == 0) break;
         }
