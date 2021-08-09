@@ -567,29 +567,30 @@ public class Draw {
     }
     
     JButton Button(String str) {
-        JButton btn = new JButton();
+	    String strc;
 	    int strlen = str.length();
 	    PlatformUtils pu = new PlatformUtils();
 	    if (str.matches("√|π|÷|×") && pu.isWindows()) {
 	        if (strlen == 1 || strlen == 2) {
-        	    btn = new JButton(String.format("%2s  ",str));
+        	    strc = String.format("%2s  ",str);
         	} else if (strlen == 3 || strlen == 4) {
-        	    btn = new JButton(String.format("%3s ",str));
+        	    strc = String.format("%3s ",str);
         	} else {
-        	    btn = new JButton(String.format("%4s",str));
+        	    strc = String.format("%4s",str);
         	}
 
 	    } else {
 	        if (strlen == 0) { 
-        	    btn = new JButton(String.format("%5s",str));
+        	    strc = String.format("%5s",str);
         	} else if (strlen == 1 || strlen == 2) {
-        	    btn = new JButton(String.format("%3s  ",str));
+        	    strc = String.format("%3s  ",str);
         	} else if (strlen == 3 || strlen == 4) {
-        	    btn = new JButton(String.format("%4s ",str));
+        	    strc = String.format("%4s ",str);
         	} else {
-        	    btn = new JButton(String.format("%s",str));
+        	    strc = String.format("%s",str);
         	}
 	    }
+        JButton btn = new JButton(strc);
         btn.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
         return btn;
     }
