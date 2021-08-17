@@ -11,7 +11,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.ArrayList;
 
-class Calculator extends JFrame implements ActionListener {
+class Calculator extends JFrame implements ActionListener, ItemListener {
 	String title;
 	JPanel cardPanel;
 	CardLayout layout;
@@ -71,15 +71,16 @@ class Calculator extends JFrame implements ActionListener {
         JButton quitbtn = new JButton("Quit");
         quitbtn.addActionListener(this);
         quitbtn.setActionCommand("Quit");
-        JButton changebtn = new JButton("Change");
-        changebtn.addActionListener(this);
-        changebtn.setActionCommand("Change");
+        //JButton changebtn = new JButton("Change");
+        //changebtn.addActionListener(this);
+        //changebtn.setActionCommand("Change");
         combo = new JComboBox<>(combodata);
+        combo.addItemListener(this);
         //combo.setEnabled(false);
         
         p0.add(quitbtn);
         p0.add(combo);
-        p0.add(changebtn);
+        //p0.add(changebtn);
         
         JPanel pt = new JPanel();
         pt.setLayout(new BorderLayout());
@@ -236,6 +237,18 @@ class Calculator extends JFrame implements ActionListener {
                 PushList.add(cmd);
             }
             inputmem = false;
+        }
+    }
+    
+    public void itemStateChanged(ItemEvent e) {
+        if (e.getStateChange() == ItemEvent.SELECTED) {
+            PushList.clear();
+            inputid = false;
+            inputeq = true;
+            setClear(this,text1);
+            String str = (String)combo.getSelectedItem();
+            layout.show(cardPanel, str);
+            frame.setTitle(title = str);
         }
     }
   
