@@ -131,15 +131,7 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
         MakeList ml = new MakeList();
         Process pro = new Process();
 
-        if (cmd.equals("Change")) {
-            PushList.clear();
-            inputid = false;
-            inputeq = true;
-            setClear(this,text1);
-            str = (String)combo.getSelectedItem();
-            layout.show(cardPanel, str);
-            frame.setTitle(title = str);
-        } else if (cmd.equals("Quit")) {
+        if (cmd.equals("Quit")) {
             System.exit(0);
         } else if (cmd.equals("SolveCard5")) {
             pro.solveequal(this, textc5in1.getText(), Double.parseDouble(textc5in2.getText()), Double.parseDouble(textc5in3.getText()),(String)comboc5.getSelectedItem());

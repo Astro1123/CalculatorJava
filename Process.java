@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
@@ -382,9 +383,7 @@ public class Process {
     	BufferedReader br;
     	File file;
         try{
-            Path p1 = Paths.get("");
-            Path p2 = p1.toAbsolutePath();
-            File dir = new File(p2.toString());
+            File dir = new File(System.getProperty("user.dir"));
             JFileChooser filechooser = new JFileChooser(dir);
             if ( filechooser.showOpenDialog(calc) == JFileChooser.APPROVE_OPTION ) {
                 file = filechooser.getSelectedFile();
