@@ -62,6 +62,7 @@ public class Process {
 		System.out.println(sb.toString());
 		//*/
 		calc.text1.setText(cal.calc(calc.list).toPlainString());
+		calc.texta1.setText("");
 		calc.ans = Double.parseDouble(cal.calc(calc.list).toString());
 		calc.sb.delete(0, calc.sb.length());
 		calc.sb.append(cal.calc(calc.list).toString());

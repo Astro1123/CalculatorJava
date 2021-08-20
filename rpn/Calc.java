@@ -24,7 +24,7 @@ public class Calc {
 	}
 	private void calculation(Deque<Double> stack, String op) {
 		Compute com = new Compute();
-		double a,b;
+		double a,b,tmp;
 		if (op.equals("+")) {
 			a = StackPop(stack);
 			b = StackPop(stack);
@@ -105,6 +105,13 @@ public class Calc {
 		} else if (op.equals("atan")) {
 			a = StackPop(stack);
 			stack.push(Math.atan(a));
+		} else if (op.equals("fact")) {
+			a = StackPop(stack);
+			tmp = 1;
+			for(int i = 0; i < a; i++) {
+				tmp *= i+1;
+			}
+			stack.push(tmp);
 		} else if (op.equals("asin")) {
 			a = StackPop(stack);
 			stack.push(Math.asin(a));

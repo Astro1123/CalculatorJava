@@ -30,6 +30,7 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
     double memory = 0,ans = 0;
     StringBuilder sb;
     JTextField text1;
+    JTextArea texta1;
     JTextArea textc3;
     JTextArea textc3ans;
     JTextArea textc4;
@@ -44,7 +45,7 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
     }
 
     Calculator() {
-        setBounds(100, 100, 640, 480);
+        setBounds(100, 100, 640, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         PushList = new ArrayDeque<>();
         sb = new StringBuilder();
@@ -88,14 +89,20 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
         ptt.setLayout(new FlowLayout());
         JPanel p = new JPanel();
         p.setLayout(new FlowLayout());
-        text1 = new JTextField("0", 30);
+        JPanel pp = new JPanel();
+        pp.setLayout(new BorderLayout());
+        text1 = new JTextField("0", 35);
         text1.setEditable(false);
-        text1.setHorizontalAlignment(JTextField.RIGHT);
+        texta1 = new JTextArea("",2,35);
+        texta1.setEditable(false);
+        JScrollPane scrollpane = new JScrollPane(texta1);
         //text1.setText("1");
         pt.add(ptt, BorderLayout.NORTH);
         pt.add(p, BorderLayout.CENTER);
         
-        p.add(text1);
+        p.add(pp);
+        pp.add(text1,BorderLayout.CENTER);
+        pp.add(scrollpane,BorderLayout.NORTH);
         Draw draw = new Draw();
         
         JPanel p1 = draw.dc1(this);
@@ -123,7 +130,7 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
         String cmd = e.getActionCommand();
         String str;
         String conststr = "(pi|e|c|g|G|h|hbar|k)";
-        String operatorstr = "(\\+|-|\\*|/|%|^|//|%%)";
+        String operatorstr = "(\\+|-|\\*|/|%|\\^|//|%%)";
         String numberstr = "(|00|[0-9]|.)";
         BufferedReader br;
 	    SignSymbols ss = new SignSymbols();
@@ -181,6 +188,7 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
             list = ml.makeList(PushList);
             //System.out.println(list);
             pro.equal(this,ms.makeScript(list));
+            return;
         } else {
             if (cmd.matches(operatorstr)) {
                 numnext(this);
@@ -230,6 +238,9 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
             }
             inputmem = false;
         }
+        ArrayDeque<String> Pushlistc = new ArrayDeque<String>(PushList);
+        Pushlistc.add(sb.toString());
+        texta1.setText(ms.makeScript(ml.makeList(Pushlistc)).replace(" ",""));
     }
     
     public void itemStateChanged(ItemEvent e) {

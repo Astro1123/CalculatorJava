@@ -318,9 +318,9 @@ public class Draw {
         JButton btnmuc2 = Button("×");
         btnmuc2.addActionListener(calc);
         btnmuc2.setActionCommand("*");
-        JButton btndivic2 = Button("//");
-        btndivic2.addActionListener(calc);
-        btndivic2.setActionCommand("//");
+        JButton btnsqrt = Button("√");
+        btnsqrt.addActionListener(calc);
+        btnsqrt.setActionCommand("sqrt");
         JButton btntan = Button("tan");
         btntan.addActionListener(calc);
         btntan.setActionCommand("tan");
@@ -331,7 +331,7 @@ public class Draw {
         p2p2p2.add(btn8c2);
         p2p2p2.add(btn9c2);
         p2p2p2.add(btnmuc2);
-        p2p2p2.add(btndivic2);
+        p2p2p2.add(btnsqrt);
         p2p2p2.add(btntan);
         p2p2p2.add(btnatan);
     
@@ -364,15 +364,12 @@ public class Draw {
         p2p2p3.add(btnexp);
         p2p2p3.add(btnlog);
         
-        JButton btnpi = Button("π");
-        btnpi.addActionListener(calc);
-        btnpi.setActionCommand("pi");
-        JButton btnm_e = Button("e");
-        btnm_e.addActionListener(calc);
-        btnm_e.setActionCommand("e");
-        JButton btnsqrt = Button("√");
-        btnsqrt.addActionListener(calc);
-        btnsqrt.setActionCommand("sqrt");
+        JButton btneqc2 = Button("=");
+        btneqc2.addActionListener(calc);
+        btneqc2.setActionCommand("=");
+        JButton btndivic2 = Button("quot");
+        btndivic2.addActionListener(calc);
+        btndivic2.setActionCommand("//");
         JButton btnParenL = Button("(");
         btnParenL.addActionListener(calc);
         btnParenL.setActionCommand("(");
@@ -385,14 +382,16 @@ public class Draw {
         JButton btnabs = Button("abs");
         btnabs.addActionListener(calc);
         btnabs.setActionCommand("abs");
-        p2p3p1.add(btnpi);
-        p2p3p1.add(btnm_e);
-        p2p3p1.add(btnsqrt);
+        p2p3p1.add(btneqc2);
+        p2p3p1.add(btndivic2);
         p2p3p1.add(btnParenL);
         p2p3p1.add(btnParenR);
         p2p3p1.add(btnsum);
         p2p3p1.add(btnabs);
         
+        JButton btnpi = Button("π");
+        btnpi.addActionListener(calc);
+        btnpi.setActionCommand("pi");
         JButton btnround = Button("round");
         btnround.addActionListener(calc);
         btnround.setActionCommand("round");
@@ -411,17 +410,17 @@ public class Draw {
         JButton btnfloor = Button("floor");
         btnfloor.addActionListener(calc);
         btnfloor.setActionCommand("floor");
-        JButton btneqc2 = Button("=");
-        btneqc2.addActionListener(calc);
-        btneqc2.setActionCommand("=");
+        p2p3p2.add(btnpi);
         p2p3p2.add(btnround);
         p2p3p2.add(btnrevn);
         p2p3p2.add(rinf);
         p2p3p2.add(btnint);
         p2p3p2.add(btnceil);
         p2p3p2.add(btnfloor);
-        p2p3p2.add(btneqc2);
         
+        JButton btnm_e = Button("e");
+        btnm_e.addActionListener(calc);
+        btnm_e.setActionCommand("e");
         JButton c2btnc = Button("c");
         c2btnc.addActionListener(calc);
         c2btnc.setActionCommand("c");
@@ -440,6 +439,7 @@ public class Draw {
         JButton c2btng = Button("g");
         c2btng.addActionListener(calc);
         c2btng.setActionCommand("g");
+        p2p3p3.add(btnm_e);
         p2p3p3.add(c2btnc);
         p2p3p3.add(c2btnLG);
         p2p3p3.add(c2btnh);
@@ -567,31 +567,8 @@ public class Draw {
     }
     
     JButton Button(String str) {
-	    String strc;
-	    int strlen = str.length();
-	    PlatformUtils pu = new PlatformUtils();
-	    if (str.matches("√|π|÷|×") && pu.isWindows()) {
-	        if (strlen == 1 || strlen == 2) {
-        	    strc = String.format("%2s  ",str);
-        	} else if (strlen == 3 || strlen == 4) {
-        	    strc = String.format("%3s ",str);
-        	} else {
-        	    strc = String.format("%4s",str);
-        	}
-
-	    } else {
-	        if (strlen == 0) { 
-        	    strc = String.format("%5s",str);
-        	} else if (strlen == 1 || strlen == 2) {
-        	    strc = String.format("%3s  ",str);
-        	} else if (strlen == 3 || strlen == 4) {
-        	    strc = String.format("%4s ",str);
-        	} else {
-        	    strc = String.format("%s",str);
-        	}
-	    }
-        JButton btn = new JButton(strc);
-        btn.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
+        JButton btn = new JButton(str);
+        btn.setPreferredSize(new Dimension(3*22,1*22));
         return btn;
     }
 }
