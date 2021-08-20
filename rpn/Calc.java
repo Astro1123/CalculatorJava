@@ -45,7 +45,7 @@ public class Calc {
 		} else if (op.equals("//")) {
 			a = StackPop(stack);
 			b = StackPop(stack);
-			stack.push((double)((int)(b/a)));
+			stack.push(Math.floor(b/a));
 		} else if (op.equals("%") || op.equals("mod")) {
 			a = StackPop(stack);
 			b = StackPop(stack);
