@@ -459,10 +459,7 @@ public class Draw {
         JPanel p3p1p2 = new JPanel();
         JPanel p3p2 = new JPanel();
         p3p2.setLayout(new BoxLayout(p3p2, BoxLayout.Y_AXIS));
-        calc.textc3 = new JTextArea(15, 41);
-        calc.textc3ans = new JTextArea(5, 41);
-        calc.textc3ans.setEditable(false);
-        JScrollPane scrollpanec3ans = new JScrollPane(calc.textc3ans);
+        calc.textc3 = new JTextArea(20, 41);
         JScrollPane scrollpanec3 = new JScrollPane(calc.textc3);
 	    calc.textc3.setLineWrap(true);
         JButton btnc3textenter = new JButton("Enter");
@@ -483,7 +480,6 @@ public class Draw {
         p3p1.add(p3p1p1, BorderLayout.CENTER);
         p3p1.add(p3p1p2, BorderLayout.SOUTH);
 	    p3p1p1.add(scrollpanec3);
-	    p3p1p2.add(scrollpanec3ans);
 	    return p3;
     }
     
@@ -568,7 +564,13 @@ public class Draw {
     
     JButton Button(String str) {
         JButton btn = new JButton(str);
-        btn.setPreferredSize(new Dimension(3*22,1*22));
+        btn.setPreferredSize(new Dimension(3*23,1*22));
+        return btn;
+    }
+
+    JButton Button2(String str) {
+        JButton btn = new JButton(str);
+        btn.setPreferredSize(new Dimension(3*30,1*22));
         return btn;
     }
 }

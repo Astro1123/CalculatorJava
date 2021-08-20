@@ -92,14 +92,16 @@ public class Process {
         ShapeStruct ss = area.calc(list);
 		calc.sb.delete(0, calc.sb.length());
         if (ss.shape < 1) {
-		    calc.textc3ans.setText("error");
+		    calc.text1.setText("error");
 		    return;
         } else if (ss.shape == 1) {
-            calc.textc3ans.setText("Shape : Point");
+            calc.text1.setText("Shape : Point");
         } else if (ss.shape == 2) {
-            calc.textc3ans.setText("Shape : Line\nLength = " + String.valueOf(ss.len));
+            calc.text1.setText("Shape : Line");
+            calc.texta1.setText("Length = " + String.valueOf(ss.len));
         } else {
-            calc.textc3ans.setText("Shape : "+String.valueOf(ss.shape)+"-gon\nPerimeter = " + String.valueOf(ss.len) + "\nArea = " + String.valueOf(ss.area));
+            calc.text1.setText("Shape : "+String.valueOf(ss.shape)+"-gon");
+            calc.texta1.setText("Perimeter = " + String.valueOf(ss.len) + "\nArea = " + String.valueOf(ss.area));
         }
     }
     

@@ -32,7 +32,6 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
     JTextField text1;
     JTextArea texta1;
     JTextArea textc3;
-    JTextArea textc3ans;
     JTextArea textc4;
     JTextField textc5in1;
     JTextField textc5in2;
@@ -170,6 +169,10 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
             memory = 0;
         } else if (cmd.equals("AC")) {
             PushList.clear();
+            inputnum = true;
+            inputid = false;
+            inputeq = true;
+            inputmem = false;
             setClear(this,text1);
         } else if (cmd.equals("C")) {
             setClear(this,text1);
@@ -229,6 +232,15 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
                     inputnum = true;
                     inputeq = false;
                 }
+        	} else if (cmd.equals("percent")) {
+        		if (inputnum == true) {
+                	eqnext(this);
+                	numnext(this);
+                	inputid=true;
+                	inputeq = false;
+        			inputnum = false;
+                	PushList.add(cmd);
+        		}
             } else {
                 eqnext(this);
                 numnext(this);
