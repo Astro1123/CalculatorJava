@@ -27,12 +27,15 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
     boolean inputid = false;
     boolean inputeq = false;
     boolean inputmem = false;
+    boolean inputop = true;
     double memory = 0,ans = 0;
     StringBuilder sb;
     JTextField text1;
     JTextArea texta1;
     JTextArea textc3;
+    JTextArea textc3ans;
     JTextArea textc4;
+    JTextArea textc5;
     JTextField textc5in1;
     JTextField textc5in2;
     JTextField textc5in3;
@@ -130,7 +133,8 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
         String str;
         String conststr = "(pi|e|c|g|G|h|hbar|k)";
         String operatorstr = "(\\+|-|\\*|/|%|\\^|//|%%)";
-        String numberstr = "(|00|[0-9]|.)";
+        String numberstr = "(00|[0-9]|\\.)";
+        String funcstr = "(mod|mod2|round|int|revn|rinf|ceil|floor|sum|abs|sqrt|exp|sin|cos|tan|asin|acos|atan|fact|atan2|rad|deg|log)";
         BufferedReader br;
 	    SignSymbols ss = new SignSymbols();
         MakeScript ms = new MakeScript();
@@ -162,6 +166,7 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
             inputnum = true;
             inputid = false;
             inputmem = true;
+            inputop = false;
             sb.delete(0, sb.length());
             sb.append(String.valueOf(memory));
             text1.setText(sb.toString());
@@ -169,10 +174,11 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
             memory = 0;
         } else if (cmd.equals("AC")) {
             PushList.clear();
-            inputnum = true;
+            inputnum = false;
             inputid = false;
             inputeq = true;
             inputmem = false;
+            inputop = true;
             setClear(this,text1);
         } else if (cmd.equals("C")) {
             setClear(this,text1);
@@ -182,10 +188,11 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
             text1.setText(sb.toString());
         } else if (cmd.equals("=")) {
             numnext(this);
-            inputnum = true;
+            inputnum = false;
             inputid = false;
             inputeq = true;
             inputmem = false;
+            inputop = true;
             
             if (PushList.getLast().matches(operatorstr)) PushList.addLast(text1.getText());
             list = ml.makeList(PushList);
@@ -197,6 +204,7 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
                 numnext(this);
                 eqnext(this);
                 inputid = false;
+                inputop = true;
                 if (PushList.peekLast().matches(operatorstr)) {
                     PushList.pollLast();
                     PushList.add(cmd);
@@ -210,16 +218,19 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
                     PushList.pollLast();
                 } else {
                     inputid=true;
+                    inputop = false;
                     PushList.add(cmd);
                 }
             } else if (cmd.matches(conststr)) {                 // 定数
                 eqnext(this);
                 numnext(this);
+                inputop = false;
                 PushList.add(cmd);
                 text1.setText(cmd);
             } else if (cmd.equals("(") || cmd.equals(")")) {
                 eqnext(this);
                 numnext(this);
+                inputop = false;
                 PushList.add(cmd);
             } else if(cmd.matches(numberstr)) {               // 数
                 eqnext(this);
@@ -231,6 +242,7 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
                     text1.setText(sb.toString());
                     inputnum = true;
                     inputeq = false;
+                    inputop = false;
                 }
         	} else if (cmd.equals("percent")) {
         		if (inputnum == true) {
@@ -239,13 +251,24 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
                 	inputid=true;
                 	inputeq = false;
         			inputnum = false;
+                    inputop = false;
                 	PushList.add(cmd);
         		}
+        	} else if (cmd.matches(funcstr)) {
+        	    if (inputop==false) {
+                    eqnext(this);
+                    numnext(this);
+                    inputid=true;
+                    inputeq = false;
+                    inputop = false;
+                    PushList.add(cmd);
+        	    }
             } else {
                 eqnext(this);
                 numnext(this);
                 inputid=true;
                 inputeq = false;
+                inputop = false;
                 PushList.add(cmd);
             }
             inputmem = false;

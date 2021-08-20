@@ -19,6 +19,7 @@ public class Calc {
 		}
 		//System.out.println(stack.peek());
 		//if (isFinite(stack.peek()) != false)
+		if (stack.size()==0) return BigDecimal.valueOf(0);
 		return BigDecimal.valueOf(stack.pop()).setScale(12, BigDecimal.ROUND_HALF_UP).stripTrailingZeros();
 		//else System.exit(-1);
 	}
@@ -69,9 +70,6 @@ public class Calc {
 		} else if (op.equals("rinf")) {
 			a = StackPop(stack);
 			stack.push(com.rinf(a));
-		} else if (op.equals("revn")) {
-			a = StackPop(stack);
-			stack.push(com.revn(a));
 		} else if (op.equals("ceil")) {
 			a = StackPop(stack);
 			stack.push(com.ceil(a));

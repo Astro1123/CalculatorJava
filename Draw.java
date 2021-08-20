@@ -367,15 +367,15 @@ public class Draw {
         JButton btneqc2 = Button("=");
         btneqc2.addActionListener(calc);
         btneqc2.setActionCommand("=");
-        JButton btndivic2 = Button("quot");
-        btndivic2.addActionListener(calc);
-        btndivic2.setActionCommand("//");
         JButton btnParenL = Button("(");
         btnParenL.addActionListener(calc);
         btnParenL.setActionCommand("(");
         JButton btnParenR = Button(")");
         btnParenR.addActionListener(calc);
         btnParenR.setActionCommand(")");
+        JButton btndivic2 = Button("quot");
+        btndivic2.addActionListener(calc);
+        btndivic2.setActionCommand("//");
         JButton btnsum = Button("sum");
         btnsum.addActionListener(calc);
         btnsum.setActionCommand("sum");
@@ -383,9 +383,9 @@ public class Draw {
         btnabs.addActionListener(calc);
         btnabs.setActionCommand("abs");
         p2p3p1.add(btneqc2);
-        p2p3p1.add(btndivic2);
         p2p3p1.add(btnParenL);
         p2p3p1.add(btnParenR);
+        p2p3p1.add(btndivic2);
         p2p3p1.add(btnsum);
         p2p3p1.add(btnabs);
         
@@ -459,9 +459,12 @@ public class Draw {
         JPanel p3p1p2 = new JPanel();
         JPanel p3p2 = new JPanel();
         p3p2.setLayout(new BoxLayout(p3p2, BoxLayout.Y_AXIS));
-        calc.textc3 = new JTextArea(20, 41);
+        calc.textc3 = new JTextArea(15, 41);
         JScrollPane scrollpanec3 = new JScrollPane(calc.textc3);
 	    calc.textc3.setLineWrap(true);
+        calc.textc3ans = new JTextArea(3, 41);
+        JScrollPane scrollpanec3ans = new JScrollPane(calc.textc3ans);
+	    calc.textc3ans.setLineWrap(true);
         JButton btnc3textenter = new JButton("Enter");
         btnc3textenter.addActionListener(calc);
         btnc3textenter.setActionCommand("EnterTextCard3");
@@ -480,6 +483,7 @@ public class Draw {
         p3p1.add(p3p1p1, BorderLayout.CENTER);
         p3p1.add(p3p1p2, BorderLayout.SOUTH);
 	    p3p1p1.add(scrollpanec3);
+	    p3p1p2.add(scrollpanec3ans);
 	    return p3;
     }
     

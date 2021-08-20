@@ -92,16 +92,15 @@ public class Process {
         ShapeStruct ss = area.calc(list);
 		calc.sb.delete(0, calc.sb.length());
         if (ss.shape < 1) {
-		    calc.text1.setText("error");
-		    return;
+		    calc.textc3ans.setText("error\n");
         } else if (ss.shape == 1) {
-            calc.text1.setText("Shape : Point");
+            calc.textc3ans.setText("Shape : Point\n");
         } else if (ss.shape == 2) {
-            calc.text1.setText("Shape : Line");
-            calc.texta1.setText("Length = " + String.valueOf(ss.len));
+            calc.textc3ans.setText("Shape : Line\n");
+            calc.textc3ans.append("Length = " + String.valueOf(ss.len));
         } else {
-            calc.text1.setText("Shape : "+String.valueOf(ss.shape)+"-gon");
-            calc.texta1.setText("Perimeter = " + String.valueOf(ss.len) + "\nArea = " + String.valueOf(ss.area));
+            calc.textc3ans.setText("Shape : "+String.valueOf(ss.shape)+"-gon\n");
+            calc.textc3ans.append("Perimeter = " + String.valueOf(ss.len) + "\nArea = " + String.valueOf(ss.area));
         }
     }
     
@@ -143,11 +142,21 @@ public class Process {
 		listc2 = new ArrayList<>(calc.list);
 		typelistc1 = new ArrayList<>(calc.typelist);
 		typelistc2 = new ArrayList<>(calc.typelist);
+		cons.constant(listc1,typelistc1,x0);
+		cons.constant(listc2,typelistc2,x1);
+		ss.signSymbols(listc1,typelistc1);
+		ss.signSymbols(listc2,typelistc2);
+		listc1=trpn.toRPN(listc1,typelistc1,true);
+		listc2=trpn.toRPN(listc2,typelistc2,true);
 		if (cal.calc(listc1).abs().compareTo(cal.calc(listc2).abs()) > 0) {
 			double tmp = x0;
 			x0 = x1;
 			x1 = tmp;
 		}
+		listc1 = new ArrayList<>(calc.list);
+		listc2 = new ArrayList<>(calc.list);
+		typelistc1 = new ArrayList<>(calc.typelist);
+		typelistc2 = new ArrayList<>(calc.typelist);
 		double x = 0.0;
 		if (input4.equals("FalsePosition")) {
 			cons.constant(listc1,typelistc1,x0);
