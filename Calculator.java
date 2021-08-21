@@ -33,13 +33,11 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
     JTextField text1;
     JTextArea texta1;
     JTextArea textc3;
-    JTextArea textc3ans;
     JTextArea textc4;
     JTextArea textc5;
     JTextField textc5in1;
     JTextField textc5in2;
     JTextField textc5in3;
-    JTextArea textc5ans;
 	
     public static void main(String args[]){
         frame = new Calculator();
@@ -134,7 +132,7 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
         String conststr = "(pi|e|c|g|G|h|hbar|k|e0)";
         String operatorstr = "(\\+|-|\\*|/|%|\\^|//|%%)";
         String numberstr = "(00|[0-9]|\\.)";
-        String funcstr = "(mod|mod2|round|int|revn|rinf|ceil|floor|sum|abs|sqrt|exp|sin|cos|tan|asin|acos|atan|fact|atan2|rad|deg|log|tenexp)";
+        String funcstr = "(mod|mod2|round|int|revn|rinf|ceil|floor|sum|abs|sqrt|exp|sin|cos|tan|asin|acos|atan|fact|atan2|rad|deg|log|tenexp|H|C|P|lcm|gcd|fibonacci)";
         BufferedReader br;
 	    SignSymbols ss = new SignSymbols();
         MakeScript ms = new MakeScript();
@@ -145,18 +143,22 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
             System.exit(0);
         } else if (cmd.equals("SolveCard5")) {
             pro.solveequal(this, textc5in1.getText(), Double.parseDouble(textc5in2.getText()), Double.parseDouble(textc5in3.getText()),(String)comboc5.getSelectedItem());
+            return;
         }  else if (cmd.equals("OpenFileCard4")) {
             pro.openFile(this, textc4);
         } else if (cmd.equals("DeleteTextCard4")) {
             textc4.setText("");
         } else if (cmd.equals("EnterTextCard4")) {
-            pro.equal(this,textc4.getText());
+            str = textc4.getText(); 
+            texta1.setText(pro.equal(this,str));
+            return;
         } else if (cmd.equals("OpenFileCard3")) {
             pro.openFile(this, textc3);
         } else if (cmd.equals("DeleteTextCard3")) {
             textc3.setText("");
         } else if (cmd.equals("EnterTextCard3")) {
             pro.equalarea(this,textc3.getText().replace(","," "));
+            return;
         } else if (cmd.equals("MP")) {
             memplus(this,Double.parseDouble(sb.toString()));
         } else if (cmd.equals("MM")) {
@@ -285,6 +287,8 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
     
     public void itemStateChanged(ItemEvent e) {
         if (e.getStateChange() == ItemEvent.SELECTED) {
+            texta1.setText("");
+            text1.setText("0");
             PushList.clear();
             inputid = false;
             inputeq = true;

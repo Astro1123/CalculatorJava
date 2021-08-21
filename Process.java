@@ -22,7 +22,7 @@ import java.lang.ArithmeticException;
 import java.lang.NumberFormatException;
 
 public class Process {
-	public void equal(Calculator calc, String str) {
+	public String equal(Calculator calc, String str) {
         Token t;
 		SignSymbols ss = new SignSymbols();
 	    ToRPN trpn = new ToRPN();
@@ -63,18 +63,23 @@ public class Process {
 		}
 		System.out.println(sb.toString());
 		//*/
+		String s = "";
+		for (int i = 0; i < calc.list.size(); i++) {
+			s += calc.list.get(i) + " ";
+		}
 		try {
 			calc.text1.setText(cal.calc(calc.list).toPlainString());
 		}
 		catch (ArithmeticException e) {
 			calc.text1.setText("error ("+e.getMessage()+")");
 			calc.sb.delete(0, calc.sb.length());
-			return;
+			return s;
 		}
 		calc.texta1.setText("");
 		calc.ans = Double.parseDouble(cal.calc(calc.list).toString());
 		calc.sb.delete(0, calc.sb.length());
 		calc.sb.append(cal.calc(calc.list).toString());
+		return s;
     }
     
     public void equalarea(Calculator calc, String str) {
@@ -101,15 +106,17 @@ public class Process {
         ShapeStruct ss = area.calc(list);
 		calc.sb.delete(0, calc.sb.length());
         if (ss.shape < 1) {
-		    calc.textc3ans.setText("error\n");
+		    calc.text1.setText("error\n");
+		    calc.texta1.setText("");
         } else if (ss.shape == 1) {
-            calc.textc3ans.setText("Shape : Point\n");
+            calc.text1.setText("Shape : Point\n");
+		    calc.texta1.setText("");
         } else if (ss.shape == 2) {
-            calc.textc3ans.setText("Shape : Line\n");
-            calc.textc3ans.append("Length = " + String.valueOf(ss.len));
+            calc.text1.setText("Shape : Line\n");
+            calc.texta1.setText("Length = " + String.valueOf(ss.len));
         } else {
-            calc.textc3ans.setText("Shape : "+String.valueOf(ss.shape)+"-gon\n");
-            calc.textc3ans.append("Perimeter = " + String.valueOf(ss.len) + "\nArea = " + String.valueOf(ss.area));
+            calc.text1.setText("Shape : "+String.valueOf(ss.shape)+"-gon\n");
+            calc.texta1.setText("Perimeter = " + String.valueOf(ss.len) + "\nArea = " + String.valueOf(ss.area));
         }
     }
     
@@ -126,8 +133,11 @@ public class Process {
         calc.list = new ArrayList<>();
         ArrayList<String> listc1;
         ArrayList<String> listc2;
+        ArrayList<String> listc3;
         ArrayList<String> typelistc1;
         ArrayList<String> typelistc2;
+        ArrayList<String> typelistc3;
+        BigDecimal yd;
         
         try {
             for (int i = 0; (t = l.read()) != Token.EOF; i++) {
@@ -164,8 +174,10 @@ public class Process {
 		}
 		listc1 = new ArrayList<>(calc.list);
 		listc2 = new ArrayList<>(calc.list);
+		listc3 = new ArrayList<>(calc.list);
 		typelistc1 = new ArrayList<>(calc.typelist);
 		typelistc2 = new ArrayList<>(calc.typelist);
+		typelistc3 = new ArrayList<>(calc.typelist);
 		double x = 0.0;
 		if (input4.equals("FalsePosition")) {
 			cons.constant(listc1,typelistc1,x0);
@@ -183,7 +195,10 @@ public class Process {
 		cons.constant(calc.list,calc.typelist,x);
 		ss.signSymbols(calc.list,calc.typelist);
 		calc.list=trpn.toRPN(calc.list,calc.typelist,true);
-		calc.textc5ans.setText("x = " + String.format("%.12f", x) + "\nf(x) = " + cal.calc(calc.list).toPlainString());
+		yd=derivative(calc,x,listc3,typelistc3,0.00000001);
+		calc.text1.setText("x = " + String.format("%.12f", x));
+		calc.texta1.setText("f(x) = " + cal.calc(calc.list).toPlainString());
+		calc.texta1.append("\nf'(x) = " + yd.toPlainString());
     }
     
     private BigDecimal derivative(Calculator calc, double x0, ArrayList<String> list, ArrayList<String> typelist,double h) {
@@ -213,6 +228,7 @@ public class Process {
     	int countmax = 500;
         double x = x0;
         double dx0=0.0,dx1=0.0,xc = x0,y1=0.0,y0=0.0;
+        BigDecimal y;
         BigDecimal x1,yd;
         for (int i = 0; i < countmax; i++) {
        		ArrayList<String> listc = new ArrayList<>(list);
@@ -228,15 +244,15 @@ public class Process {
 			if (yd.compareTo(new BigDecimal(0)) == 0) x = FalsePosition1(calc,x,xc,listc3,typelistc3);
         	x1 = new BigDecimal(x);
         	xc=x;
-			if (cal.calc(listc).compareTo(new BigDecimal(0)) == 0) {
-				x=x0;
+        	y = cal.calc(listc);
+			if (y.compareTo(new BigDecimal(0)) == 0) {
 				break;
 			}
-			x = x1.subtract(cal.calc(listc).divide(yd, 15, BigDecimal.ROUND_HALF_UP)).doubleValue();
+			x = x1.subtract(y.divide(yd, 15, BigDecimal.ROUND_HALF_UP)).doubleValue();
 			dx1 = dx0;
 			dx0 = x-xc;
 			y1=y0;
-			y0 = cal.calc(listc).doubleValue();
+			y0 = y.doubleValue();
 			if (dx0*dx1<0 && Math.abs(dx1)<=Math.abs(dx0)) {
 				if(Math.abs(y0) < Math.abs(y1)) {
 					x = FalsePosition1(calc,x,xc,listc3,typelistc3);
@@ -247,7 +263,7 @@ public class Process {
 					x = FalsePosition1(calc,x,xc,listc3,typelistc3);
 				}
 			}
-			if (cal.calc(listc).compareTo(new BigDecimal(0)) == 0) break;
+			if (y.compareTo(new BigDecimal(0)) == 0) break;
         }
         return x;
     }
@@ -276,7 +292,6 @@ public class Process {
         	x1 = new BigDecimal(x);
         	//System.out.println(listc);
 			if (cal.calc(listc).compareTo(new BigDecimal(0)) == 0) {
-				x=x0;
 				break;
 			}
 			x = x1.subtract(cal.calc(listc).divide(yd, 15, BigDecimal.ROUND_HALF_UP)).doubleValue();

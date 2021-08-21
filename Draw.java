@@ -481,12 +481,9 @@ public class Draw {
         JPanel p3p1p2 = new JPanel();
         JPanel p3p2 = new JPanel();
         p3p2.setLayout(new BoxLayout(p3p2, BoxLayout.Y_AXIS));
-        calc.textc3 = new JTextArea(15, 41);
+        calc.textc3 = new JTextArea(20, 41);
         JScrollPane scrollpanec3 = new JScrollPane(calc.textc3);
 	    calc.textc3.setLineWrap(true);
-        calc.textc3ans = new JTextArea(3, 41);
-        JScrollPane scrollpanec3ans = new JScrollPane(calc.textc3ans);
-	    calc.textc3ans.setLineWrap(true);
         JButton btnc3textenter = new JButton("Enter");
         btnc3textenter.addActionListener(calc);
         btnc3textenter.setActionCommand("EnterTextCard3");
@@ -505,7 +502,6 @@ public class Draw {
         p3p1.add(p3p1p1, BorderLayout.CENTER);
         p3p1.add(p3p1p2, BorderLayout.SOUTH);
 	    p3p1p1.add(scrollpanec3);
-	    p3p1p2.add(scrollpanec3ans);
 	    return p3;
     }
     
@@ -573,9 +569,6 @@ public class Draw {
         JButton btnc5 = new JButton("Solve");
         btnc5.addActionListener(calc);
         btnc5.setActionCommand("SolveCard5");
-        calc.textc5ans = new JTextArea(7, 41);
-        calc.textc5ans.setEditable(false);
-        JScrollPane scrollpanec5ans = new JScrollPane(calc.textc5ans);
         p5p1p1.add(labelc5a);
         p5p1p1.add(calc.textc5in1);
         p5p1p2.add(labelc5b);
@@ -584,7 +577,6 @@ public class Draw {
         p5p1p3.add(calc.textc5in3);
         p5p2p1.add(calc.comboc5);
         p5p2p1.add(btnc5);
-        p5p2p2.add(scrollpanec5ans);
         return p5;
     }
     

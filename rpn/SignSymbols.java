@@ -51,7 +51,7 @@ public class SignSymbols {
 			typelist.add(1, "記号");
 		}
 		for( int i = 0; i < list.size(); i++ ) {
-			if((list.get(i).equals("=") || list.get(i).equals("(")) && list.size()-i-1>0) {
+			if((list.get(i).equals("=") || list.get(i).equals("(") || list.get(i).equals(",")) && list.size()-i-1>0) {
 				if(list.get(i+1).equals("+")) {
 					list.remove(i+1);
 					typelist.remove(i+1);

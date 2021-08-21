@@ -138,7 +138,7 @@ public class Calc {
 		} else if (op.equals("atan2")) {
 			a = StackPop(stack);
 			b = StackPop(stack);
-			stack.push(Math.atan(b/a));
+			stack.push(com.atan(b,a));
 		} else if (op.equals("percent")) {
 			a = StackPop(stack);
 			b = stack.peek();
@@ -153,6 +153,29 @@ public class Calc {
 			a = StackPop(stack);
 			if (a <= 0) throw new ArithmeticException("log(x)に0以下の値が代入されました");
 			else stack.push(Math.log(a));
+		} else if (op.equals("lcm")) {
+			a = StackPop(stack);
+			b = StackPop(stack);
+			stack.push(com.lcm(b,a));
+		} else if (op.equals("fibonacci")) {
+			a = StackPop(stack);
+			stack.push(com.fibonacci(a));
+		} else if (op.equals("gcd")) {
+			a = StackPop(stack);
+			b = StackPop(stack);
+			stack.push(com.gcd(b,a));
+		} else if (op.equals("H")) {
+			a = StackPop(stack);
+			b = StackPop(stack);
+			stack.push(com.homogeneous(b,a));
+		} else if (op.equals("C")) {
+			a = StackPop(stack);
+			b = StackPop(stack);
+			stack.push(com.combination(b,a));
+		} else if (op.equals("P")) {
+			a = StackPop(stack);
+			b = StackPop(stack);
+			stack.push(com.permutation(b,a));
 		}
 	}
 	private double StackPop (Deque<Double> stack) {

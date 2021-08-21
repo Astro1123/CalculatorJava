@@ -119,6 +119,12 @@ public class ToRPN {
 			opl.list.add(opl.InputOperatorList("pm",10));
 			opl.list.add(opl.InputOperatorList("percent",10));
 			opl.list.add(opl.InputOperatorList("tenexp",10));
+			opl.list.add(opl.InputOperatorList("lcm",10));
+			opl.list.add(opl.InputOperatorList("gcd",10));
+			opl.list.add(opl.InputOperatorList("fibonacci",10));
+			opl.list.add(opl.InputOperatorList("H",10));
+			opl.list.add(opl.InputOperatorList("C",10));
+			opl.list.add(opl.InputOperatorList("P",10));
 		} else {
 			opl.list.add(opl.InputOperatorList("*",1));
 			opl.list.add(opl.InputOperatorList("/",1));
@@ -157,6 +163,12 @@ public class ToRPN {
 			opl.list.add(opl.InputOperatorList("pm",10));
 			opl.list.add(opl.InputOperatorList("percent",10));
 			opl.list.add(opl.InputOperatorList("tenexp",1));
+			opl.list.add(opl.InputOperatorList("lcm",1));
+			opl.list.add(opl.InputOperatorList("gcd",1));
+			opl.list.add(opl.InputOperatorList("fibonacci",1));
+			opl.list.add(opl.InputOperatorList("H",1));
+			opl.list.add(opl.InputOperatorList("C",1));
+			opl.list.add(opl.InputOperatorList("P",1));
 		}
 	}
 }
