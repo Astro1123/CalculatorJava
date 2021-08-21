@@ -4,9 +4,11 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.math.*;
 import java.util.NoSuchElementException;
+import java.lang.ArithmeticException;
+import java.lang.NumberFormatException;
 
 public class Calc {
-	public BigDecimal calc(ArrayList<String> list) {
+	public BigDecimal calc(ArrayList<String> list) throws ArithmeticException {
 		Deque<Double> stack = new ArrayDeque<>();
 		for (int i = 0; i < list.size(); i++) {
 			//System.out.println(list.get(i));
@@ -14,16 +16,24 @@ public class Calc {
 				stack.push(Double.parseDouble(list.get(i)));
 			}
 			catch(NumberFormatException e) {
-				calculation(stack, list.get(i));
+				try {
+					calculation(stack, list.get(i));
+				} catch (ArithmeticException er) {
+					throw er;
+				}
 			}
 		}
 		//System.out.println(stack.peek());
 		//if (isFinite(stack.peek()) != false)
 		if (stack.size()==0) return BigDecimal.valueOf(0);
-		return BigDecimal.valueOf(stack.pop()).setScale(12, BigDecimal.ROUND_HALF_UP).stripTrailingZeros();
+		try {
+			return BigDecimal.valueOf(stack.pop()).setScale(12, BigDecimal.ROUND_HALF_UP).stripTrailingZeros();
+		} catch (NumberFormatException e) {
+			return BigDecimal.valueOf(0);
+		}
 		//else System.exit(-1);
 	}
-	private void calculation(Deque<Double> stack, String op) {
+	private void calculation(Deque<Double> stack, String op) throws ArithmeticException {
 		Compute com = new Compute();
 		double a,b,tmp;
 		if (op.equals("+")) {
@@ -41,23 +51,28 @@ public class Calc {
 		} else if (op.equals("/")) {
 			a = StackPop(stack);
 			b = StackPop(stack);
-			stack.push(b/a);
+			if (a == 0) throw new ArithmeticException("0で除算しました");
+			else stack.push(b/a);
 		} else if (op.equals("//")) {
 			a = StackPop(stack);
 			b = StackPop(stack);
-			stack.push(Math.floor(b/a));
+			if (a == 0) throw new ArithmeticException("0で除算しました");
+			else stack.push(Math.floor(b/a));
 		} else if (op.equals("%") || op.equals("mod")) {
 			a = StackPop(stack);
 			b = StackPop(stack);
-			stack.push(com.mod(b,a));
+			if (a == 0) throw new ArithmeticException("0で除算しました");
+			else stack.push(com.mod(b,a));
 		} else if (op.equals("%%") || op.equals("mod2")) {
 			a = StackPop(stack);
 			b = StackPop(stack);
-			stack.push(b%a);
+			if (a == 0) throw new ArithmeticException("0で除算しました");
+			else stack.push(b%a);
 		} else if (op.equals("^")) {
 			a = StackPop(stack);
 			b = StackPop(stack);
-			stack.push(Math.pow(b,a));
+			if (b < 0 && a != com.rint(a)) throw new ArithmeticException("計算不能(pow)");
+			else stack.push(Math.pow(b,a));
 		} else if (op.equals("round")) {
 			a = StackPop(stack);
 			stack.push(com.round(a));
@@ -87,7 +102,8 @@ public class Calc {
 			stack.push(Math.abs(a));
 		} else if (op.equals("sqrt")) {
 			a = StackPop(stack);
-			stack.push(Math.sqrt(a));
+			if (a < 0) throw new ArithmeticException("sqrt(x)に負の値が代入されました");
+			else stack.push(Math.sqrt(a));
 		} else if (op.equals("exp")) {
 			a = StackPop(stack);
 			stack.push(Math.exp(a));
@@ -103,6 +119,9 @@ public class Calc {
 		} else if (op.equals("atan")) {
 			a = StackPop(stack);
 			stack.push(Math.atan(a));
+		} else if (op.equals("tenexp")) {
+			a = StackPop(stack);
+			stack.push(Math.pow(10,a));
 		} else if (op.equals("fact")) {
 			a = StackPop(stack);
 			tmp = 1;
@@ -132,7 +151,8 @@ public class Calc {
 			stack.push(a*180.0/Math.PI);
 		} else if (op.equals("log")) {
 			a = StackPop(stack);
-			stack.push(Math.log(a));
+			if (a <= 0) throw new ArithmeticException("log(x)に0以下の値が代入されました");
+			else stack.push(Math.log(a));
 		}
 	}
 	private double StackPop (Deque<Double> stack) {

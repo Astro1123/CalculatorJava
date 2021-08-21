@@ -188,7 +188,13 @@ public class Draw {
         JPanel p2p2p3 = new JPanel();
         p2p2p3.setLayout(new FlowLayout());
         JPanel p2p3p3 = new JPanel();
-        p2p3p3.setLayout(new FlowLayout());
+        p2p3p3.setLayout(new BorderLayout());
+        JPanel p2p3p3p1 = new JPanel();
+        p2p3p3p1.setLayout(new FlowLayout());
+        JPanel p2p3p3p2 = new JPanel();
+        p2p3p3p2.setLayout(new FlowLayout());
+        JPanel p2p3p3p3 = new JPanel();
+        p2p3p3p3.setLayout(new FlowLayout());
         p2p1.add(p2p1p1, BorderLayout.NORTH);
         p2p2.add(p2p2p1, BorderLayout.NORTH);
         p2p3.add(p2p3p1, BorderLayout.NORTH);
@@ -198,6 +204,9 @@ public class Draw {
         p2p1.add(p2p1p3, BorderLayout.SOUTH);
         p2p2.add(p2p2p3, BorderLayout.SOUTH);
         p2p3.add(p2p3p3, BorderLayout.SOUTH);
+        p2p3p3.add(p2p3p3p1, BorderLayout.NORTH);
+        p2p3p3.add(p2p3p3p2, BorderLayout.CENTER);
+        p2p3p3.add(p2p3p3p3, BorderLayout.SOUTH);
         p2.add(p2p1, BorderLayout.NORTH);
         p2.add(p2p2, BorderLayout.CENTER);
         p2.add(p2p3, BorderLayout.SOUTH);
@@ -382,16 +391,17 @@ public class Draw {
         JButton btnabs = Button("abs");
         btnabs.addActionListener(calc);
         btnabs.setActionCommand("abs");
+        JButton btntenexp = Button("10^x");
+        btntenexp.addActionListener(calc);
+        btntenexp.setActionCommand("tenexp");
         p2p3p1.add(btneqc2);
         p2p3p1.add(btnParenL);
         p2p3p1.add(btnParenR);
         p2p3p1.add(btndivic2);
         p2p3p1.add(btnsum);
         p2p3p1.add(btnabs);
+        p2p3p1.add(btntenexp);
         
-        JButton btnpi = Button("π");
-        btnpi.addActionListener(calc);
-        btnpi.setActionCommand("pi");
         JButton btnround = Button("round");
         btnround.addActionListener(calc);
         btnround.setActionCommand("round");
@@ -410,7 +420,6 @@ public class Draw {
         JButton btnfloor = Button("floor");
         btnfloor.addActionListener(calc);
         btnfloor.setActionCommand("floor");
-        p2p3p2.add(btnpi);
         p2p3p2.add(btnround);
         p2p3p2.add(btnrevn);
         p2p3p2.add(rinf);
@@ -418,9 +427,23 @@ public class Draw {
         p2p3p2.add(btnceil);
         p2p3p2.add(btnfloor);
         
+        JButton btne0 = Button("e0");
+        btne0.addActionListener(calc);
+        btne0.setActionCommand("e0");
+        JButton btnpi = Button("π");
+        btnpi.addActionListener(calc);
+        btnpi.setActionCommand("pi");
         JButton btnm_e = Button("e");
         btnm_e.addActionListener(calc);
         btnm_e.setActionCommand("e");
+        JButton btnans = Button("ans");
+        btnans.addActionListener(calc);
+        btnans.setActionCommand("ans");
+        p2p3p3p1.add(btne0);
+        p2p3p3p1.add(btnpi);
+        p2p3p3p1.add(btnm_e);
+        p2p3p3p1.add(btnans);
+        
         JButton c2btnc = Button("c");
         c2btnc.addActionListener(calc);
         c2btnc.setActionCommand("c");
@@ -439,13 +462,12 @@ public class Draw {
         JButton c2btng = Button("g");
         c2btng.addActionListener(calc);
         c2btng.setActionCommand("g");
-        p2p3p3.add(btnm_e);
-        p2p3p3.add(c2btnc);
-        p2p3p3.add(c2btnLG);
-        p2p3p3.add(c2btnh);
-        p2p3p3.add(c2btnhbar);
-        p2p3p3.add(c2btnk);
-        p2p3p3.add(c2btng);
+        p2p3p3p2.add(c2btnc);
+        p2p3p3p2.add(c2btnLG);
+        p2p3p3p2.add(c2btnh);
+        p2p3p3p2.add(c2btnhbar);
+        p2p3p3p2.add(c2btnk);
+        p2p3p3p2.add(c2btng);
         return p2;
     }
     

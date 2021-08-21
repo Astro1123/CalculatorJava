@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.math.BigDecimal;
+import java.lang.ArithmeticException;
+import java.lang.NumberFormatException;
 
 public class Process {
 	public void equal(Calculator calc, String str) {
@@ -61,7 +63,14 @@ public class Process {
 		}
 		System.out.println(sb.toString());
 		//*/
-		calc.text1.setText(cal.calc(calc.list).toPlainString());
+		try {
+			calc.text1.setText(cal.calc(calc.list).toPlainString());
+		}
+		catch (ArithmeticException e) {
+			calc.text1.setText("error ("+e.getMessage()+")");
+			calc.sb.delete(0, calc.sb.length());
+			return;
+		}
 		calc.texta1.setText("");
 		calc.ans = Double.parseDouble(cal.calc(calc.list).toString());
 		calc.sb.delete(0, calc.sb.length());

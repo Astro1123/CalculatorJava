@@ -131,10 +131,10 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
     public void actionPerformed(ActionEvent e) {
         String cmd = e.getActionCommand();
         String str;
-        String conststr = "(pi|e|c|g|G|h|hbar|k)";
+        String conststr = "(pi|e|c|g|G|h|hbar|k|e0)";
         String operatorstr = "(\\+|-|\\*|/|%|\\^|//|%%)";
         String numberstr = "(00|[0-9]|\\.)";
-        String funcstr = "(mod|mod2|round|int|revn|rinf|ceil|floor|sum|abs|sqrt|exp|sin|cos|tan|asin|acos|atan|fact|atan2|rad|deg|log)";
+        String funcstr = "(mod|mod2|round|int|revn|rinf|ceil|floor|sum|abs|sqrt|exp|sin|cos|tan|asin|acos|atan|fact|atan2|rad|deg|log|tenexp)";
         BufferedReader br;
 	    SignSymbols ss = new SignSymbols();
         MakeScript ms = new MakeScript();
@@ -173,19 +173,19 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
         } else if (cmd.equals("MC")) {
             memory = 0;
         } else if (cmd.equals("AC")) {
-            PushList.clear();
-            inputnum = false;
-            inputid = false;
-            inputeq = true;
-            inputmem = false;
-            inputop = true;
-            setClear(this,text1);
+            AllClear(this);
         } else if (cmd.equals("C")) {
             setClear(this,text1);
         } else if (cmd.equals("BS")) {
             inputmem = false;
             sb.delete(sb.length()-1, sb.length());
             text1.setText(sb.toString());
+        } else if (cmd.equals("ans")) {
+                eqnext(this);
+                numnext(this);
+                inputop = false;
+                PushList.add(String.valueOf(ans));
+                text1.setText(String.valueOf(ans));
         } else if (cmd.equals("=")) {
             numnext(this);
             inputnum = false;
@@ -205,11 +205,16 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
                 eqnext(this);
                 inputid = false;
                 inputop = true;
-                if (PushList.peekLast().matches(operatorstr)) {
-                    PushList.pollLast();
-                    PushList.add(cmd);
+                if (PushList.size() == 0) {
+                        PushList.add(text1.getText());
+                        PushList.add(cmd);
                 } else {
-                    PushList.add(cmd);
+                    if (PushList.peekLast().matches(operatorstr)) {
+                        PushList.pollLast();
+                        PushList.add(cmd);
+                    } else {
+                        PushList.add(cmd);
+                    }
                 }
             } else if (cmd.equals("pm")) {
                 eqnext(this);
@@ -320,5 +325,15 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
         calc.inputid = false;
         calc.inputmem = true;
         calc.memory += p1;
+    }
+    
+    private void AllClear(Calculator calc) {
+            calc.PushList.clear();
+            calc.inputnum = false;
+            calc.inputid = false;
+            calc.inputeq = true;
+            calc.inputmem = false;
+            calc.inputop = true;
+            setClear(calc,text1);
     }
 }

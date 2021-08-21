@@ -12,6 +12,9 @@ public class Const {
 			} else if (list.get(i).equals("e")) {
 				list.set(i,String.valueOf(Math.E));
 				typelist.set(i,"実数");
+			} else if (list.get(i).equals("e0")) {
+				list.set(i,String.valueOf(1.602176634E-19));
+				typelist.set(i,"実数");
 			} else if (list.get(i).equals("c")) {
 				list.set(i,String.valueOf(299792458.0));
 				typelist.set(i,"実数");
@@ -40,6 +43,9 @@ public class Const {
 				typelist.set(i,"実数");
 			} else if (list.get(i).equals("e")) {
 				list.set(i,String.valueOf(Math.E));
+				typelist.set(i,"実数");
+			} else if (list.get(i).equals("e0")) {
+				list.set(i,String.valueOf(1.602176634E-19));
 				typelist.set(i,"実数");
 			} else if (list.get(i).equals("c")) {
 				list.set(i,String.valueOf(299792458.0));

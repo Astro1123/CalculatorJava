@@ -118,6 +118,7 @@ public class ToRPN {
 			opl.list.add(opl.InputOperatorList("revn",10));
 			opl.list.add(opl.InputOperatorList("pm",10));
 			opl.list.add(opl.InputOperatorList("percent",10));
+			opl.list.add(opl.InputOperatorList("tenexp",10));
 		} else {
 			opl.list.add(opl.InputOperatorList("*",1));
 			opl.list.add(opl.InputOperatorList("/",1));
@@ -155,6 +156,7 @@ public class ToRPN {
 			opl.list.add(opl.InputOperatorList("revn",1));
 			opl.list.add(opl.InputOperatorList("pm",10));
 			opl.list.add(opl.InputOperatorList("percent",10));
+			opl.list.add(opl.InputOperatorList("tenexp",1));
 		}
 	}
 }
