@@ -27,7 +27,7 @@ public class Calc {
 		//if (isFinite(stack.peek()) != false)
 		if (stack.size()==0) return BigDecimal.valueOf(0);
 		try {
-			return BigDecimal.valueOf(stack.pop()).setScale(12, BigDecimal.ROUND_HALF_UP).stripTrailingZeros();
+			return BigDecimal.valueOf(stack.pop());
 		} catch (NumberFormatException e) {
 			return BigDecimal.valueOf(0);
 		}

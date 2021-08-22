@@ -150,7 +150,7 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
             textc4.setText("");
         } else if (cmd.equals("EnterTextCard4")) {
             str = textc4.getText(); 
-            texta1.setText(pro.equal(this,str));
+            texta1.setText(pro.equalcalc(this,str));
             return;
         } else if (cmd.equals("OpenFileCard3")) {
             pro.openFile(this, textc3);
@@ -199,7 +199,7 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
             if (PushList.getLast().matches(operatorstr)) PushList.addLast(text1.getText());
             list = ml.makeList(PushList);
             //System.out.println(list);
-            pro.equal(this,ms.makeScript(list));
+            pro.equalcalc(this,ms.makeScript(list));
             return;
         } else {
             if (cmd.matches(operatorstr)) {

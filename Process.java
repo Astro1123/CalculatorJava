@@ -22,7 +22,7 @@ import java.lang.ArithmeticException;
 import java.lang.NumberFormatException;
 
 public class Process {
-	public String equal(Calculator calc, String str) {
+	public String equalcalc(Calculator calc, String str) {
         Token t;
 		SignSymbols ss = new SignSymbols();
 	    ToRPN trpn = new ToRPN();
@@ -68,7 +68,13 @@ public class Process {
 			s += calc.list.get(i) + " ";
 		}
 		try {
-			calc.text1.setText(cal.calc(calc.list).toPlainString());
+			BigDecimal bans = cal.calc(calc.list);
+			calc.ans = Double.parseDouble(cal.calc(calc.list).toString());
+			if (Math.abs(Math.log(calc.ans)/Math.log(10)) < 12) {
+				calc.text1.setText(cal.calc(calc.list).setScale(12, BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
+			} else {
+				calc.text1.setText(cal.calc(calc.list).toString());
+			}
 		}
 		catch (ArithmeticException e) {
 			calc.text1.setText("error ("+e.getMessage()+")");
@@ -76,9 +82,8 @@ public class Process {
 			return s;
 		}
 		calc.texta1.setText("");
-		calc.ans = Double.parseDouble(cal.calc(calc.list).toString());
 		calc.sb.delete(0, calc.sb.length());
-		calc.sb.append(cal.calc(calc.list).toString());
+		calc.sb.append(String.valueOf(calc.ans));
 		return s;
     }
     
@@ -197,7 +202,7 @@ public class Process {
 		calc.list=trpn.toRPN(calc.list,calc.typelist,true);
 		yd=derivative(calc,x,listc3,typelistc3,0.00000001);
 		calc.text1.setText("x = " + String.format("%.12f", x));
-		calc.texta1.setText("f(x) = " + cal.calc(calc.list).toPlainString());
+		calc.texta1.setText("f(x) = " + cal.calc(calc.list).setScale(12, BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
 		calc.texta1.append("\nf'(x) = " + yd.toPlainString());
     }
     
@@ -246,6 +251,7 @@ public class Process {
         	xc=x;
         	y = cal.calc(listc);
 			if (y.compareTo(new BigDecimal(0)) == 0) {
+				x=x1.doubleValue();
 				break;
 			}
 			x = x1.subtract(y.divide(yd, 15, BigDecimal.ROUND_HALF_UP)).doubleValue();
@@ -292,6 +298,7 @@ public class Process {
         	x1 = new BigDecimal(x);
         	//System.out.println(listc);
 			if (cal.calc(listc).compareTo(new BigDecimal(0)) == 0) {
+				x=x1.doubleValue();
 				break;
 			}
 			x = x1.subtract(cal.calc(listc).divide(yd, 15, BigDecimal.ROUND_HALF_UP)).doubleValue();
