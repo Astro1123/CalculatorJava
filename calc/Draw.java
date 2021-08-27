@@ -77,6 +77,23 @@ public class Draw {
     	p1p1p2.add(btnC);
     	p1p1p2.add(btnAC);
     
+		JButton btnLPc1 = Button("(");
+    	btnLPc1.addActionListener(calc);
+    	btnLPc1.setActionCommand("(");
+    	JButton btnRPc1 = Button(")");
+    	btnRPc1.addActionListener(calc);
+    	btnRPc1.setActionCommand(")");
+    	JButton btnpercent = Button("%");
+    	btnpercent.addActionListener(calc);
+    	btnpercent.setActionCommand("percent");
+    	JButton btnpl = Button("+");
+    	btnpl.addActionListener(calc);
+    	btnpl.setActionCommand("+");
+    	p1p1p3.add(btnLPc1);
+    	p1p1p3.add(btnRPc1);
+    	p1p1p3.add(btnpercent);
+    	p1p1p3.add(btnpl);
+    
     	JButton btn7 = Button("7");
     	btn7.addActionListener(calc);
     	btn7.setActionCommand("7");
@@ -86,13 +103,13 @@ public class Draw {
     	JButton btn9 = Button("9");
     	btn9.addActionListener(calc);
     	btn9.setActionCommand("9");
-    	JButton btnpl = Button("+");
-    	btnpl.addActionListener(calc);
-    	btnpl.setActionCommand("+");
-    	p1p1p3.add(btn7);
-		p1p1p3.add(btn8);
-    	p1p1p3.add(btn9);
-    	p1p1p3.add(btnpl);
+    	JButton btnmi = Button("-");
+    	btnmi.addActionListener(calc);
+    	btnmi.setActionCommand("-");
+    	p1p2p1.add(btn7);
+		p1p2p1.add(btn8);
+    	p1p2p1.add(btn9);
+    	p1p2p1.add(btnmi);
     
     	JButton btn4 = Button("4");
     	btn4.addActionListener(calc);
@@ -103,13 +120,13 @@ public class Draw {
     	JButton btn6 = Button("6");
     	btn6.addActionListener(calc);
     	btn6.setActionCommand("6");
-    	JButton btnmi = Button("-");
-    	btnmi.addActionListener(calc);
-    	btnmi.setActionCommand("-");
-    	p1p2p1.add(btn4);
-    	p1p2p1.add(btn5);
-    	p1p2p1.add(btn6);
-    	p1p2p1.add(btnmi);
+    	JButton btnmu = Button("×");
+    	btnmu.addActionListener(calc);
+    	btnmu.setActionCommand("*");
+    	p1p2p2.add(btn4);
+    	p1p2p2.add(btn5);
+    	p1p2p2.add(btn6);
+    	p1p2p2.add(btnmu);
     
     	JButton btn1 = Button("1");
     	btn1.addActionListener(calc);
@@ -120,14 +137,14 @@ public class Draw {
     	JButton btn3 = Button("3");
     	btn3.addActionListener(calc);
     	btn3.setActionCommand("3");
-    	JButton btnmu = Button("×");
-    	btnmu.addActionListener(calc);
-    	btnmu.setActionCommand("*");
-    	p1p2p2.add(btn1);
-    	p1p2p2.add(btn2);
-    	p1p2p2.add(btn3);
-    	p1p2p2.add(btnmu);
-    
+    	JButton btndiv = Button("÷");
+    	btndiv.addActionListener(calc);
+    	btndiv.setActionCommand("/");
+    	p1p2p3.add(btn1);
+    	p1p2p3.add(btn2);
+    	p1p2p3.add(btn3);
+    	p1p2p3.add(btndiv);
+   	
     	JButton btn0 = Button("0");
     	btn0.addActionListener(calc);
 		btn0.setActionCommand("0");
@@ -137,27 +154,12 @@ public class Draw {
     	JButton btndot = Button(".");
 		btndot.addActionListener(calc);
     	btndot.setActionCommand(".");
-    	JButton btndiv = Button("÷");
-    	btndiv.addActionListener(calc);
-    	btndiv.setActionCommand("/");
-    	p1p2p3.add(btn0);
-    	p1p2p3.add(btn00);
-    	p1p2p3.add(btndot);
-    	p1p2p3.add(btndiv);
-   	
-		JButton btnd1 = Button("");
-    	btnd1.setEnabled(false);
-    	JButton btnd2 = Button("");
-    	btnd2.setEnabled(false);
-    	JButton btnpercent = Button("%");
-    	btnpercent.addActionListener(calc);
-    	btnpercent.setActionCommand("percent");
     	JButton btneq = Button("=");
     	btneq.addActionListener(calc);
 		btneq.setActionCommand("=");
-    	p1p3p1.add(btnd1);
-    	p1p3p1.add(btnd2);
-    	p1p3p1.add(btnpercent);
+    	p1p3p1.add(btn0);
+    	p1p3p1.add(btn00);
+    	p1p3p1.add(btndot);
 		p1p3p1.add(btneq);
 	
 		return p1;
