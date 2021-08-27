@@ -1,4 +1,4 @@
-package area;
+package calc.area;
 
 public class ShapeStruct {
 	public double len;

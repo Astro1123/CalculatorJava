@@ -1,4 +1,4 @@
-package OS;
+package calc.OS;
 
 public class PlatformUtils {
  

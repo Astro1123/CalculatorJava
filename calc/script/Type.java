@@ -1,4 +1,4 @@
-package script;
+package calc.script;
 
 public enum Type {
 

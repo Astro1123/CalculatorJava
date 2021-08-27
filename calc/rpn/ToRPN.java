@@ -1,4 +1,4 @@
-package rpn;
+package calc.rpn;
 import java.util.ArrayList;
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -82,17 +82,17 @@ public class ToRPN {
 	
 	private void oplinit(OperatorList opl, boolean mode) {
 		if (mode == true) {
-			opl.list.add(opl.InputOperatorList("*",5));
-			opl.list.add(opl.InputOperatorList("/",5));
-			opl.list.add(opl.InputOperatorList("//",5));
-			opl.list.add(opl.InputOperatorList("%",5));
-			opl.list.add(opl.InputOperatorList("%%",5));
-			opl.list.add(opl.InputOperatorList("+",3));
-			opl.list.add(opl.InputOperatorList("-",3));
+			opl.list.add(opl.InputOperatorList("*",7));
+			opl.list.add(opl.InputOperatorList("/",7));
+			opl.list.add(opl.InputOperatorList("//",7));
+			opl.list.add(opl.InputOperatorList("%",7));
+			opl.list.add(opl.InputOperatorList("%%",7));
+			opl.list.add(opl.InputOperatorList("+",6));
+			opl.list.add(opl.InputOperatorList("-",6));
 			opl.list.add(opl.InputOperatorList("=",0));
 			opl.list.add(opl.InputOperatorList("(",0));
 			opl.list.add(opl.InputOperatorList(",",0));
-			opl.list.add(opl.InputOperatorList("^",7));
+			opl.list.add(opl.InputOperatorList("^",8));
 			opl.list.add(opl.InputOperatorList("abs",10));
 			opl.list.add(opl.InputOperatorList("sqrt",10));
 			opl.list.add(opl.InputOperatorList("sin",10));
@@ -125,6 +125,14 @@ public class ToRPN {
 			opl.list.add(opl.InputOperatorList("H",10));
 			opl.list.add(opl.InputOperatorList("C",10));
 			opl.list.add(opl.InputOperatorList("P",10));
+			opl.list.add(opl.InputOperatorList("NOT",5));
+			opl.list.add(opl.InputOperatorList("XOR",2));
+			opl.list.add(opl.InputOperatorList("XNOR",2));
+			opl.list.add(opl.InputOperatorList("OR",1));
+			opl.list.add(opl.InputOperatorList("AND",3));
+			opl.list.add(opl.InputOperatorList("SL",4));
+			opl.list.add(opl.InputOperatorList("SR",4));
+			opl.list.add(opl.InputOperatorList("SRNS",4));
 		} else {
 			opl.list.add(opl.InputOperatorList("*",1));
 			opl.list.add(opl.InputOperatorList("/",1));
@@ -169,6 +177,14 @@ public class ToRPN {
 			opl.list.add(opl.InputOperatorList("H",1));
 			opl.list.add(opl.InputOperatorList("C",1));
 			opl.list.add(opl.InputOperatorList("P",1));
+			opl.list.add(opl.InputOperatorList("NOT",1));
+			opl.list.add(opl.InputOperatorList("XOR",1));
+			opl.list.add(opl.InputOperatorList("XNOR",1));
+			opl.list.add(opl.InputOperatorList("OR",1));
+			opl.list.add(opl.InputOperatorList("AND",1));
+			opl.list.add(opl.InputOperatorList("SL",1));
+			opl.list.add(opl.InputOperatorList("SR",1));
+			opl.list.add(opl.InputOperatorList("SRNS",1));
 		}
 	}
 }

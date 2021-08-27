@@ -1,5 +1,7 @@
-import makelist.*;
-import rpn.*;
+package calc;
+
+import calc.makelist.*;
+import calc.rpn.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,6 +12,7 @@ import java.io.StringReader;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.ArrayList;
+import java.lang.NumberFormatException;
 
 class Calculator extends JFrame implements ActionListener, ItemListener {
 	String title;
@@ -18,7 +21,8 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
 	JComboBox<String> combo;
 	JComboBox<String> comboc5;
 	static Calculator frame;
-	String combodata[] = {"Standard", "Scientific", "Area", "Script", "Solve"};
+	String combodata[] = {"Standard", "Scientific", "Area", "Script", "Solve","Programmer"};
+	String pcombodata[] = {"HEX","DEC","OCT","BIN"};
 	String combodatac5[] = {"NewtonModified", "Newton", "FalsePosition"};
 	Deque<String> PushList;
 	ArrayList<String> list;
@@ -38,6 +42,25 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
     JTextField textc5in1;
     JTextField textc5in2;
     JTextField textc5in3;
+    JTextArea texta6;
+    JComboBox<String> pcombo;
+    JButton pbtn00;
+    JButton pbtn0;
+    JButton pbtn1;
+    JButton pbtn2;
+    JButton pbtn3;
+    JButton pbtn4;
+    JButton pbtn5;
+    JButton pbtn6;
+    JButton pbtn7;
+    JButton pbtn8;
+    JButton pbtn9;
+    JButton pbtnA;
+    JButton pbtnB;
+    JButton pbtnC;
+    JButton pbtnD;
+    JButton pbtnE;
+    JButton pbtnF;
 	
     public static void main(String args[]){
         frame = new Calculator();
@@ -56,6 +79,7 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
         JPanel card3 = new JPanel();
         JPanel card4 = new JPanel();
         JPanel card5 = new JPanel();
+        JPanel card6 = new JPanel();
         
         cardPanel = new JPanel();
         layout = new CardLayout();
@@ -66,6 +90,7 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
         cardPanel.add(card3, combodata[2]);
         cardPanel.add(card4, combodata[3]);
         cardPanel.add(card5, combodata[4]);
+        cardPanel.add(card6, combodata[5]);
         
         JPanel p0 = new JPanel();
         p0.setLayout(new FlowLayout());
@@ -120,6 +145,9 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
         JPanel p5 = draw.dc5(this);
         card5.add(p5);
         
+        JPanel p6 = draw.dc6(this);
+        card6.add(p6);
+        
         getContentPane().add(cardPanel, BorderLayout.CENTER);
         getContentPane().add(pt, BorderLayout.NORTH);
         getContentPane().add(p0, BorderLayout.SOUTH);
@@ -130,9 +158,10 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
         String cmd = e.getActionCommand();
         String str;
         String conststr = "(pi|e|c|g|G|h|hbar|k|e0)";
-        String operatorstr = "(\\+|-|\\*|/|%|\\^|//|%%)";
-        String numberstr = "(00|[0-9]|\\.)";
-        String funcstr = "(mod|mod2|round|int|revn|rinf|ceil|floor|sum|abs|sqrt|exp|sin|cos|tan|asin|acos|atan|fact|atan2|rad|deg|log|tenexp|H|C|P|lcm|gcd|fibonacci)";
+        String operatorstr = "(\\+|-|\\*|/|%|\\^|//|%%|SL|SR|SRNS|AND|OR|XOR|XNOR)";
+        String shiftopstr = "(SL|SR|SRNS)";
+        String numberstr = "(00|[0-9A-F]|\\.)";
+        String funcstr = "(mod|mod2|round|int|revn|rinf|ceil|floor|sum|abs|sqrt|exp|sin|cos|tan|asin|acos|atan|fact|atan2|rad|deg|log|tenexp|H|C|P|lcm|gcd|fibonacci|NOT)";
         BufferedReader br;
 	    SignSymbols ss = new SignSymbols();
         MakeScript ms = new MakeScript();
@@ -196,10 +225,14 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
             inputmem = false;
             inputop = true;
             
-            if (PushList.getLast().matches(operatorstr)) PushList.addLast(text1.getText());
+            if (PushList.getLast().matches(operatorstr)) {
+                if (PushList.getLast().matches(shiftopstr)) PushList.addLast("1");
+                else PushList.addLast(text1.getText());
+            }
             list = ml.makeList(PushList);
             //System.out.println(list);
-            pro.equalcalc(this,ms.makeScript(list));
+            if (combo.getSelectedItem().equals("Programmer")) pro.equalcalc(this,ms.makeScript(list),pcombo.getSelectedItem().toString());
+            else pro.equalcalc(this,ms.makeScript(list));
             return;
         } else {
             if (cmd.matches(operatorstr)) {
@@ -221,6 +254,7 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
             } else if (cmd.equals("pm")) {
                 eqnext(this);
                 numnext(this);
+                if (PushList.size() == 0) PushList.add("0");
                 if (PushList.peekLast().equals("pm")) {
                     PushList.pollLast();
                 } else {
@@ -262,14 +296,13 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
                 	PushList.add(cmd);
         		}
         	} else if (cmd.matches(funcstr)) {
-        	    if (inputop==false) {
-                    eqnext(this);
-                    numnext(this);
-                    inputid=true;
-                    inputeq = false;
-                    inputop = false;
-                    PushList.add(cmd);
-        	    }
+        	    if (inputop==true) PushList.add("0");
+                eqnext(this);
+                numnext(this);
+                inputid=true;
+                inputeq = false;
+                inputop = false;
+                PushList.add(cmd);
             } else {
                 eqnext(this);
                 numnext(this);
@@ -286,7 +319,17 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
     }
     
     public void itemStateChanged(ItemEvent e) {
-        if (e.getStateChange() == ItemEvent.SELECTED) {
+        String conststr = "(pi|e|c|g|G|h|hbar|k|e0)";
+        String operatorstr = "(\\+|-|\\*|/|%|\\^|//|%%|SL|SR|SRNS|AND|OR|XOR|XNOR)";
+        String shiftopstr = "(SL|SR|SRNS)";
+        String numberstr = "(00|[0-9A-F]|\\.)";
+        String funcstr = "(mod|mod2|round|int|revn|rinf|ceil|floor|sum|abs|sqrt|exp|sin|cos|tan|asin|acos|atan|fact|atan2|rad|deg|log|tenexp|H|C|P|lcm|gcd|fibonacci|NOT)";
+        BufferedReader br;
+	    SignSymbols ss = new SignSymbols();
+        MakeScript ms = new MakeScript();
+        MakeList ml = new MakeList();
+        Process pro = new Process();
+        if (e.getItemSelectable() == combo) {
             texta1.setText("");
             text1.setText("0");
             PushList.clear();
@@ -296,12 +339,127 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
             String str = (String)combo.getSelectedItem();
             layout.show(cardPanel, str);
             frame.setTitle(title = str);
+        } else if (e.getItemSelectable() == pcombo) {
+            numnext(this);
+                if (PushList.size()==0) {
+                    if (inputnum == true) {
+                        System.out.println(text1.getText());
+                        if (pcombo.getSelectedItem().equals("HEX")) {
+                            PushList.add(String.valueOf(Integer.parseInt(text1.getText(),16)));
+                        } else if (pcombo.getSelectedItem().equals("DEC")) {
+                            PushList.add(String.valueOf(Integer.parseInt(text1.getText(),10)));
+                        } else if (pcombo.getSelectedItem().equals("OCT")) {
+                            PushList.add(String.valueOf(Integer.parseInt(text1.getText(),8)));
+                        } else if (pcombo.getSelectedItem().equals("BIN")) {
+                            PushList.add(String.valueOf(Integer.parseInt(text1.getText(),2)));
+                        }
+                        inputnum = false;
+                    } else {
+                        PushList.add(String.valueOf(ans));
+                    }
+                }
+            inputid = false;
+            inputmem = false;
+            inputop = true;
+            inputeq = true;
+            if (PushList.getLast().matches(operatorstr)) {
+                if (PushList.getLast().matches(shiftopstr)) PushList.addLast("1");
+                else PushList.addLast(text1.getText());
+            }
+            list = ml.makeList(PushList);
+            //System.out.println(list);
+            pro.equalcalc(this,ms.makeScript(list),pcombo.getSelectedItem().toString());
+            if (pcombo.getSelectedItem().equals("HEX")) {
+    	        pbtn00.setEnabled(true);
+    	        pbtn0.setEnabled(true);
+    	        pbtn1.setEnabled(true);
+    	        pbtn2.setEnabled(true);
+    	        pbtn3.setEnabled(true);
+    	        pbtn4.setEnabled(true);
+    	        pbtn5.setEnabled(true);
+    	        pbtn6.setEnabled(true);
+    	        pbtn7.setEnabled(true);
+    	        pbtn8.setEnabled(true);
+    	        pbtn9.setEnabled(true);
+    	        pbtnA.setEnabled(true);
+    	        pbtnB.setEnabled(true);
+    	        pbtnC.setEnabled(true);
+    	        pbtnD.setEnabled(true);
+    	        pbtnE.setEnabled(true);
+    	        pbtnF.setEnabled(true);
+    	    } else if (pcombo.getSelectedItem().equals("DEC")) {
+    	        pbtn00.setEnabled(true);
+    	        pbtn0.setEnabled(true);
+    	        pbtn1.setEnabled(true);
+    	        pbtn2.setEnabled(true);
+    	        pbtn3.setEnabled(true);
+    	        pbtn4.setEnabled(true);
+    	        pbtn5.setEnabled(true);
+    	        pbtn6.setEnabled(true);
+    	        pbtn7.setEnabled(true);
+    	        pbtn8.setEnabled(true);
+    	        pbtn9.setEnabled(true);
+    	        pbtnA.setEnabled(false);
+    	        pbtnB.setEnabled(false);
+    	        pbtnC.setEnabled(false);
+    	        pbtnD.setEnabled(false);
+    	        pbtnE.setEnabled(false);
+    	        pbtnF.setEnabled(false);
+    	    } else if (pcombo.getSelectedItem().equals("OCT")) {
+    	        pbtn00.setEnabled(true);
+    	        pbtn0.setEnabled(true);
+    	        pbtn1.setEnabled(true);
+    	        pbtn2.setEnabled(true);
+    	        pbtn3.setEnabled(true);
+    	        pbtn4.setEnabled(true);
+    	        pbtn5.setEnabled(true);
+    	        pbtn6.setEnabled(true);
+    	        pbtn7.setEnabled(true);
+    	        pbtn8.setEnabled(false);
+    	        pbtn9.setEnabled(false);
+    	        pbtnA.setEnabled(false);
+    	        pbtnB.setEnabled(false);
+    	        pbtnC.setEnabled(false);
+    	        pbtnD.setEnabled(false);
+    	        pbtnE.setEnabled(false);
+    	        pbtnF.setEnabled(false);
+    	    } else if (pcombo.getSelectedItem().equals("BIN")) {
+    	        pbtn00.setEnabled(true);
+    	        pbtn0.setEnabled(true);
+    	        pbtn1.setEnabled(true);
+    	        pbtn2.setEnabled(false);
+    	        pbtn3.setEnabled(false);
+    	        pbtn4.setEnabled(false);
+    	        pbtn5.setEnabled(false);
+    	        pbtn6.setEnabled(false);
+    	        pbtn7.setEnabled(false);
+    	        pbtn8.setEnabled(false);
+    	        pbtn9.setEnabled(false);
+    	        pbtnA.setEnabled(false);
+    	        pbtnB.setEnabled(false);
+    	        pbtnC.setEnabled(false);
+    	        pbtnD.setEnabled(false);
+    	        pbtnE.setEnabled(false);
+    	        pbtnF.setEnabled(false);
+    	    }
         }
     }
   
   private void numnext(Calculator calc) {
         if (calc.inputnum == true) {
-            calc.PushList.add(calc.sb.toString());
+            if (combo.getSelectedItem().equals("Programmer")) {
+                if (pcombo.getSelectedItem().equals("HEX")) {
+                    calc.PushList.add(String.valueOf(Integer.parseInt(calc.sb.toString(),16)));
+                } else if (pcombo.getSelectedItem().equals("OCT")) {
+                    calc.PushList.add(String.valueOf(Integer.parseInt(calc.sb.toString(),8)));
+                } else if (pcombo.getSelectedItem().equals("BIN")) {
+                    calc.PushList.add(String.valueOf(Integer.parseInt(calc.sb.toString(),2)));
+                } else {
+                    calc.PushList.add(calc.sb.toString());
+                }
+            } else {
+                calc.PushList.add(calc.sb.toString());
+            }
             calc.sb.delete(0, calc.sb.length());
             calc.inputnum = false;
             calc.inputeq = false;

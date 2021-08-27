@@ -1,6 +1,8 @@
-import script.*;
-import rpn.*;
-import area.*;
+package calc;
+
+import calc.script.*;
+import calc.rpn.*;
+import calc.area.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +22,7 @@ import java.io.StringReader;
 import java.math.BigDecimal;
 import java.lang.ArithmeticException;
 import java.lang.NumberFormatException;
+import java.math.RoundingMode;
 
 public class Process {
 	public String equalcalc(Calculator calc, String str) {
@@ -71,7 +74,7 @@ public class Process {
 			BigDecimal bans = cal.calc(calc.list);
 			calc.ans = Double.parseDouble(cal.calc(calc.list).toString());
 			if (Math.abs(Math.log(calc.ans)/Math.log(10)) < 12) {
-				calc.text1.setText(cal.calc(calc.list).setScale(12, BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
+				calc.text1.setText(cal.calc(calc.list).setScale(12, RoundingMode.HALF_UP).stripTrailingZeros().toPlainString());
 			} else {
 				calc.text1.setText(cal.calc(calc.list).toString());
 			}
@@ -81,6 +84,81 @@ public class Process {
 			calc.sb.delete(0, calc.sb.length());
 			return s;
 		}
+		calc.texta1.setText("");
+		calc.sb.delete(0, calc.sb.length());
+		calc.sb.append(String.valueOf(calc.ans));
+		return s;
+    }
+    
+	public String equalcalc(Calculator calc, String str, String outputType) {
+        Token t;
+		SignSymbols ss = new SignSymbols();
+	    ToRPN trpn = new ToRPN();
+		Calc cal = new Calc();
+		Const cons = new Const();
+        //System.out.println(str);
+        Reader reader = new StringReader(str);
+        Lexer l = new Lexer(reader);
+        calc.typelist = new ArrayList<>();
+        calc.list = new ArrayList<>();
+        try {
+            for (int i = 0; (t = l.read()) != Token.EOF; i++) {
+			    if(t.getText()==Token.EOL) continue;
+			    calc.list.add(t.getText());
+			    calc.typelist.add(t.getType().getLabel());
+			    //System.out.println(list.get(list.size()-1));
+		    }
+		}
+		catch (ParseException e) {
+		    System.exit(-1);
+		}
+		//System.out.println(list);
+		if (calc.list.size() == 0) {
+		    calc.list.add("0");
+		    calc.typelist.add("整数");
+		}
+		cons.constant(calc.list,calc.typelist);
+		ss.signSymbols(calc.list,calc.typelist);
+		boolean mode;
+		if (calc.title.equals("Standard")) mode = false;
+		else mode = true;
+		calc.list=trpn.toRPN(calc.list,calc.typelist,mode);
+		//System.out.println(list);
+		/*
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < list.size(); i++) {
+			sb.append(list.get(i)+" ");
+		}
+		System.out.println(sb.toString());
+		//*/
+		String s = "";
+		for (int i = 0; i < calc.list.size(); i++) {
+			s += calc.list.get(i) + " ";
+		}
+		try {
+			BigDecimal bans = cal.calc(calc.list);
+			calc.ans = Double.parseDouble(cal.calc(calc.list).toString());
+			if (outputType.equals("BIN")) {
+				calc.text1.setText(Integer.toBinaryString((int)calc.ans));
+			} else if (outputType.equals("OCT")) {
+				calc.text1.setText(Integer.toOctalString((int)calc.ans));
+			} else if (outputType.equals("HEX")) {
+				calc.text1.setText(Integer.toHexString((int)calc.ans));
+			} else {
+				calc.text1.setText(String.valueOf((int)calc.ans));
+			}
+		}
+		catch (ArithmeticException e) {
+			calc.text1.setText("error ("+e.getMessage()+")");
+			calc.sb.delete(0, calc.sb.length());
+			return s;
+		}
+		String str2 = "";
+		str2 += "BIN : "+Integer.toBinaryString((int)calc.ans)+"\n";
+		str2 += "OCT : "+Integer.toOctalString((int)calc.ans)+"\n";
+		str2 += "DEC : "+String.valueOf((int)calc.ans)+"\n";
+		str2 += "HEX : "+Integer.toHexString((int)calc.ans)+"\n";
+		calc.texta6.setText(str2);
 		calc.texta1.setText("");
 		calc.sb.delete(0, calc.sb.length());
 		calc.sb.append(String.valueOf(calc.ans));
@@ -124,7 +202,7 @@ public class Process {
             calc.texta1.setText("Perimeter = " + String.valueOf(ss.len) + "\nArea = " + String.valueOf(ss.area));
         }
     }
-    
+        
     public void solveequal(Calculator calc, String input1, double input2, double input3, String input4) {
     	Token t;
 		SignSymbols ss = new SignSymbols();
@@ -202,7 +280,7 @@ public class Process {
 		calc.list=trpn.toRPN(calc.list,calc.typelist,true);
 		yd=derivative(calc,x,listc3,typelistc3,0.00000001);
 		calc.text1.setText("x = " + String.format("%.12f", x));
-		calc.texta1.setText("f(x) = " + cal.calc(calc.list).setScale(12, BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
+		calc.texta1.setText("f(x) = " + cal.calc(calc.list).setScale(12, RoundingMode.HALF_UP).stripTrailingZeros().toPlainString());
 		calc.texta1.append("\nf'(x) = " + yd.toPlainString());
     }
     
@@ -221,9 +299,9 @@ public class Process {
 		ss.signSymbols(listmh,typelistmh);
 		listph=trpn.toRPN(listph,typelistph,true);
 		listmh=trpn.toRPN(listmh,typelistmh,true);
-		return cal.calc(listph).subtract(cal.calc(listmh)).divide((new BigDecimal(h)), 15, BigDecimal.ROUND_HALF_UP);
+		return cal.calc(listph).subtract(cal.calc(listmh)).divide((new BigDecimal(h)), 15, RoundingMode.HALF_UP);
     }
-    
+        
     private double ModNewton(Calculator calc, double x0, ArrayList<String> list, ArrayList<String> typelist) {
     	SignSymbols ss = new SignSymbols();
 	    ToRPN trpn = new ToRPN();
@@ -254,7 +332,7 @@ public class Process {
 				x=x1.doubleValue();
 				break;
 			}
-			x = x1.subtract(y.divide(yd, 15, BigDecimal.ROUND_HALF_UP)).doubleValue();
+			x = x1.subtract(y.divide(yd, 15, RoundingMode.HALF_UP)).doubleValue();
 			dx1 = dx0;
 			dx0 = x-xc;
 			y1=y0;
@@ -301,7 +379,7 @@ public class Process {
 				x=x1.doubleValue();
 				break;
 			}
-			x = x1.subtract(cal.calc(listc).divide(yd, 15, BigDecimal.ROUND_HALF_UP)).doubleValue();
+			x = x1.subtract(cal.calc(listc).divide(yd, 15, RoundingMode.HALF_UP)).doubleValue();
 			if (cal.calc(listc).compareTo(new BigDecimal(0)) == 0) break;
         }
         //System.out.println(x);
@@ -342,7 +420,7 @@ public class Process {
 			if (x0-x1==0) {
 				return x;
 			}
-			x = cal.calc(listc1).multiply(new BigDecimal(x1)).subtract(cal.calc(listc2).multiply(new BigDecimal(x0))).divide(cal.calc(listc1).subtract(cal.calc(listc2)), 15, BigDecimal.ROUND_HALF_UP).doubleValue();
+			x = cal.calc(listc1).multiply(new BigDecimal(x1)).subtract(cal.calc(listc2).multiply(new BigDecimal(x0))).divide(cal.calc(listc1).subtract(cal.calc(listc2)), 15, RoundingMode.HALF_UP).doubleValue();
 			if (cal.calc(listc1).multiply(cal.calc(listc2)).compareTo(new BigDecimal(0))<0) {
 				cons.constant(listc3,typelistc3,x);
 				ss.signSymbols(listc3,typelistc3);
@@ -362,8 +440,8 @@ public class Process {
 		}
 		return x;
 	}
-    
-    private double FalsePosition(Calculator calc, double x0, double x1, ArrayList<String> listc1, ArrayList<String> listc2, ArrayList<String> typelistc1, ArrayList<String> typelistc2) {
+	
+	private double FalsePosition(Calculator calc, double x0, double x1, ArrayList<String> listc1, ArrayList<String> listc2, ArrayList<String> typelistc1, ArrayList<String> typelistc2) {
    		SignSymbols ss = new SignSymbols();
 	    ToRPN trpn = new ToRPN();
 		Calc cal = new Calc();
@@ -397,7 +475,7 @@ public class Process {
 				if (x0-x1==0) {
 					break;
 				}
-				x = cal.calc(listc1).multiply(new BigDecimal(x1)).subtract(cal.calc(listc2).multiply(new BigDecimal(x0))).divide(cal.calc(listc1).subtract(cal.calc(listc2)), 15, BigDecimal.ROUND_HALF_UP).doubleValue();
+				x = cal.calc(listc1).multiply(new BigDecimal(x1)).subtract(cal.calc(listc2).multiply(new BigDecimal(x0))).divide(cal.calc(listc1).subtract(cal.calc(listc2)), 15, RoundingMode.HALF_UP).doubleValue();
 				if (cal.calc(listc1).multiply(cal.calc(listc2)).compareTo(new BigDecimal(0))<0) {
 					cons.constant(listc3,typelistc3,x);
 					ss.signSymbols(listc3,typelistc3);
@@ -419,7 +497,7 @@ public class Process {
 		return x;
     }
     
-	public void openFile(Calculator calc, JTextArea text) {
+    public void openFile(Calculator calc, JTextArea text) {
 	    ToRPN trpn = new ToRPN();
 		Calc cal = new Calc();
     	String str;

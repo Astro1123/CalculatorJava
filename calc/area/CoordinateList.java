@@ -1,4 +1,4 @@
-package area;
+package calc.area;
 import java.util.ArrayList;
 
 public class CoordinateList {

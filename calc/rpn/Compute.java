@@ -1,4 +1,4 @@
-package rpn;
+package calc.rpn;
 
 import java.math.*;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package makelist;
+package calc.makelist;
 import java.util.ArrayList;
 
 public class MakeScript {

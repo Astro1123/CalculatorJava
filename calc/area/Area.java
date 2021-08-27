@@ -1,4 +1,4 @@
-package area;
+package calc.area;
 import java.math.*;
 import java.util.ArrayList;
 import java.lang.Math;

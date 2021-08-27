@@ -1,4 +1,4 @@
-package rpn;
+package calc.rpn;
 import java.util.ArrayList;
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -36,6 +36,7 @@ public class Calc {
 	private void calculation(Deque<Double> stack, String op) throws ArithmeticException {
 		Compute com = new Compute();
 		double a,b,tmp;
+		int n,m;
 		if (op.equals("+")) {
 			a = StackPop(stack);
 			b = StackPop(stack);
@@ -97,6 +98,37 @@ public class Calc {
 		} else if (op.equals("sum")) {
 			a = StackPop(stack);
 			stack.push(a*(a+1)/2);
+		} else if (op.equals("SL")) {
+			n = (int)StackPop(stack,1);
+			m = (int)StackPop(stack);
+			stack.push((double)(m<<n));
+		} else if (op.equals("SR")) {
+			n = (int)StackPop(stack,1);
+			m = (int)StackPop(stack);
+			stack.push((double)(m>>n));
+		} else if (op.equals("SRNS")) {
+			n = (int)StackPop(stack,1);
+			m = (int)StackPop(stack);
+			stack.push((double)(m>>>n));
+		} else if (op.equals("NOT")) {
+			n = (int)StackPop(stack);
+			stack.push((double)~n);
+		} else if (op.equals("XOR")) {
+			n = (int)StackPop(stack,1);
+			m = (int)StackPop(stack);
+			stack.push((double)(m^n));
+		} else if (op.equals("OR")) {
+			n = (int)StackPop(stack,1);
+			m = (int)StackPop(stack);
+			stack.push((double)(m|n));
+		} else if (op.equals("AND")) {
+			n = (int)StackPop(stack,1);
+			m = (int)StackPop(stack);
+			stack.push((double)(m&n));
+		} else if (op.equals("XNOR")) {
+			n = (int)StackPop(stack,1);
+			m = (int)StackPop(stack);
+			stack.push((double)~(m^n));
 		} else if (op.equals("abs")) {
 			a = StackPop(stack);
 			stack.push(Math.abs(a));
