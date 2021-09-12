@@ -335,6 +335,10 @@ public class Process {
 			x = x1.subtract(y.divide(yd, 15, RoundingMode.HALF_UP)).doubleValue();
 			dx1 = dx0;
 			dx0 = x-xc;
+        	if (Math.abs(dx0)<0.0000000000001) {
+        		x=x1.doubleValue();
+				break;
+        	}
 			y1=y0;
 			y0 = y.doubleValue();
 			if (dx0*dx1<0 && Math.abs(dx1)<=Math.abs(dx0)) {
@@ -360,6 +364,7 @@ public class Process {
         
     	int countmax = 500;
         double x = x0;
+        double xc=x0;
         BigDecimal x1,yd;
         for (int i = 0; i < countmax; i++) {
        		ArrayList<String> listc = new ArrayList<>(list);
@@ -374,12 +379,17 @@ public class Process {
 			//System.out.println("#"+x);
 			if (yd.compareTo(new BigDecimal(0)) == 0) break;
         	x1 = new BigDecimal(x);
+        	xc = x;
         	//System.out.println(listc);
 			if (cal.calc(listc).compareTo(new BigDecimal(0)) == 0) {
 				x=x1.doubleValue();
 				break;
 			}
 			x = x1.subtract(cal.calc(listc).divide(yd, 15, RoundingMode.HALF_UP)).doubleValue();
+        	if (Math.abs(x-xc)<0.0000000000001) {
+        		x=x1.doubleValue();
+				break;
+        	}
 			if (cal.calc(listc).compareTo(new BigDecimal(0)) == 0) break;
         }
         //System.out.println(x);
