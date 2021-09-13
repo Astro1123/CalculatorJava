@@ -315,7 +315,7 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
         }
         ArrayDeque<String> Pushlistc = new ArrayDeque<String>(PushList);
         Pushlistc.add(sb.toString());
-        texta1.setText(ms.makeScript(ml.makeList(Pushlistc)).replace(" ",""));
+        texta1.setText(ms.makeScript(ms.replacepm(ml.makeList(Pushlistc))).replace(" ",""));
     }
     
     public void itemStateChanged(ItemEvent e) {

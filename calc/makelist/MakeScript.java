@@ -8,4 +8,17 @@ public class MakeScript {
             sb.append(s+" ");
         return sb.toString();
 	}
+	
+	public ArrayList<String> replacepm(ArrayList<String> list) {
+		for(int i = 0; i < list.size(); i++) {
+			if(list.get(i).equals("pm")) {
+				list.remove(i);
+				list.add(i,"(");
+				i++;
+				list.remove(i);
+				list.add(i,"-");
+			}
+		}
+		return list;
+	}
 }
