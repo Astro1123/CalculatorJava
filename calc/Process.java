@@ -3,6 +3,7 @@ package calc;
 import calc.script.*;
 import calc.rpn.*;
 import calc.area.*;
+import calc.Unit.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,6 +24,7 @@ import java.math.BigDecimal;
 import java.lang.ArithmeticException;
 import java.lang.NumberFormatException;
 import java.math.RoundingMode;
+import java.math.MathContext;
 
 public class Process {
 	public String equalcalc(Calculator calc, String str) {
@@ -201,6 +203,48 @@ public class Process {
             calc.text1.setText("Shape : "+String.valueOf(ss.shape)+"-gon\n");
             calc.texta1.setText("Perimeter = " + String.valueOf(ss.len) + "\nArea = " + String.valueOf(ss.area));
         }
+    }
+    
+    public void equalunit(Calculator calc, String input1, String input2) {
+    	Unit unit = new Unit();
+    	String input3="",input4="";
+    	BigDecimal before,after,num,ans;
+    	num = new BigDecimal(input1);
+    	ans = new BigDecimal(0);
+    	if (input2.equals("Temperature")) {
+    		input3 = (String)calc.combo1Temp.getSelectedItem();
+    		input4 = (String)calc.combo2Temp.getSelectedItem();
+    		//{"℃","℉","K"};
+    		if (input3.equals("℃") && input4.equals("℉")) {
+    			ans = num.divide(new BigDecimal(5), 100, RoundingMode.HALF_UP).multiply(new BigDecimal(9),new MathContext(15)).add(new BigDecimal(32),new MathContext(15));
+    		} else if (input3.equals("℉") && input4.equals("℃")) {
+    			ans = num.subtract(new BigDecimal(32),new MathContext(15)).divide(new BigDecimal(9), 100, RoundingMode.HALF_UP).multiply(new BigDecimal(5),new MathContext(15));
+       		} else if (input3.equals("℃") && input4.equals("K")) {
+       			ans = num.add(new BigDecimal(273.15),new MathContext(15));
+    		} else if (input3.equals("K") && input4.equals("℃")) {
+       			ans = num.subtract(new BigDecimal(273.15),new MathContext(15));
+    		} else if (input3.equals("℉") && input4.equals("K")) {
+    			ans = num.subtract(new BigDecimal(32),new MathContext(15)).divide(new BigDecimal(9), 100, RoundingMode.HALF_UP).multiply(new BigDecimal(5),new MathContext(15)).add(new BigDecimal(273.15),new MathContext(15));
+    		} else if (input3.equals("K") && input4.equals("℉")) {
+    			ans = num.subtract(new BigDecimal(273.15),new MathContext(15)).divide(new BigDecimal(5), 100, RoundingMode.HALF_UP).multiply(new BigDecimal(9),new MathContext(15)).add(new BigDecimal(32),new MathContext(15));
+    		}
+    	} else {
+    		if (input2.equals("Length")) {
+    			input3 = (String)calc.combo1Len.getSelectedItem();
+    			input4 = (String)calc.combo2Len.getSelectedItem();
+    		} else if (input2.equals("Mass")) {
+    			input3 = (String)calc.combo1Mass.getSelectedItem();
+    			input4 = (String)calc.combo2Mass.getSelectedItem();
+    		} else if (input2.equals("Time")) {
+    			input3 = (String)calc.combo1Time.getSelectedItem();
+    			input4 = (String)calc.combo2Time.getSelectedItem();
+    		}
+    		before = unit.getnum(input3);
+    		after = unit.getnum(input4);
+    		ans = num.divide(after, 100, RoundingMode.HALF_UP).multiply(before,new MathContext(15));
+    	}
+		calc.sb.delete(0, calc.sb.length());
+        calc.texta1.setText(num + " [" + input3 + "] = " + ans.stripTrailingZeros() + " [" + input4 + "]");
     }
         
     public void solveequal(Calculator calc, String input1, double input2, double input3, String input4) {

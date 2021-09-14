@@ -584,6 +584,7 @@ public class Draw {
         return p5;
     }
     
+    // Card6
     public JPanel dc6(Calculator calc) {
     	JPanel p1 = new JPanel();
     	p1.setLayout(new BorderLayout());
@@ -790,6 +791,120 @@ public class Draw {
 	
 		return p1;
   	}
+    
+    // Card7
+  	public JPanel dc7(Calculator calc) {
+        JPanel p1 = new JPanel();
+        p1.setLayout(new BoxLayout(p1, BoxLayout.Y_AXIS));
+        JPanel p1p1 = new JPanel();
+        p1p1.setLayout(new FlowLayout());
+        
+        JPanel Lenp2 = new JPanel();
+        Lenp2.setLayout(new FlowLayout());
+        JPanel Lenp3 = new JPanel();
+        Lenp3.setLayout(new FlowLayout());
+        JPanel pLen = new JPanel();
+        pLen.setLayout(new BoxLayout(pLen, BoxLayout.Y_AXIS));
+        
+        JPanel Tempp2 = new JPanel();
+        Tempp2.setLayout(new FlowLayout());
+        JPanel Tempp3 = new JPanel();
+        Tempp3.setLayout(new FlowLayout());
+        JPanel pTemp = new JPanel();
+        pTemp.setLayout(new BoxLayout(pTemp, BoxLayout.Y_AXIS));
+        
+        JPanel Massp2 = new JPanel();
+        Massp2.setLayout(new FlowLayout());
+        JPanel Massp3 = new JPanel();
+        Massp3.setLayout(new FlowLayout());
+        JPanel pMass = new JPanel();
+        pMass.setLayout(new BoxLayout(pMass, BoxLayout.Y_AXIS));
+        
+        JPanel Timep2 = new JPanel();
+        Timep2.setLayout(new FlowLayout());
+        JPanel Timep3 = new JPanel();
+        Timep3.setLayout(new FlowLayout());
+        JPanel pTime = new JPanel();
+        pTime.setLayout(new BoxLayout(pTime, BoxLayout.Y_AXIS));
+        
+        JPanel p1p2 = new JPanel();
+        p1p2.setLayout(new FlowLayout());
+        calc.text7 = new JTextField("", 35);
+        p1p2.add(calc.text7);
+        
+        JPanel p1p4 = new JPanel();
+        p1p4.setLayout(new FlowLayout());
+        
+        p1.add(p1p2);
+        p1.add(p1p1);
+        
+        calc.combounit = new JComboBox<>(calc.combodataunit);
+        calc.combounit.addItemListener(calc);
+        p1p1.add(calc.combounit);
+        
+        calc.cardUnit = new JPanel();
+        calc.cardUnitlayout = new CardLayout();
+        calc.cardUnit.setLayout(calc.cardUnitlayout);
+        
+        JLabel label1Len = new JLabel("Before : ");
+        JLabel label2Len = new JLabel("After : ");
+        calc.combo1Len = new JComboBox<>(calc.strlistLen);
+        calc.combo2Len = new JComboBox<>(calc.strlistLen);
+        Lenp2.add(label1Len);
+        Lenp2.add(calc.combo1Len);
+        Lenp3.add(label2Len);
+        Lenp3.add(calc.combo2Len);
+        pLen.add(Lenp2);
+        pLen.add(Lenp3);
+        calc.cardUnit.add(pLen, "Length");
+        
+        JLabel label1Temp = new JLabel("Before : ");
+        JLabel label2Temp = new JLabel("After : ");
+        calc.combo1Temp = new JComboBox<>(calc.strlistTemp);
+        calc.combo2Temp = new JComboBox<>(calc.strlistTemp);
+        Tempp2.add(label1Temp);
+        Tempp2.add(calc.combo1Temp);
+        Tempp3.add(label2Temp);
+        Tempp3.add(calc.combo2Temp);
+        pTemp.add(Tempp2);
+        pTemp.add(Tempp3);
+        calc.cardUnit.add(pTemp ,"Temperature");
+        
+        JLabel label1Mass = new JLabel("Before : ");
+        JLabel label2Mass = new JLabel("After : ");
+        calc.combo1Mass = new JComboBox<>(calc.strlistMass);
+        calc.combo2Mass = new JComboBox<>(calc.strlistMass);
+        Massp2.add(label1Mass);
+        Massp2.add(calc.combo1Mass);
+        Massp3.add(label2Mass);
+        Massp3.add(calc.combo2Mass);
+        pMass.add(Massp2);
+        pMass.add(Massp3);
+        calc.cardUnit.add(pMass ,"Mass");
+        
+        JLabel label1Time = new JLabel("Before : ");
+        JLabel label2Time = new JLabel("After : ");
+        calc.combo1Time = new JComboBox<>(calc.strlistTime);
+        calc.combo2Time = new JComboBox<>(calc.strlistTime);
+        Timep2.add(label1Time);
+        Timep2.add(calc.combo1Time);
+        Timep3.add(label2Time);
+        Timep3.add(calc.combo2Time);
+        pTime.add(Timep2);
+        pTime.add(Timep3);
+        calc.cardUnit.add(pTime ,"Time");
+        
+        p1.add(calc.cardUnit);
+        
+    	JButton btn = new JButton("Enter");
+    	btn.addActionListener(calc);
+		btn.setActionCommand("EnterUnit");
+        p1p4.add(btn);
+        p1.add(p1p4);
+        
+        
+        return p1;
+    }
     
     JButton Button(String str) {
         JButton btn = new JButton(str);

@@ -18,10 +18,26 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
 	String title;
 	JPanel cardPanel;
 	CardLayout layout;
+	JPanel cardUnit;
+	CardLayout cardUnitlayout;
 	JComboBox<String> combo;
 	JComboBox<String> comboc5;
+	JComboBox<String> combounit;
 	static Calculator frame;
-	String combodata[] = {"Standard", "Scientific", "Area", "Script", "Solve","Programmer"};
+    String strlistLen[] = {"m","km","cm","mm","μm","nm","pm","fm","Å","ly","au","pc","kpc","Mpc","Gpc","inch","feet","yard","mile","nautical mile","寸","尺","間","尋","町","里"};
+    String strlistTemp[] = {"℃","℉","K"};
+    String strlistMass[] = {"g","kg","t","mg","eV/c^2","keV/c^2","MeV/c^2","GeV/c^2","lb","oz","ct","momme","貫","斤"};
+    String strlistTime[] = {"s","min","h","day","week","month","year","solar year","Julian year","Gregorian year"};
+    JComboBox<String> combo1Temp;
+    JComboBox<String> combo2Temp;
+    JComboBox<String> combo1Len;
+    JComboBox<String> combo2Len;
+    JComboBox<String> combo1Time;
+    JComboBox<String> combo2Time;
+    JComboBox<String> combo1Mass;
+    JComboBox<String> combo2Mass;
+	String combodata[] = {"Standard", "Scientific", "Area", "Script", "Solve","Programmer","Unit"};
+	String combodataunit[] = {"Length","Mass","Time","Temperature"};
 	String pcombodata[] = {"HEX","DEC","OCT","BIN"};
 	String combodatac5[] = {"NewtonModified", "Newton", "FalsePosition"};
 	Deque<String> PushList;
@@ -35,6 +51,7 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
     double memory = 0,ans = 0;
     StringBuilder sb;
     JTextField text1;
+    JTextField text7;
     JTextArea texta1;
     JTextArea textc3;
     JTextArea textc4;
@@ -61,6 +78,7 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
     JButton pbtnD;
     JButton pbtnE;
     JButton pbtnF;
+    JPanel p7;
 	
     public static void main(String args[]){
         frame = new Calculator();
@@ -80,6 +98,7 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
         JPanel card4 = new JPanel();
         JPanel card5 = new JPanel();
         JPanel card6 = new JPanel();
+        JPanel card7 = new JPanel();
         
         cardPanel = new JPanel();
         layout = new CardLayout();
@@ -91,6 +110,7 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
         cardPanel.add(card4, combodata[3]);
         cardPanel.add(card5, combodata[4]);
         cardPanel.add(card6, combodata[5]);
+        cardPanel.add(card7, combodata[6]);
         
         JPanel p0 = new JPanel();
         p0.setLayout(new FlowLayout());
@@ -148,6 +168,9 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
         JPanel p6 = draw.dc6(this);
         card6.add(p6);
         
+        p7 = draw.dc7(this);
+        card7.add(p7);
+        
         getContentPane().add(cardPanel, BorderLayout.CENTER);
         getContentPane().add(pt, BorderLayout.NORTH);
         getContentPane().add(p0, BorderLayout.SOUTH);
@@ -156,7 +179,7 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
 
     public void actionPerformed(ActionEvent e) {
         String cmd = e.getActionCommand();
-        String str;
+        String str,str2;
         String conststr = "(pi|e|c|g|G|h|hbar|k|e0)";
         String operatorstr = "(\\+|-|\\*|/|%|\\^|//|%%|SL|SR|SRNS|AND|OR|XOR|XNOR)";
         String shiftopstr = "(SL|SR|SRNS)";
@@ -180,6 +203,11 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
         } else if (cmd.equals("EnterTextCard4")) {
             str = textc4.getText(); 
             texta1.setText(pro.equalcalc(this,str));
+            return;
+        } else if (cmd.equals("EnterUnit")) {
+            str = text7.getText();
+            str2 = (String)combounit.getSelectedItem();
+            pro.equalunit(this,str,str2);
             return;
         } else if (cmd.equals("OpenFileCard3")) {
             pro.openFile(this, textc3);
@@ -329,6 +357,7 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
         MakeScript ms = new MakeScript();
         MakeList ml = new MakeList();
         Process pro = new Process();
+        Draw draw = new Draw();
         if (e.getItemSelectable() == combo) {
             texta1.setText("");
             text1.setText("0");
@@ -442,6 +471,9 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
     	        pbtnE.setEnabled(false);
     	        pbtnF.setEnabled(false);
     	    }
+        } else if (e.getItemSelectable() == combounit) {
+            String str = (String)combounit.getSelectedItem();
+            cardUnitlayout.show(cardUnit, str);
         }
     }
   
