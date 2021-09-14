@@ -827,6 +827,69 @@ public class Draw {
         JPanel pTime = new JPanel();
         pTime.setLayout(new BoxLayout(pTime, BoxLayout.Y_AXIS));
         
+        JPanel Anglep2 = new JPanel();
+        Anglep2.setLayout(new FlowLayout());
+        JPanel Anglep3 = new JPanel();
+        Anglep3.setLayout(new FlowLayout());
+        JPanel pAngle = new JPanel();
+        pAngle.setLayout(new BoxLayout(pAngle, BoxLayout.Y_AXIS));
+        
+        JPanel SAnglep2 = new JPanel();
+        SAnglep2.setLayout(new FlowLayout());
+        JPanel SAnglep3 = new JPanel();
+        SAnglep3.setLayout(new FlowLayout());
+        JPanel pSAngle = new JPanel();
+        pSAngle.setLayout(new BoxLayout(pSAngle, BoxLayout.Y_AXIS));
+        
+        JPanel Forcep2 = new JPanel();
+        Forcep2.setLayout(new FlowLayout());
+        JPanel Forcep3 = new JPanel();
+        Forcep3.setLayout(new FlowLayout());
+        JPanel pForce = new JPanel();
+        pForce.setLayout(new BoxLayout(pForce, BoxLayout.Y_AXIS));
+        
+        JPanel Ratiop2 = new JPanel();
+        Ratiop2.setLayout(new FlowLayout());
+        JPanel Ratiop3 = new JPanel();
+        Ratiop3.setLayout(new FlowLayout());
+        JPanel pRatio = new JPanel();
+        pRatio.setLayout(new BoxLayout(pRatio, BoxLayout.Y_AXIS));
+        
+        JPanel Velocityp2 = new JPanel();
+        Velocityp2.setLayout(new FlowLayout());
+        JPanel Velocityp3 = new JPanel();
+        Velocityp3.setLayout(new FlowLayout());
+        JPanel pVelocity = new JPanel();
+        pVelocity.setLayout(new BoxLayout(pVelocity, BoxLayout.Y_AXIS));
+        
+        JPanel Energyp2 = new JPanel();
+        Energyp2.setLayout(new FlowLayout());
+        JPanel Energyp3 = new JPanel();
+        Energyp3.setLayout(new FlowLayout());
+        JPanel pEnergy = new JPanel();
+        pEnergy.setLayout(new BoxLayout(pEnergy, BoxLayout.Y_AXIS));
+        
+        JPanel Pressp2 = new JPanel();
+        Pressp2.setLayout(new FlowLayout());
+        JPanel Pressp3 = new JPanel();
+        Pressp3.setLayout(new FlowLayout());
+        JPanel pPress = new JPanel();
+        pPress.setLayout(new BoxLayout(pPress, BoxLayout.Y_AXIS));
+        
+        JPanel Areap2 = new JPanel();
+        Areap2.setLayout(new FlowLayout());
+        JPanel Areap3 = new JPanel();
+        Areap3.setLayout(new FlowLayout());
+        JPanel pArea = new JPanel();
+        pArea.setLayout(new BoxLayout(pArea, BoxLayout.Y_AXIS));
+        
+        JPanel Volumep2 = new JPanel();
+        Volumep2.setLayout(new FlowLayout());
+        JPanel Volumep3 = new JPanel();
+        Volumep3.setLayout(new FlowLayout());
+        JPanel pVolume = new JPanel();
+        pVolume.setLayout(new BoxLayout(pVolume, BoxLayout.Y_AXIS));
+        
         JPanel p1p2 = new JPanel();
         p1p2.setLayout(new FlowLayout());
         calc.text7 = new JTextField("", 35);
@@ -893,6 +956,114 @@ public class Draw {
         pTime.add(Timep2);
         pTime.add(Timep3);
         calc.cardUnit.add(pTime ,"Time");
+        
+        JLabel label1Angle = new JLabel("Before : ");
+        JLabel label2Angle = new JLabel("After : ");
+        calc.combo1Angle = new JComboBox<>(calc.strlistAngle);
+        calc.combo2Angle = new JComboBox<>(calc.strlistAngle);
+        Anglep2.add(label1Angle);
+        Anglep2.add(calc.combo1Angle);
+        Anglep3.add(label2Angle);
+        Anglep3.add(calc.combo2Angle);
+        pAngle.add(Anglep2);
+        pAngle.add(Anglep3);
+        calc.cardUnit.add(pAngle ,"Angle");
+        
+        JLabel label1SAngle = new JLabel("Before : ");
+        JLabel label2SAngle = new JLabel("After : ");
+        calc.combo1SAngle = new JComboBox<>(calc.strlistSAngle);
+        calc.combo2SAngle = new JComboBox<>(calc.strlistSAngle);
+        SAnglep2.add(label1SAngle);
+        SAnglep2.add(calc.combo1SAngle);
+        SAnglep3.add(label2SAngle);
+        SAnglep3.add(calc.combo2SAngle);
+        pSAngle.add(SAnglep2);
+        pSAngle.add(SAnglep3);
+        calc.cardUnit.add(pSAngle ,"Solid Angle");
+        
+        JLabel label1Force = new JLabel("Before : ");
+        JLabel label2Force = new JLabel("After : ");
+        calc.combo1Force = new JComboBox<>(calc.strlistForce);
+        calc.combo2Force = new JComboBox<>(calc.strlistForce);
+        Forcep2.add(label1Force);
+        Forcep2.add(calc.combo1Force);
+        Forcep3.add(label2Force);
+        Forcep3.add(calc.combo2Force);
+        pForce.add(Forcep2);
+        pForce.add(Forcep3);
+        calc.cardUnit.add(pForce ,"Force");
+        
+        JLabel label1Ratio = new JLabel("Before : ");
+        JLabel label2Ratio = new JLabel("After : ");
+        calc.combo1Ratio = new JComboBox<>(calc.strlistRatio);
+        calc.combo2Ratio = new JComboBox<>(calc.strlistRatio);
+        Ratiop2.add(label1Ratio);
+        Ratiop2.add(calc.combo1Ratio);
+        Ratiop3.add(label2Ratio);
+        Ratiop3.add(calc.combo2Ratio);
+        pRatio.add(Ratiop2);
+        pRatio.add(Ratiop3);
+        calc.cardUnit.add(pRatio ,"Ratio");
+        
+        JLabel label1Velocity = new JLabel("Before : ");
+        JLabel label2Velocity = new JLabel("After : ");
+        calc.combo1Velocity = new JComboBox<>(calc.strlistVelocity);
+        calc.combo2Velocity = new JComboBox<>(calc.strlistVelocity);
+        Velocityp2.add(label1Velocity);
+        Velocityp2.add(calc.combo1Velocity);
+        Velocityp3.add(label2Velocity);
+        Velocityp3.add(calc.combo2Velocity);
+        pVelocity.add(Velocityp2);
+        pVelocity.add(Velocityp3);
+        calc.cardUnit.add(pVelocity ,"Velocity");
+        
+        JLabel label1Energy = new JLabel("Before : ");
+        JLabel label2Energy = new JLabel("After : ");
+        calc.combo1Energy = new JComboBox<>(calc.strlistEnergy);
+        calc.combo2Energy = new JComboBox<>(calc.strlistEnergy);
+        Energyp2.add(label1Energy);
+        Energyp2.add(calc.combo1Energy);
+        Energyp3.add(label2Energy);
+        Energyp3.add(calc.combo2Energy);
+        pEnergy.add(Energyp2);
+        pEnergy.add(Energyp3);
+        calc.cardUnit.add(pEnergy ,"Energy");
+        
+        JLabel label1Press = new JLabel("Before : ");
+        JLabel label2Press = new JLabel("After : ");
+        calc.combo1Press = new JComboBox<>(calc.strlistPress);
+        calc.combo2Press = new JComboBox<>(calc.strlistPress);
+        Pressp2.add(label1Press);
+        Pressp2.add(calc.combo1Press);
+        Pressp3.add(label2Press);
+        Pressp3.add(calc.combo2Press);
+        pPress.add(Pressp2);
+        pPress.add(Pressp3);
+        calc.cardUnit.add(pPress ,"Pressure");
+        
+        JLabel label1Area = new JLabel("Before : ");
+        JLabel label2Area = new JLabel("After : ");
+        calc.combo1Area = new JComboBox<>(calc.strlistArea);
+        calc.combo2Area = new JComboBox<>(calc.strlistArea);
+        Areap2.add(label1Area);
+        Areap2.add(calc.combo1Area);
+        Areap3.add(label2Area);
+        Areap3.add(calc.combo2Area);
+        pArea.add(Areap2);
+        pArea.add(Areap3);
+        calc.cardUnit.add(pArea ,"Area");
+        
+        JLabel label1Volume = new JLabel("Before : ");
+        JLabel label2Volume = new JLabel("After : ");
+        calc.combo1Volume = new JComboBox<>(calc.strlistVolume);
+        calc.combo2Volume = new JComboBox<>(calc.strlistVolume);
+        Volumep2.add(label1Volume);
+        Volumep2.add(calc.combo1Volume);
+        Volumep3.add(label2Volume);
+        Volumep3.add(calc.combo2Volume);
+        pVolume.add(Volumep2);
+        pVolume.add(Volumep3);
+        calc.cardUnit.add(pVolume ,"Volume");
         
         p1.add(calc.cardUnit);
         

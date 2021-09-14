@@ -207,9 +207,14 @@ public class Process {
     
     public void equalunit(Calculator calc, String input1, String input2) {
     	Unit unit = new Unit();
-    	String input3="",input4="";
-    	BigDecimal before,after,num,ans;
-    	num = new BigDecimal(input1);
+    	String input3="",input4="",input0="";
+    	BigDecimal before,after,num,ans,tmp;
+    	try {
+    		num = new BigDecimal(input1);
+    	} catch (NumberFormatException e) {
+    		num = new BigDecimal("0");
+    	}
+    	double d1;
     	ans = new BigDecimal(0);
     	if (input2.equals("Temperature")) {
     		input3 = (String)calc.combo1Temp.getSelectedItem();
@@ -228,6 +233,37 @@ public class Process {
     		} else if (input3.equals("K") && input4.equals("℉")) {
     			ans = num.subtract(new BigDecimal(273.15),new MathContext(15)).divide(new BigDecimal(5), 100, RoundingMode.HALF_UP).multiply(new BigDecimal(9),new MathContext(15)).add(new BigDecimal(32),new MathContext(15));
     		}
+    	} else if (input2.equals("Angle")) {
+    		input3 = (String)calc.combo1Angle.getSelectedItem();
+    		input4 = (String)calc.combo2Angle.getSelectedItem();
+    		input0 = "rad";
+    		if (input3.equals("percent")) {
+    			tmp = num.divide(new BigDecimal(100), 100, RoundingMode.HALF_UP);
+    			d1 = Math.atan(Double.parseDouble(tmp.toString()));
+    			tmp = new BigDecimal(d1);
+    		} else if (input3.equals("permil")) {
+    			tmp = num.divide(new BigDecimal(1000), 100, RoundingMode.HALF_UP);
+    			d1 = Math.atan(Double.parseDouble(tmp.toString()));
+    			tmp = new BigDecimal(d1);
+    		} else {
+    			before = unit.getnum(input3);
+    			after = unit.getnum(input0);
+    			tmp = num.divide(after, 100, RoundingMode.HALF_UP).multiply(before,new MathContext(15));
+    		}
+    		
+    		if (input4.equals("percent")) {
+    			d1 = Math.tan(Double.parseDouble(tmp.toString()))*100;
+    			ans = new BigDecimal(d1);
+    			ans = ans.multiply(new BigDecimal(1),new MathContext(15));
+    		} else if (input4.equals("permil")) {
+    			d1 = Math.tan(Double.parseDouble(tmp.toString()))*1000;
+    			ans = new BigDecimal(d1);
+    			ans = ans.multiply(new BigDecimal(1),new MathContext(15));
+    		} else {
+    			before = unit.getnum(input0);
+    			after = unit.getnum(input4);
+    			ans = tmp.divide(after, 100, RoundingMode.HALF_UP).multiply(before,new MathContext(15));
+    		}
     	} else {
     		if (input2.equals("Length")) {
     			input3 = (String)calc.combo1Len.getSelectedItem();
@@ -238,7 +274,32 @@ public class Process {
     		} else if (input2.equals("Time")) {
     			input3 = (String)calc.combo1Time.getSelectedItem();
     			input4 = (String)calc.combo2Time.getSelectedItem();
+    		} else if (input2.equals("Solid Angle")) {
+    			input3 = (String)calc.combo1SAngle.getSelectedItem();
+    			input4 = (String)calc.combo2SAngle.getSelectedItem();
+    		} else if (input2.equals("Force")) {
+    			input3 = (String)calc.combo1Force.getSelectedItem();
+    			input4 = (String)calc.combo2Force.getSelectedItem();
+    		} else if (input2.equals("Ratio")) {
+    			input3 = (String)calc.combo1Ratio.getSelectedItem();
+    			input4 = (String)calc.combo2Ratio.getSelectedItem();
+    		} else if (input2.equals("Velocity")) {
+    			input3 = (String)calc.combo1Velocity.getSelectedItem();
+    			input4 = (String)calc.combo2Velocity.getSelectedItem();
+    		} else if (input2.equals("Energy")) {
+    			input3 = (String)calc.combo1Energy.getSelectedItem();
+    			input4 = (String)calc.combo2Energy.getSelectedItem();
+    		} else if (input2.equals("Pressure")) {
+    			input3 = (String)calc.combo1Press.getSelectedItem();
+    			input4 = (String)calc.combo2Press.getSelectedItem();
+    		} else if (input2.equals("Area")) {
+    			input3 = (String)calc.combo1Area.getSelectedItem();
+    			input4 = (String)calc.combo2Area.getSelectedItem();
+    		} else if (input2.equals("Volume")) {
+    			input3 = (String)calc.combo1Volume.getSelectedItem();
+    			input4 = (String)calc.combo2Volume.getSelectedItem();
     		}
+
     		before = unit.getnum(input3);
     		after = unit.getnum(input4);
     		ans = num.divide(after, 100, RoundingMode.HALF_UP).multiply(before,new MathContext(15));
