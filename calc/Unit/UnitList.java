@@ -8,6 +8,7 @@ public class UnitList {
 	BigDecimal num;
 	
     static ArrayList<UnitList> list = new ArrayList<>();
+    static ArrayList<UnitList> SIlist = new ArrayList<>();
    	
 	public UnitList InputUnitList(String str, String num) {
 		UnitList ulist = new UnitList();

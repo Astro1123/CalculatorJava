@@ -264,6 +264,12 @@ public class Process {
     			after = unit.getnum(input4);
     			ans = tmp.divide(after, 100, RoundingMode.HALF_UP).multiply(before,new MathContext(15));
     		}
+    	} else if (input2.equals("SI prefixes")) {
+    		input3 = (String)calc.combo1SIp.getSelectedItem();
+    		input4 = (String)calc.combo2SIp.getSelectedItem();
+    		before = unit.getSInum(input3);
+    		after = unit.getSInum(input4);
+    		ans = num.divide(after, 100, RoundingMode.HALF_UP).multiply(before,new MathContext(15));
     	} else {
     		if (input2.equals("Length")) {
     			input3 = (String)calc.combo1Len.getSelectedItem();

@@ -890,6 +890,13 @@ public class Draw {
         JPanel pVolume = new JPanel();
         pVolume.setLayout(new BoxLayout(pVolume, BoxLayout.Y_AXIS));
         
+        JPanel SIpp2 = new JPanel();
+        SIpp2.setLayout(new FlowLayout());
+        JPanel SIpp3 = new JPanel();
+        SIpp3.setLayout(new FlowLayout());
+        JPanel pSIp = new JPanel();
+        pSIp.setLayout(new BoxLayout(pSIp, BoxLayout.Y_AXIS));
+        
         JPanel p1p2 = new JPanel();
         p1p2.setLayout(new FlowLayout());
         calc.text7 = new JTextField("", 35);
@@ -1064,6 +1071,18 @@ public class Draw {
         pVolume.add(Volumep2);
         pVolume.add(Volumep3);
         calc.cardUnit.add(pVolume ,"Volume");
+        
+        JLabel label1SIp = new JLabel("Before : ");
+        JLabel label2SIp = new JLabel("After : ");
+        calc.combo1SIp = new JComboBox<>(calc.strlistSIp);
+        calc.combo2SIp = new JComboBox<>(calc.strlistSIp);
+        SIpp2.add(label1SIp);
+        SIpp2.add(calc.combo1SIp);
+        SIpp3.add(label2SIp);
+        SIpp3.add(calc.combo2SIp);
+        pSIp.add(SIpp2);
+        pSIp.add(SIpp3);
+        calc.cardUnit.add(pSIp ,"SI prefixes");
         
         p1.add(calc.cardUnit);
         

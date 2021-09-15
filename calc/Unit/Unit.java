@@ -12,6 +12,17 @@ public class Unit {
 		unitinit();
 	}
 	
+	public BigDecimal getSInum(String unit) {
+		BigDecimal num = new BigDecimal(0);
+		for(int i = 0; i < ul.SIlist.size(); i++) {
+			if(unit.equals(ul.SIlist.get(i).str)) {
+				num = ul.SIlist.get(i).num;
+				break;
+			}
+		}
+		return num;
+	}
+	
 	public BigDecimal getnum(String unit) {
 		BigDecimal num = new BigDecimal(0);
 		for(int i = 0; i < ul.list.size(); i++) {
@@ -182,5 +193,28 @@ public class Unit {
 		ul.list.add(ul.InputUnitList("合",BigDecimal.valueOf(2401).divide(BigDecimal.valueOf(13310000),100,RoundingMode.HALF_UP).toString()));
 		ul.list.add(ul.InputUnitList("斗",BigDecimal.valueOf(2401).divide(BigDecimal.valueOf(133100),100,RoundingMode.HALF_UP).toString()));
 		ul.list.add(ul.InputUnitList("石",BigDecimal.valueOf(2401).divide(BigDecimal.valueOf(13310),100,RoundingMode.HALF_UP).toString()));
+		
+		//SI prefixes
+		ul.SIlist.add(ul.InputUnitList("1","1"));
+		ul.SIlist.add(ul.InputUnitList("da","10"));
+		ul.SIlist.add(ul.InputUnitList("h","100"));
+		ul.SIlist.add(ul.InputUnitList("k","1000"));
+		ul.SIlist.add(ul.InputUnitList("M","1E6"));
+		ul.SIlist.add(ul.InputUnitList("G","1E9"));
+		ul.SIlist.add(ul.InputUnitList("T","1E12"));
+		ul.SIlist.add(ul.InputUnitList("P","1E15"));
+		ul.SIlist.add(ul.InputUnitList("E","1E18"));
+		ul.SIlist.add(ul.InputUnitList("Z","1E21"));
+		ul.SIlist.add(ul.InputUnitList("Y","1E24"));
+		ul.SIlist.add(ul.InputUnitList("d","0.1"));
+		ul.SIlist.add(ul.InputUnitList("c","0.01"));
+		ul.SIlist.add(ul.InputUnitList("m","0.001"));
+		ul.SIlist.add(ul.InputUnitList("μ","1E-6"));
+		ul.SIlist.add(ul.InputUnitList("n","1E-9"));
+		ul.SIlist.add(ul.InputUnitList("p","1E-12"));
+		ul.SIlist.add(ul.InputUnitList("f","1E-15"));
+		ul.SIlist.add(ul.InputUnitList("a","1E-18"));
+		ul.SIlist.add(ul.InputUnitList("z","1E-21"));
+		ul.SIlist.add(ul.InputUnitList("y","1E-24"));
 	}
 }

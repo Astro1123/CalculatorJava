@@ -37,6 +37,7 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
     String strlistPress[] = {"Pa","hPa","bar","atm","at","mH2O","mmH2O","cmH2O","inH2O","feetH2O","mmHg","Torr","mHg","cmHg","inHg","psi"};
     String strlistArea[] = {"m^2","cm^2","mm^2","km^2","a","ha","sq inch","sq feet","sq yard","sq mile","acre","rood","坪","畝","反","町(Area)"};
     String strlistVolume[] = {"m^3","cm^3","mm^3","km^3","cc","kL","L","mL","cu inch","cu feet","acre feet","gal","U.S. fluid gallon","Imperial gallon","U.S. dry gallon","bbl","勺","合","升","斗","石"};
+    String strlistSIp[] = {"1","da","h","k","M","G","T","P","E","Z","Y","d","c","m","μ","n","p","f","a","z","y"};
     JComboBox<String> combo1Temp;
     JComboBox<String> combo2Temp;
     JComboBox<String> combo1Len;
@@ -63,8 +64,10 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
     JComboBox<String> combo2Area;
     JComboBox<String> combo1Volume;
     JComboBox<String> combo2Volume;
+    JComboBox<String> combo1SIp;
+    JComboBox<String> combo2SIp;
 	String combodata[] = {"Standard", "Scientific", "Area", "Script", "Solve","Programmer","Unit"};
-	String combodataunit[] = {"Length","Mass","Time","Temperature","Angle","Solid Angle","Force","Ratio","Velocity","Energy","Pressure","Area","Volume"};
+	String combodataunit[] = {"Length","Mass","Time","Temperature","Angle","Solid Angle","Force","Ratio","Velocity","Energy","Pressure","Area","Volume","SI prefixes"};
 	String pcombodata[] = {"HEX","DEC","OCT","BIN"};
 	String combodatac5[] = {"NewtonModified", "Newton", "FalsePosition"};
 	Deque<String> PushList;
