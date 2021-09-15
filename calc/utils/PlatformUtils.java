@@ -1,4 +1,4 @@
-package calc.OS;
+package calc.utils;
 
 public class PlatformUtils {
  
@@ -19,4 +19,5 @@ public class PlatformUtils {
   public static boolean isSunOS() {
     return OS_NAME.startsWith("sunos");
   }
+  
 }

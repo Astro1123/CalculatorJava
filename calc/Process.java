@@ -4,6 +4,7 @@ import calc.script.*;
 import calc.rpn.*;
 import calc.area.*;
 import calc.Unit.*;
+import calc.utils.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,6 +26,7 @@ import java.lang.ArithmeticException;
 import java.lang.NumberFormatException;
 import java.math.RoundingMode;
 import java.math.MathContext;
+import java.net.URISyntaxException;
 
 public class Process {
 	public String equalcalc(Calculator calc, String str) {
@@ -626,11 +628,29 @@ public class Process {
     public void openFile(Calculator calc, JTextArea text) {
 	    ToRPN trpn = new ToRPN();
 		Calc cal = new Calc();
+		ExecPath ep = new ExecPath();
+		PlatformUtils pu = new PlatformUtils();
     	String str;
     	BufferedReader br;
-    	File file;
+    	File file,dir = new File(System.getProperty("user.dir"));
         try{
-            File dir = new File(System.getProperty("user.dir"));
+        	/*
+        	try {
+	        	dir = new File(ep.getApplicationPath());
+        		//System.out.println(dir);
+	        	dir = new File(dir.getParent());
+        		//System.out.println(dir);
+	        } catch (URISyntaxException e) {
+	        	System.out.println(e);
+	        	dir = new File(System.getProperty("user.dir"));
+	        }//*/
+	        //dir = new File(System.getProperty("user.dir"));
+	        if (pu.isWindows()) {
+		        dir = new File(ep.get_currentpath()+"TestData\\");
+	        } else {
+		        dir = new File(ep.get_currentpath()+"TestData/");
+		    }
+	        
             JFileChooser filechooser = new JFileChooser(dir);
             if ( filechooser.showOpenDialog(calc) == JFileChooser.APPROVE_OPTION ) {
                 file = filechooser.getSelectedFile();
