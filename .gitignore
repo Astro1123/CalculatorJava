@@ -4,3 +4,5 @@
 */*.command
 Calculator.mf
 class/*
+Compile Caluculator win.txt
+Compile Caluculator win.bat

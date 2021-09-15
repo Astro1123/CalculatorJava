@@ -305,7 +305,12 @@ public class Process {
     		ans = num.divide(after, 100, RoundingMode.HALF_UP).multiply(before,new MathContext(15));
     	}
 		calc.sb.delete(0, calc.sb.length());
-        calc.texta1.setText(num + " [" + input3 + "] = " + ans.stripTrailingZeros() + " [" + input4 + "]");
+		d1 = Math.abs(Math.log10(Double.parseDouble(ans.toString())));
+		if (d1 > 6) {
+	        calc.texta1.setText(num + " [" + input3 + "] = " + ans.stripTrailingZeros() + " [" + input4 + "]");
+	    } else {
+	        calc.texta1.setText(num + " [" + input3 + "] = " + ans.stripTrailingZeros().toPlainString() + " [" + input4 + "]");
+	    } 
     }
         
     public void solveequal(Calculator calc, String input1, double input2, double input3, String input4) {
