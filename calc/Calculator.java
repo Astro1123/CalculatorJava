@@ -603,6 +603,8 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
 			//System.out.println("Enterが押されました");
             String str = textc4.getText(); 
             texta1.setText(pro.equalcalc(this,str));
+			break;
+		case KeyEvent.VK_ESCAPE:
             textc4.setText("");
 			break;
 		}
