@@ -171,7 +171,7 @@ public class Calc {
 			a = StackPop(stack);
 			b = StackPop(stack);
 			stack.push(com.atan(b,a));
-		} else if (op.equals("percent")) {
+		} else if (op.equals("percent") || op.equals("pc")) {
 			a = StackPop(stack);
 			b = stack.peek();
 			stack.push(b*a/100);
@@ -189,7 +189,7 @@ public class Calc {
 			a = StackPop(stack);
 			b = StackPop(stack);
 			stack.push(com.lcm(b,a));
-		} else if (op.equals("fibonacci")) {
+		} else if (op.equals("fibonacci") || op.equals("fib")) {
 			a = StackPop(stack);
 			stack.push(com.fibonacci(a));
 		} else if (op.equals("gcd")) {

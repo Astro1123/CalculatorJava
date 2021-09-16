@@ -13,8 +13,12 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.ArrayList;
 import java.lang.NumberFormatException;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-class Calculator extends JFrame implements ActionListener, ItemListener {
+class Calculator extends JFrame implements KeyListener, ActionListener, ItemListener {
 	String title;
 	JPanel cardPanel;
 	CardLayout layout;
@@ -109,6 +113,7 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
     JButton pbtnE;
     JButton pbtnF;
     JPanel p7;
+    Object pcomboselected;
 	
     public static void main(String args[]){
         frame = new Calculator();
@@ -205,6 +210,15 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
         getContentPane().add(pt, BorderLayout.NORTH);
         getContentPane().add(p0, BorderLayout.SOUTH);
         setTitle(title);
+        
+        //setFocusable(true);
+        
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.exit(0);
+            }
+        });
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -214,7 +228,7 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
         String operatorstr = "(\\+|-|\\*|/|%|\\^|//|%%|SL|SR|SRNS|AND|OR|XOR|XNOR)";
         String shiftopstr = "(SL|SR|SRNS)";
         String numberstr = "(00|[0-9A-F]|\\.)";
-        String funcstr = "(mod|mod2|round|int|revn|rinf|ceil|floor|sum|abs|sqrt|exp|sin|cos|tan|asin|acos|atan|fact|atan2|rad|deg|log|tenexp|H|C|P|lcm|gcd|fibonacci|NOT)";
+        String funcstr = "(mod|mod2|round|int|revn|rinf|ceil|floor|sum|abs|sqrt|exp|sin|cos|tan|asin|acos|atan|fact|atan2|rad|deg|log|tenexp|H|C|P|lcm|gcd|fibonacci|NOT|percent|fib|pc)";
         BufferedReader br;
 	    SignSymbols ss = new SignSymbols();
         MakeScript ms = new MakeScript();
@@ -228,6 +242,8 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
             return;
         }  else if (cmd.equals("OpenFileCard4")) {
             pro.openFile(this, textc4);
+        } else if (cmd.equals("SaveFileCard4")) {
+            pro.saveFile(this, textc4);
         } else if (cmd.equals("DeleteTextCard4")) {
             textc4.setText("");
         } else if (cmd.equals("EnterTextCard4")) {
@@ -239,6 +255,8 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
             str2 = (String)combounit.getSelectedItem();
             pro.equalunit(this,str,str2);
             return;
+        } else if (cmd.equals("SaveFileCard3")) {
+            pro.saveFile(this, textc3);
         } else if (cmd.equals("OpenFileCard3")) {
             pro.openFile(this, textc3);
         } else if (cmd.equals("DeleteTextCard3")) {
@@ -343,6 +361,9 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
                     inputeq = false;
                     inputop = false;
                 }
+                if (combo.getSelectedItem().equals("Programmer")) {
+                    pcomboselected = pcombo.getSelectedItem();
+                }
         	} else if (cmd.equals("percent")) {
         		if (inputnum == true) {
                 	eqnext(this);
@@ -399,7 +420,7 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
             layout.show(cardPanel, str);
             frame.setTitle(title = str);
         } else if (e.getItemSelectable() == pcombo) {
-            numnext(this);
+            numnext(this, pcomboselected);
                 if (PushList.size()==0) {
                     if (inputnum == true) {
                         System.out.println(text1.getText());
@@ -428,97 +449,106 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
             list = ml.makeList(PushList);
             //System.out.println(list);
             pro.equalcalc(this,ms.makeScript(list),pcombo.getSelectedItem().toString());
-            if (pcombo.getSelectedItem().equals("HEX")) {
-    	        pbtn00.setEnabled(true);
-    	        pbtn0.setEnabled(true);
-    	        pbtn1.setEnabled(true);
-    	        pbtn2.setEnabled(true);
-    	        pbtn3.setEnabled(true);
-    	        pbtn4.setEnabled(true);
-    	        pbtn5.setEnabled(true);
-    	        pbtn6.setEnabled(true);
-    	        pbtn7.setEnabled(true);
-    	        pbtn8.setEnabled(true);
-    	        pbtn9.setEnabled(true);
-    	        pbtnA.setEnabled(true);
-    	        pbtnB.setEnabled(true);
-    	        pbtnC.setEnabled(true);
-    	        pbtnD.setEnabled(true);
-    	        pbtnE.setEnabled(true);
-    	        pbtnF.setEnabled(true);
-    	    } else if (pcombo.getSelectedItem().equals("DEC")) {
-    	        pbtn00.setEnabled(true);
-    	        pbtn0.setEnabled(true);
-    	        pbtn1.setEnabled(true);
-    	        pbtn2.setEnabled(true);
-    	        pbtn3.setEnabled(true);
-    	        pbtn4.setEnabled(true);
-    	        pbtn5.setEnabled(true);
-    	        pbtn6.setEnabled(true);
-    	        pbtn7.setEnabled(true);
-    	        pbtn8.setEnabled(true);
-    	        pbtn9.setEnabled(true);
-    	        pbtnA.setEnabled(false);
-    	        pbtnB.setEnabled(false);
-    	        pbtnC.setEnabled(false);
-    	        pbtnD.setEnabled(false);
-    	        pbtnE.setEnabled(false);
-    	        pbtnF.setEnabled(false);
-    	    } else if (pcombo.getSelectedItem().equals("OCT")) {
-    	        pbtn00.setEnabled(true);
-    	        pbtn0.setEnabled(true);
-    	        pbtn1.setEnabled(true);
-    	        pbtn2.setEnabled(true);
-    	        pbtn3.setEnabled(true);
-    	        pbtn4.setEnabled(true);
-    	        pbtn5.setEnabled(true);
-    	        pbtn6.setEnabled(true);
-    	        pbtn7.setEnabled(true);
-    	        pbtn8.setEnabled(false);
-    	        pbtn9.setEnabled(false);
-    	        pbtnA.setEnabled(false);
-    	        pbtnB.setEnabled(false);
-    	        pbtnC.setEnabled(false);
-    	        pbtnD.setEnabled(false);
-    	        pbtnE.setEnabled(false);
-    	        pbtnF.setEnabled(false);
-    	    } else if (pcombo.getSelectedItem().equals("BIN")) {
-    	        pbtn00.setEnabled(true);
-    	        pbtn0.setEnabled(true);
-    	        pbtn1.setEnabled(true);
-    	        pbtn2.setEnabled(false);
-    	        pbtn3.setEnabled(false);
-    	        pbtn4.setEnabled(false);
-    	        pbtn5.setEnabled(false);
-    	        pbtn6.setEnabled(false);
-    	        pbtn7.setEnabled(false);
-    	        pbtn8.setEnabled(false);
-    	        pbtn9.setEnabled(false);
-    	        pbtnA.setEnabled(false);
-    	        pbtnB.setEnabled(false);
-    	        pbtnC.setEnabled(false);
-    	        pbtnD.setEnabled(false);
-    	        pbtnE.setEnabled(false);
-    	        pbtnF.setEnabled(false);
-    	    }
+            btnenabled(this,pcombo.getSelectedItem());
         } else if (e.getItemSelectable() == combounit) {
             String str = (String)combounit.getSelectedItem();
             cardUnitlayout.show(cardUnit, str);
         }
     }
-  
-  private void numnext(Calculator calc) {
+    
+    private void btnenabled(Calculator calc, Object str) {
+        if (str.equals("HEX")) {
+            calc.pbtn00.setEnabled(true);
+            calc.pbtn0.setEnabled(true);
+            calc.pbtn1.setEnabled(true);
+            calc.pbtn2.setEnabled(true);
+            calc.pbtn3.setEnabled(true);
+            calc.pbtn4.setEnabled(true);
+            calc.pbtn5.setEnabled(true);
+            calc.pbtn6.setEnabled(true);
+            calc.pbtn7.setEnabled(true);
+            calc.pbtn8.setEnabled(true);
+    	    calc.pbtn9.setEnabled(true);
+            calc.pbtnA.setEnabled(true);
+	        calc.pbtnB.setEnabled(true);
+    	    calc.pbtnC.setEnabled(true);
+    	    calc.pbtnD.setEnabled(true);
+            calc.pbtnE.setEnabled(true);
+	        calc.pbtnF.setEnabled(true);
+    	} else if (str.equals("DEC")) {
+    	    calc.pbtn00.setEnabled(true);
+    	    calc.pbtn0.setEnabled(true);
+    	    calc.pbtn1.setEnabled(true);
+    	    calc.pbtn2.setEnabled(true);
+    	    calc.pbtn3.setEnabled(true);
+    	    calc.pbtn4.setEnabled(true);
+    	    calc.pbtn5.setEnabled(true);
+    	    calc.pbtn6.setEnabled(true);
+    	    calc.pbtn7.setEnabled(true);
+    	    calc.pbtn8.setEnabled(true);
+    	    calc.pbtn9.setEnabled(true);
+    	    calc.pbtnA.setEnabled(false);
+    	    calc.pbtnB.setEnabled(false);
+    	    calc.pbtnC.setEnabled(false);
+    	    calc.pbtnD.setEnabled(false);
+    	    calc.pbtnE.setEnabled(false);
+    	    calc.pbtnF.setEnabled(false);
+    	} else if (str.equals("OCT")) {
+    	    calc.pbtn00.setEnabled(true);
+    	    calc.pbtn0.setEnabled(true);
+    	    calc.pbtn1.setEnabled(true);
+    	    calc.pbtn2.setEnabled(true);
+    	    calc.pbtn3.setEnabled(true);
+    	    calc.pbtn4.setEnabled(true);
+    	    calc.pbtn5.setEnabled(true);
+    	    calc.pbtn6.setEnabled(true);
+    	    calc.pbtn7.setEnabled(true);
+    	    calc.pbtn8.setEnabled(false);
+    	    calc.pbtn9.setEnabled(false);
+    	    calc.pbtnA.setEnabled(false);
+    	    calc.pbtnB.setEnabled(false);
+    	    calc.pbtnC.setEnabled(false);
+    	    calc.pbtnD.setEnabled(false);
+    	    calc.pbtnE.setEnabled(false);
+    	    calc.pbtnF.setEnabled(false);
+    	} else if (str.equals("BIN")) {
+    	    calc.pbtn00.setEnabled(true);
+    	    calc.pbtn0.setEnabled(true);
+    	    calc.pbtn1.setEnabled(true);
+    	    calc.pbtn2.setEnabled(false);
+    	    calc.pbtn3.setEnabled(false);
+    	    calc.pbtn4.setEnabled(false);
+    	    calc.pbtn5.setEnabled(false);
+    	    calc.pbtn6.setEnabled(false);
+    	    calc.pbtn7.setEnabled(false);
+    	    calc.pbtn8.setEnabled(false);
+    	    calc.pbtn9.setEnabled(false);
+    	    calc.pbtnA.setEnabled(false);
+            calc.pbtnB.setEnabled(false);
+    	    calc.pbtnC.setEnabled(false);
+    	    calc.pbtnD.setEnabled(false);
+    	    calc.pbtnE.setEnabled(false);
+    	    calc.pbtnF.setEnabled(false);
+    	}
+    }
+    
+    private void numnext(Calculator calc) {
         if (calc.inputnum == true) {
-            if (combo.getSelectedItem().equals("Programmer")) {
-                if (pcombo.getSelectedItem().equals("HEX")) {
-                    calc.PushList.add(String.valueOf(Integer.parseInt(calc.sb.toString(),16)));
-                } else if (pcombo.getSelectedItem().equals("OCT")) {
-                    calc.PushList.add(String.valueOf(Integer.parseInt(calc.sb.toString(),8)));
-                } else if (pcombo.getSelectedItem().equals("BIN")) {
-                    calc.PushList.add(String.valueOf(Integer.parseInt(calc.sb.toString(),2)));
-                } else {
-                    calc.PushList.add(calc.sb.toString());
-                }
+            calc.PushList.add(calc.sb.toString());
+            calc.sb.delete(0, calc.sb.length());
+            calc.inputnum = false;
+            calc.inputeq = false;
+        }
+    }
+    
+    private void numnext(Calculator calc, Object str) {
+        if (calc.inputnum == true) {
+            if (str.equals("HEX")) {
+                calc.PushList.add(String.valueOf(Integer.parseInt(calc.sb.toString(),16)));
+            } else if (str.equals("OCT")) {
+                calc.PushList.add(String.valueOf(Integer.parseInt(calc.sb.toString(),8)));
+            } else if (str.equals("BIN")) {
+                calc.PushList.add(String.valueOf(Integer.parseInt(calc.sb.toString(),2)));
             } else {
                 calc.PushList.add(calc.sb.toString());
             }
@@ -528,7 +558,7 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
         }
   }
   
-  private void eqnext(Calculator calc) {
+    private void eqnext(Calculator calc) {
         if (calc.inputeq == true) {
             calc.inputeq = false;
             calc.sb.delete(0, calc.sb.length());
@@ -560,4 +590,25 @@ class Calculator extends JFrame implements ActionListener, ItemListener {
             calc.inputop = true;
             setClear(calc,text1);
     }
+    
+    @Override
+	public void keyTyped(KeyEvent e) {
+	}
+ 
+	@Override
+	public void keyPressed(KeyEvent e) {
+        Process pro = new Process();
+		switch ( e.getKeyCode() ) {
+		case KeyEvent.VK_ENTER:
+			//System.out.println("Enterが押されました");
+            String str = textc4.getText(); 
+            texta1.setText(pro.equalcalc(this,str));
+            textc4.setText("");
+			break;
+		}
+	}
+ 
+	@Override
+	public void keyReleased(KeyEvent e) {
+	}
 }

@@ -27,6 +27,8 @@ import java.lang.NumberFormatException;
 import java.math.RoundingMode;
 import java.math.MathContext;
 import java.net.URISyntaxException;
+import java.io.FileWriter;
+import java.util.regex.*;
 
 public class Process {
 	public String equalcalc(Calculator calc, String str) {
@@ -664,6 +666,65 @@ public class Process {
             }
         } catch(FileNotFoundException er) {
             System.out.println(er);
+        } catch(IOException er) {
+            System.out.println(er);
+        }
+    }
+    
+    public void saveFile(Calculator calc, JTextArea text) {
+	    ToRPN trpn = new ToRPN();
+		Calc cal = new Calc();
+		ExecPath ep = new ExecPath();
+		PlatformUtils pu = new PlatformUtils();
+    	String str;
+    	BufferedReader br;
+    	File file,dir = new File(System.getProperty("user.dir"));
+        try{
+        	/*
+        	try {
+	        	dir = new File(ep.getApplicationPath());
+        		//System.out.println(dir);
+	        	dir = new File(dir.getParent());
+        		//System.out.println(dir);
+	        } catch (URISyntaxException e) {
+	        	System.out.println(e);
+	        	dir = new File(System.getProperty("user.dir"));
+	        }//*/
+	        //dir = new File(System.getProperty("user.dir"));
+	        if (pu.isWindows()) {
+		        dir = new File(ep.get_currentpath()+"TestData\\");
+	        } else {
+		        dir = new File(ep.get_currentpath()+"TestData/");
+		    }
+	        
+            JFileChooser filechooser = new JFileChooser(dir);
+	        while(true) {
+            	if ( filechooser.showSaveDialog(calc) == JFileChooser.APPROVE_OPTION ) {
+                	file = filechooser.getSelectedFile();
+                	Pattern p = Pattern.compile(".+\\.[a-zA-Z0-9]+");
+					Matcher m = p.matcher(file.toString());
+					if(m.matches()==false) {
+						file=new File(file.toString()+".txt");
+					}
+                	if (file.exists()) {
+                		switch (JOptionPane.showConfirmDialog(calc, file.getName() + " は既に存在します。\n上書きしますか？", "上書き保存の確認", JOptionPane.YES_NO_CANCEL_OPTION)) {
+							case JOptionPane.YES_OPTION:
+								break;
+							case JOptionPane.NO_OPTION:
+								continue;
+							case JOptionPane.CANCEL_OPTION:
+								return;
+						} break;
+                	} else {
+                		break;
+                	}
+       	    	} else {
+       	    		return;
+       	    	}
+       	    }
+	        FileWriter fw = new FileWriter(file);
+    	    fw.write(text.getText());
+          	fw.close();
         } catch(IOException er) {
             System.out.println(er);
         }

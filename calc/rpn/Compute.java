@@ -26,14 +26,7 @@ public class Compute {
 		return BigDecimal.valueOf(x).setScale(0, RoundingMode.UP).doubleValue();
 	}
 	public static double atan(double x,double y) {
-		if (x == 0) return Math.PI/2 * y / Math.abs(y);
-		else {
-			if (x > 0) {
-				return Math.atan(y / x);
-			} else {
-				return Math.atan(y / x)-Math.PI;
-			}
-		}
+		return Math.atan2(y,x);
 	}
 	public static double fibonacci(double n) {
 		int m = (int)n;
