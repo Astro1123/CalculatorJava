@@ -339,6 +339,8 @@ public class Process {
         BigDecimal yd;
     	double x0 = input2;
     	double dx = input3;
+    	int cnt = input4;
+    	if (cnt < 1) cnt = 1;
         
         try {
             for (int i = 0; (t = l.read()) != Token.EOF; i++) {
@@ -357,7 +359,7 @@ public class Process {
 		    calc.typelist.add("整数");
 		}
 		calc.textc8.setText("x\t: f(x)\n");
-		for (int i = 0; i < input4; i++) {
+		for (int i = 0; i < cnt; i++) {
 			listc1 = new ArrayList<>(calc.list);
 			typelistc1 = new ArrayList<>(calc.typelist);
 			cons.constant(listc1,typelistc1,x0+i*dx);
