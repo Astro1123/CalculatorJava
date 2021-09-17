@@ -70,7 +70,7 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
     JComboBox<String> combo2Volume;
     JComboBox<String> combo1SIp;
     JComboBox<String> combo2SIp;
-	String combodata[] = {"Standard", "Scientific", "Area", "Script", "Solve","Programmer","Unit"};
+	String combodata[] = {"Standard", "Scientific", "Area", "Script", "Solve","Programmer","Unit","Table"};
 	String combodataunit[] = {"Length","Mass","Time","Temperature","Angle","Solid Angle","Force","Ratio","Velocity","Energy","Pressure","Area","Volume","SI prefixes"};
 	String pcombodata[] = {"HEX","DEC","OCT","BIN"};
 	String combodatac5[] = {"NewtonModified", "Newton", "FalsePosition"};
@@ -93,6 +93,11 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
     JTextField textc5in1;
     JTextField textc5in2;
     JTextField textc5in3;
+    JTextField textc8in1;
+    JTextField textc8in2;
+    JTextField textc8in3;
+    JTextField textc8in4;
+    JTextArea textc8;
     JTextArea texta6;
     JComboBox<String> pcombo;
     JButton pbtn00;
@@ -134,6 +139,7 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
         JPanel card5 = new JPanel();
         JPanel card6 = new JPanel();
         JPanel card7 = new JPanel();
+        JPanel card8 = new JPanel();
         
         cardPanel = new JPanel();
         layout = new CardLayout();
@@ -146,6 +152,7 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
         cardPanel.add(card5, combodata[4]);
         cardPanel.add(card6, combodata[5]);
         cardPanel.add(card7, combodata[6]);
+        cardPanel.add(card8, combodata[7]);
         
         JPanel p0 = new JPanel();
         p0.setLayout(new FlowLayout());
@@ -206,6 +213,9 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
         p7 = draw.dc7(this);
         card7.add(p7);
         
+        JPanel p8 = draw.dc8(this);
+        card8.add(p8);
+        
         getContentPane().add(cardPanel, BorderLayout.CENTER);
         getContentPane().add(pt, BorderLayout.NORTH);
         getContentPane().add(p0, BorderLayout.SOUTH);
@@ -240,7 +250,10 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
         } else if (cmd.equals("SolveCard5")) {
             pro.solveequal(this, textc5in1.getText(), Double.parseDouble(textc5in2.getText()), Double.parseDouble(textc5in3.getText()),(String)comboc5.getSelectedItem());
             return;
-        }  else if (cmd.equals("OpenFileCard4")) {
+        } else if (cmd.equals("SolveCard8")) {
+            pro.tableequal(this, textc8in1.getText(), Double.parseDouble(textc8in2.getText()), Double.parseDouble(textc8in3.getText()), Integer.parseInt(textc8in4.getText()));
+            return;
+        } else if (cmd.equals("OpenFileCard4")) {
             pro.openFile(this, textc4);
         } else if (cmd.equals("SaveFileCard4")) {
             pro.saveFile(this, textc4);

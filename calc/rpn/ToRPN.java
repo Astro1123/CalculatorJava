@@ -80,6 +80,75 @@ public class ToRPN {
 		return list;
 	}
 	
+	public ArrayList<String> toRPN(ArrayList<String> inlist,ArrayList<String> typelist) {
+		int tp1=0,tp2=0;
+		stack = new ArrayDeque<>();
+		opl = new OperatorList();
+		list = new ArrayList<>();
+		
+		oplinit(opl,true);
+		
+		for ( int i = 0; i < inlist.size(); i++ ) {
+			if(typelist.get(i).equals("整数") || typelist.get(i).equals("実数")) {
+				list.add(inlist.get(i));
+			} else if(inlist.get(i).equals("x") || inlist.get(i).equals("y") || inlist.get(i).equals("z") || inlist.get(i).equals("k") || inlist.get(i).equals("h") || inlist.get(i).equals("c") || inlist.get(i).equals("G") || inlist.get(i).equals("g") || inlist.get(i).equals("hbar") || inlist.get(i).equals("p") || inlist.get(i).equals("q") || inlist.get(i).equals("r") || inlist.get(i).equals("s") || inlist.get(i).equals("m") || inlist.get(i).equals("n") || inlist.get(i).equals("theta") || inlist.get(i).equals("pi") || inlist.get(i).equals("e")) {
+				list.add(inlist.get(i));
+			} else if (inlist.get(i).equals("(")) {
+				stack.push(inlist.get(i));
+			} else if (inlist.get(i).equals(")")) {
+				while(true) {
+					if(stack.peek().equals("(")) {
+						stack.pop();
+						break;
+					} else if (stack.size() == 0) {
+						System.exit(-1);
+					} else {
+						list.add(stack.pop());
+					}
+				}
+			} else if (inlist.get(i).equals(",")) {
+				while(true) {
+					if(stack.peek().equals("(") || stack.peek().equals("=")) {
+						break;
+					} else if (stack.size()==0) {
+						break;
+					} else {
+						list.add(stack.pop());
+					}
+				}
+			} else {
+				for ( int j = 0; j < opl.list.size(); j++ ) {
+					if ( opl.list.get(j).op.equals(inlist.get(i))) {
+						tp1 = opl.list.get(j).rank;
+						break;
+					}
+				}
+				while (true) {
+					for ( int j = 0; j < opl.list.size(); j++ ) {
+						if ( opl.list.get(j).op.equals(stack.peek())) {
+							tp2 = opl.list.get(j).rank;
+							break;
+						}
+					}
+					if (tp1 >= tp2) break;
+					if (stack.size()==0) break;
+					list.add(stack.pop());
+				}
+				stack.push(inlist.get(i));
+			}
+		}
+		while(true) {
+			if (stack.size()==0) {
+				break;
+			} else {
+				list.add(stack.pop());
+			}
+		}
+		inlist.clear();
+		typelist.clear();
+		return list;
+	}
+	
 	private void oplinit(OperatorList opl, boolean mode) {
 		if (mode == true) {
 			opl.list.add(opl.InputOperatorList("*",7));

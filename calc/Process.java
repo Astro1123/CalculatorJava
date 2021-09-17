@@ -322,7 +322,51 @@ public class Process {
 	        calc.texta1.setText(num + " [" + input3 + "] = " + ans.stripTrailingZeros().toPlainString() + " [" + input4 + "]");
 	    } 
     }
+    
+    public void tableequal(Calculator calc, String input1, double input2, double input3, int input4) {
+    	Token t;
+		SignSymbols ss = new SignSymbols();
+	    ToRPN trpn = new ToRPN();
+		Calc cal = new Calc();
+		Const cons = new Const();
+        //System.out.println(str);
+        Reader reader = new StringReader(input1);
+        Lexer l = new Lexer(reader);
+        calc.typelist = new ArrayList<>();
+        calc.list = new ArrayList<>();
+        ArrayList<String> listc1;
+        ArrayList<String> typelistc1;
+        BigDecimal yd;
+    	double x0 = input2;
+    	double dx = input3;
         
+        try {
+            for (int i = 0; (t = l.read()) != Token.EOF; i++) {
+			    if(t.getText()==Token.EOL) continue;
+			    calc.list.add(t.getText());
+			    calc.typelist.add(t.getType().getLabel());
+			    //System.out.println(list.get(list.size()-1));
+		    }
+		}
+		catch (ParseException e) {
+		    System.exit(-1);
+		}
+		//System.out.println(list);
+		if (calc.list.size() == 0) {
+		    calc.list.add("0");
+		    calc.typelist.add("整数");
+		}
+		calc.textc8.setText("x\t: f(x)\n");
+		for (int i = 0; i < input4; i++) {
+			listc1 = new ArrayList<>(calc.list);
+			typelistc1 = new ArrayList<>(calc.typelist);
+			cons.constant(listc1,typelistc1,x0+i*dx);
+			ss.signSymbols(listc1,typelistc1);
+			listc1=trpn.toRPN(listc1,typelistc1);
+			calc.textc8.append(x0+i*dx + "\t: " + cal.calc(listc1).toPlainString() + "\n");
+		}
+    }
+    
     public void solveequal(Calculator calc, String input1, double input2, double input3, String input4) {
     	Token t;
 		SignSymbols ss = new SignSymbols();

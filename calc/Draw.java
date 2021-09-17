@@ -1105,6 +1105,61 @@ public class Draw {
         return p1;
     }
     
+    // Card8
+  	public JPanel dc8(Calculator calc) {
+        JPanel p5 = new JPanel();
+        p5.setLayout(new BorderLayout());
+        JPanel p5p1 = new JPanel();
+        p5p1.setLayout(new BorderLayout());
+        JPanel p5p1p1 = new JPanel();
+        p5p1p1.setLayout(new FlowLayout());
+        JPanel p5p1p2 = new JPanel();
+        p5p1p2.setLayout(new FlowLayout());
+        JPanel p5p1p3 = new JPanel();
+        p5p1p3.setLayout(new FlowLayout());
+        JPanel p5p2p1 = new JPanel();
+        p5p2p1.setLayout(new FlowLayout());
+        JPanel p5p2p2 = new JPanel();
+        p5p2p2.setLayout(new FlowLayout());
+        JPanel p5p2p3 = new JPanel();
+        p5p2p3.setLayout(new FlowLayout());
+        JPanel p5p2 = new JPanel();
+        p5p2.setLayout(new BorderLayout());
+        p5.add(p5p1, BorderLayout.NORTH);
+        p5.add(p5p2, BorderLayout.CENTER);
+        p5p1.add(p5p1p1, BorderLayout.NORTH);
+        p5p1.add(p5p1p2, BorderLayout.CENTER);
+        p5p1.add(p5p1p3, BorderLayout.SOUTH);
+        p5p2.add(p5p2p1, BorderLayout.NORTH);
+        p5p2.add(p5p2p2, BorderLayout.CENTER);
+        p5p2.add(p5p2p3, BorderLayout.SOUTH);
+        JLabel labelc5a = new JLabel("f(x) = ");
+        calc.textc8in1 = new JTextField("0", 30);
+        JLabel labelc5b = new JLabel("x0 = ");
+        calc.textc8in2 = new JTextField("0", 30);
+        JLabel labelc5c = new JLabel("dx = ");
+        calc.textc8in3 = new JTextField("1", 30);
+        JLabel labelc5d = new JLabel("count = ");
+        calc.textc8in4 = new JTextField("1", 30);
+        JButton btnc5 = new JButton("Solve");
+        calc.textc8 = new JTextArea(8, 41);
+        JScrollPane scrollpanec8 = new JScrollPane(calc.textc8);
+	    calc.textc8.setLineWrap(true);
+        btnc5.addActionListener(calc);
+        btnc5.setActionCommand("SolveCard8");
+        p5p1p1.add(labelc5a);
+        p5p1p1.add(calc.textc8in1);
+        p5p1p2.add(labelc5b);
+        p5p1p2.add(calc.textc8in2);
+        p5p1p3.add(labelc5c);
+        p5p1p3.add(calc.textc8in3);
+        p5p2p1.add(labelc5d);
+        p5p2p1.add(calc.textc8in4);
+        p5p2p2.add(btnc5);
+        p5p2p3.add(scrollpanec8);
+        return p5;
+    }
+    
     JButton Button(String str) {
         JButton btn = new JButton(str);
         btn.setPreferredSize(new Dimension(3*23,1*22));
