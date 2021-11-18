@@ -57,11 +57,7 @@ public class ToRPN {
 							break;
 						}
 					}
-					if (mode == true) {
-						if (tp1 >= tp2) break;
-					} else {
-						if (tp1 > tp2) break;
-					}
+					if (tp1 > tp2) break;
 					if (stack.size()==0) break;
 					list.add(stack.pop());
 				}
