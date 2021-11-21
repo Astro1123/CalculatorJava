@@ -3,7 +3,6 @@ package calc;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 
 public class Draw {
     // Card1
@@ -1158,6 +1157,57 @@ public class Draw {
         p5p2p1.add(calc.textc8in4);
         p5p2p2.add(btnc5);
         p5p2p3.add(scrollpanec8);
+        return p5;
+    }
+    
+    // Card9
+  	public JPanel dc9(Calculator calc) {
+        JPanel p5 = new JPanel();
+        p5.setLayout(new BorderLayout());
+        JPanel p5p1 = new JPanel();
+        p5p1.setLayout(new BorderLayout());
+        JPanel p5p1p1 = new JPanel();
+        p5p1p1.setLayout(new FlowLayout());
+        JPanel p5p1p2 = new JPanel();
+        p5p1p2.setLayout(new FlowLayout());
+        JPanel p5p1p3 = new JPanel();
+        p5p1p3.setLayout(new FlowLayout());
+        JPanel p5p2p1 = new JPanel();
+        p5p2p1.setLayout(new FlowLayout());
+        JPanel p5p2p2 = new JPanel();
+        p5p2p2.setLayout(new FlowLayout());
+        JPanel p5p2p3 = new JPanel();
+        p5p2p3.setLayout(new FlowLayout());
+        JPanel p5p2 = new JPanel();
+        p5p2.setLayout(new BorderLayout());
+        p5.add(p5p1, BorderLayout.NORTH);
+        p5.add(p5p2, BorderLayout.CENTER);
+        p5p1.add(p5p1p1, BorderLayout.NORTH);
+        p5p1.add(p5p1p2, BorderLayout.CENTER);
+        p5p1.add(p5p1p3, BorderLayout.SOUTH);
+        p5p2.add(p5p2p1, BorderLayout.NORTH);
+        p5p2.add(p5p2p2, BorderLayout.CENTER);
+        p5p2.add(p5p2p3, BorderLayout.SOUTH);
+        JLabel labelc5a = new JLabel("f(x) = ");
+        calc.textc9in1 = new JTextField("0", 30);
+        JLabel labelc5b = new JLabel("x0 = ");
+        calc.textc9in2 = new JTextField("-1", 30);
+        JLabel labelc5c = new JLabel("x1 = ");
+        calc.textc9in3 = new JTextField("1", 30);
+        JLabel labelc5d = new JLabel("partition = ");
+        calc.textc9in4 = new JTextField("620", 30);
+        JButton btnc5 = new JButton("Graph");
+        btnc5.addActionListener(calc);
+        btnc5.setActionCommand("GraphOpen");
+        p5p1p1.add(labelc5a);
+        p5p1p1.add(calc.textc9in1);
+        p5p1p2.add(labelc5b);
+        p5p1p2.add(calc.textc9in2);
+        p5p1p3.add(labelc5c);
+        p5p1p3.add(calc.textc9in3);
+        p5p2p1.add(labelc5d);
+        p5p2p1.add(calc.textc9in4);
+        p5p2p2.add(btnc5);
         return p5;
     }
         

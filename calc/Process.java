@@ -368,6 +368,57 @@ public class Process {
 			calc.textc8.append(x0+i*dx + "\t: " + cal.calc(listc1).toPlainString() + "\n");
 		}
     }
+    
+    public ArrayList<Double> graphequal(Calculator calc, String input1, double input2, double input3, int input4) {
+    	Token t;
+		SignSymbols ss = new SignSymbols();
+	    ToRPN trpn = new ToRPN();
+		Calc cal = new Calc();
+		Const cons = new Const();
+        //System.out.println(str);
+        Reader reader = new StringReader(input1);
+        Lexer l = new Lexer(reader);
+        calc.typelist = new ArrayList<>();
+        calc.list = new ArrayList<>();
+        ArrayList<String> listc1;
+        ArrayList<String> typelistc1;
+        ArrayList<Double> out = new ArrayList<>();
+        BigDecimal yd;
+    	double x0 = input2;
+    	double x1 = input3;
+    	int cnt = input4+1;
+    	String str;
+    	out.add((double)cnt);
+    	if (cnt < 1) cnt = 1;
+        
+        try {
+            for (int i = 0; (t = l.read()) != Token.EOF; i++) {
+			    if(t.getText()==Token.EOL) continue;
+			    calc.list.add(t.getText());
+			    calc.typelist.add(t.getType().getLabel());
+			    //System.out.println(list.get(list.size()-1));
+		    }
+		}
+		catch (ParseException e) {
+		    System.exit(-1);
+		}
+		//System.out.println(list);
+		if (calc.list.size() == 0) {
+		    calc.list.add("0");
+		    calc.typelist.add("整数");
+		}
+		for (int i = 0; i < cnt; i++) {
+			listc1 = new ArrayList<>(calc.list);
+			typelistc1 = new ArrayList<>(calc.typelist);
+			cons.constant(listc1,typelistc1,x0+i*(x1-x0)/input4);
+			ss.signSymbols(listc1,typelistc1);
+			listc1=trpn.toRPN(listc1,typelistc1);
+			out.add(x0+i*(x1-x0)/input4);
+			str = cal.calc(listc1).toPlainString();
+			out.add(Double.parseDouble(str));
+		}
+		return out;
+    }
         
     public void solveequal(Calculator calc, String input1, double input2, double input3, String input4) {
     	Token t;

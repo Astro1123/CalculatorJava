@@ -28,7 +28,7 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
 	JComboBox<String> comboc5;
 	JComboBox<String> combounit;
 	static Calculator frame;
-	static Calculator frame2;
+	JFrame frame2;
     String strlistLen[] = {"m","km","cm","mm","μm","nm","pm","fm","Å","ly","au","pc","kpc","Mpc","Gpc","inch","feet","yard","mile","nautical mile","寸","尺","間","尋","町","里"};
     String strlistTemp[] = {"℃","℉","K"};
     String strlistMass[] = {"g","kg","t","mg","eV/c^2","keV/c^2","MeV/c^2","GeV/c^2","lb","oz","ct","momme","貫","斤"};
@@ -71,7 +71,7 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
     JComboBox<String> combo2Volume;
     JComboBox<String> combo1SIp;
     JComboBox<String> combo2SIp;
-	String combodata[] = {"Standard", "Scientific", "Area", "Script", "Solve","Programmer","Unit","Table"};
+	String combodata[] = {"Standard", "Scientific", "Area", "Script", "Solve","Programmer","Unit","Table","Graph"};
 	String combodataunit[] = {"Length","Mass","Time","Temperature","Angle","Solid Angle","Force","Ratio","Velocity","Energy","Pressure","Area","Volume","SI prefixes"};
 	String pcombodata[] = {"HEX","DEC","OCT","BIN"};
 	String combodatac5[] = {"NewtonModified", "Newton", "FalsePosition"};
@@ -99,6 +99,10 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
     JTextField textc8in3;
     JTextField textc8in4;
     JTextArea textc8;
+    JTextField textc9in1;
+    JTextField textc9in2;
+    JTextField textc9in3;
+    JTextField textc9in4;
     JTextArea texta6;
     JComboBox<String> pcombo;
     JButton pbtn00;
@@ -123,13 +127,14 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
     ArrayList<Double> graphout = new ArrayList<Double>();
 	
     public static void main(String args[]){
-        frame = new Calculator("Main");
+        frame = new Calculator();
         frame.setVisible(true);
     }
 
-    Calculator(String str) {
+    Calculator() {
         setBounds(100, 100, 640, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
         PushList = new ArrayDeque<>();
         sb = new StringBuilder();
         
@@ -142,6 +147,7 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
         JPanel card6 = new JPanel();
         JPanel card7 = new JPanel();
         JPanel card8 = new JPanel();
+        JPanel card9 = new JPanel();
         
         cardPanel = new JPanel();
         layout = new CardLayout();
@@ -155,6 +161,7 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
         cardPanel.add(card6, combodata[5]);
         cardPanel.add(card7, combodata[6]);
         cardPanel.add(card8, combodata[7]);
+        cardPanel.add(card9, combodata[8]);
         
         JPanel p0 = new JPanel();
         p0.setLayout(new FlowLayout());
@@ -218,6 +225,8 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
         JPanel p8 = draw.dc8(this);
         card8.add(p8);
         
+        JPanel p9 = draw.dc9(this);
+        card9.add(p9);
         
         getContentPane().add(cardPanel, BorderLayout.CENTER);
         getContentPane().add(pt, BorderLayout.NORTH);
@@ -250,6 +259,13 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
 
         if (cmd.equals("Quit")) {
             System.exit(0);
+        } else if (cmd.equals("GraphOpen")) {
+            frame2 = GWindow(pro.graphequal(this, textc9in1.getText(), Double.parseDouble(textc9in2.getText()), Double.parseDouble(textc9in3.getText()), Integer.parseInt(textc9in4.getText())));
+            frame2.setVisible(true);
+            return;
+        } else if (cmd.equals("GraphClose")) {
+            frame2.setVisible(false);
+            return;
         } else if (cmd.equals("SolveCard5")) {
             pro.solveequal(this, textc5in1.getText(), Double.parseDouble(textc5in2.getText()), Double.parseDouble(textc5in3.getText()),(String)comboc5.getSelectedItem());
             return;
@@ -629,4 +645,123 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
 	@Override
 	public void keyReleased(KeyEvent e) {
 	}
+
+    private JFrame GWindow(ArrayList<Double> data) {
+        JFrame frame2 = new JFrame();
+        frame2.setTitle("Graph");
+        frame2.setBounds(150, 150, 640, 500);
+        frame2.setResizable(false);
+        
+        JPanel p = new JPanel();
+        p.setLayout(new BorderLayout());
+        frame2.add(p);
+        
+        GCanvas c = new GCanvas(data);
+        p.add(c, BorderLayout.CENTER);
+        JButton btn = new JButton("Close");
+        btn.addActionListener(this);
+        btn.setActionCommand("GraphClose");
+        p.add(btn, BorderLayout.SOUTH);
+        
+        return frame2;
+    }
+    
+    static class GCanvas extends Canvas {
+        Dimension dimension;
+        int cnt;
+        ArrayList<Double> x;
+        ArrayList<Double> y;
+        double xmin,ymin,xmax,ymax;
+        
+        GCanvas(ArrayList<Double> data) {
+            dimension = getSize();
+            setBackground(Color.lightGray);
+            
+            x = new ArrayList<>();
+            y = new ArrayList<>();
+            ymin=data.get(2);
+            ymax=data.get(2);
+            double z;
+            
+            cnt = (int)Double.parseDouble(String.valueOf(data.get(0)));
+            for (int i = 0; i < cnt; i++) {
+                x.add(data.get(2*i+1));
+                z = data.get(2*i+2);
+                y.add(z);
+                if (ymin > z) {
+                    ymin = z;
+                }
+                if (ymax < z) {
+                    ymax = z;
+                }
+            }
+            xmin = x.get(0);
+            xmax = x.get(x.size()-1);
+            
+            if ((ymax - ymin) < 0.001) {
+                ymax = 1;
+                ymin = -1;
+            }
+            
+            if ((xmax - xmin) < 0.001) {
+                xmax = 1;
+                xmin = -1;
+            }
+            //*/
+        }
+        
+        private double yc(double y) {
+            return dimension.height - (y - ymin)/(ymax-ymin)*(dimension.height-20) - 10;
+        }
+        
+        private double xc(double x) {
+            return (x - xmin)/(xmax-xmin)*(dimension.width-20) + 10;
+        }
+        /*
+        private double xc(int x) {
+            return dimension.width / 2.0 + x;
+        }//*/
+        
+        public void paint(Graphics g) {
+            dimension = getSize();
+            
+            g.setColor(Color.white);
+            g.fillRect(10, 10, dimension.width - 20, dimension.height - 20);
+            
+            //軸の色は黒
+            g.setColor(Color.black);
+            //x軸
+            g.drawLine((int)xc(xmin),(int)yc(0),(int)xc(xmax),(int)yc(0));
+            //y軸
+            g.drawLine((int)xc(0),(int)yc(ymin),(int)xc(0),(int)yc(ymax));
+            
+            g.drawLine((int)xc(0)-2,(int)yc(ymin/2),(int)xc(0)+2,(int)yc(ymin/2));
+            g.drawLine((int)xc(0)-2,(int)yc(ymax/2),(int)xc(0)+2,(int)yc(ymax/2));
+            g.drawLine((int)xc(0)-2,(int)yc(ymin),(int)xc(0)+2,(int)yc(ymin));
+            g.drawLine((int)xc(0)-2,(int)yc(ymax),(int)xc(0)+2,(int)yc(ymax));
+            
+            g.drawLine((int)xc(xmin/2),(int)yc(0)-2,(int)xc(xmin/2),(int)yc(0)+2);
+            g.drawLine((int)xc(xmax/2),(int)yc(0)-2,(int)xc(xmax/2),(int)yc(0)+2);
+            g.drawLine((int)xc(xmin),(int)yc(0)-2,(int)xc(xmin),(int)yc(0)+2);
+            g.drawLine((int)xc(xmax),(int)yc(0)-2,(int)xc(xmax),(int)yc(0)+2);
+            
+            g.setColor(Color.black);
+            g.drawString("O", (int)xc(0)+5, (int)yc(0)+15);
+            
+            g.drawString(String.valueOf(xmin), (int)xc(xmin), (int)yc(0)+15);
+            g.drawString(String.valueOf(xmin/2), (int)xc(xmin/2), (int)yc(0)+15);
+            g.drawString(String.valueOf(xmax/2), (int)xc(xmax/2), (int)yc(0)+15);
+            g.drawString(String.valueOf(xmax), (int)xc(xmax)-20, (int)yc(0)+15);
+            
+            g.drawString(String.valueOf(ymax), (int)xc(0)+5, (int)yc(ymax)+15);
+            g.drawString(String.valueOf(ymax/2), (int)xc(0)+5, (int)yc(ymax/2)+10);
+            g.drawString(String.valueOf(ymin/2), (int)xc(0)+5, (int)yc(ymin/2)+10);
+            g.drawString(String.valueOf(ymin), (int)xc(0)+5, (int)yc(ymin)-5);
+            
+            g.setColor(Color.blue);
+            for(int i=0;i<x.size()-1;i++) {
+                g.drawLine( (int)(xc(x.get(i))), (int)(yc(y.get(i))), (int)(xc(x.get(i+1))), (int)(yc(y.get(i+1))) );
+            }
+        }
+    }
 }
