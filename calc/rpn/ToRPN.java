@@ -9,6 +9,7 @@ public class ToRPN {
 	OperatorList opl;
 	public ArrayList<String> toRPN(ArrayList<String> inlist,ArrayList<String> typelist,boolean mode) {
 		int tp1=0,tp2=0;
+		String tp2s = "";
 		stack = new ArrayDeque<>();
 		opl = new OperatorList();
 		list = new ArrayList<>();
@@ -54,10 +55,18 @@ public class ToRPN {
 					for ( int j = 0; j < opl.list.size(); j++ ) {
 						if ( opl.list.get(j).op.equals(stack.peek())) {
 							tp2 = opl.list.get(j).rank;
+							tp2s = opl.list.get(j).op;
 							break;
 						}
 					}
-					if (tp1 > tp2) break;
+					if (mode)
+						if (tp1 > tp2) break;
+						else if(tp1 == tp2) {
+							if ( !(tp2s.equals("-")) )
+								break;
+						}
+					else
+						if (tp1 > tp2) break;
 					if (stack.size()==0) break;
 					list.add(stack.pop());
 				}

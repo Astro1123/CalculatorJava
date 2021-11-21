@@ -368,7 +368,7 @@ public class Process {
 			calc.textc8.append(x0+i*dx + "\t: " + cal.calc(listc1).toPlainString() + "\n");
 		}
     }
-    
+        
     public void solveequal(Calculator calc, String input1, double input2, double input3, String input4) {
     	Token t;
 		SignSymbols ss = new SignSymbols();

@@ -28,6 +28,7 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
 	JComboBox<String> comboc5;
 	JComboBox<String> combounit;
 	static Calculator frame;
+	static Calculator frame2;
     String strlistLen[] = {"m","km","cm","mm","μm","nm","pm","fm","Å","ly","au","pc","kpc","Mpc","Gpc","inch","feet","yard","mile","nautical mile","寸","尺","間","尋","町","里"};
     String strlistTemp[] = {"℃","℉","K"};
     String strlistMass[] = {"g","kg","t","mg","eV/c^2","keV/c^2","MeV/c^2","GeV/c^2","lb","oz","ct","momme","貫","斤"};
@@ -119,13 +120,14 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
     JButton pbtnF;
     JPanel p7;
     Object pcomboselected;
+    ArrayList<Double> graphout = new ArrayList<Double>();
 	
     public static void main(String args[]){
-        frame = new Calculator();
+        frame = new Calculator("Main");
         frame.setVisible(true);
     }
 
-    Calculator() {
+    Calculator(String str) {
         setBounds(100, 100, 640, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         PushList = new ArrayDeque<>();
@@ -215,6 +217,7 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
         
         JPanel p8 = draw.dc8(this);
         card8.add(p8);
+        
         
         getContentPane().add(cardPanel, BorderLayout.CENTER);
         getContentPane().add(pt, BorderLayout.NORTH);
