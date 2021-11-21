@@ -386,6 +386,14 @@ public class Process {
         BigDecimal yd;
     	double x0 = input2;
     	double x1 = input3;
+    	if (x0 == x1) {
+    		x0 -= 1;
+    		x1 += 1;
+    	} else if (x0 > x1) {
+    		double tmp = x0;
+    		x0 = x1;
+    		x1 = tmp;
+    	}
     	int cnt = input4+1;
     	String str;
     	out.add((double)cnt);
