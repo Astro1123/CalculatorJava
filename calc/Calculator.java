@@ -753,44 +753,117 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
             
             DecimalFormat format = new DecimalFormat("0.######");
             
-            if ((int)yc(0)+25 > dimension.height) {
+            if (yc(0) > dimension.height-10) {
+                g.drawLine((int)xc(xmin),dimension.height-12,(int)xc(xmin),dimension.height-8);
+                g.drawLine((int)xc(xmin + dx),dimension.height-12,(int)xc(xmin + dx),dimension.height-8);
+                g.drawLine((int)xc(xmin + dx * 2),dimension.height-12,(int)xc(xmin + dx * 2),dimension.height-8);
+                g.drawLine((int)xc(xmin + dx * 3),dimension.height-12,(int)xc(xmin + dx * 3),dimension.height-8);
+                g.drawLine((int)xc(xmin + dx * 4),dimension.height-12,(int)xc(xmin + dx * 4),dimension.height-8);
+                g.drawLine((int)xc(xmin),dimension.height-10,(int)xc(xmax),dimension.height-10);
+                
+                if (!(format.format(xmin).equals("0")))
+                    g.drawString(format.format(xmin), (int)xc(xmin), dimension.height-15);
+                if (!(format.format(xmin+dx).equals("0")))
+                    g.drawString(format.format(xmin + dx), (int)xc(xmin + dx), dimension.height-15);
+                if (!(format.format(xmin+dx*2).equals("0")))
+                    g.drawString(format.format(xmin+2*dx), (int)xc(xmin+2*dx), dimension.height-15);
+                if (!(format.format(xmin+dx*3).equals("0")))
+                    g.drawString(format.format(xmin+3*dx), (int)xc(xmin+3*dx), dimension.height-15);
+                if (!(format.format(xmin+dx*4).equals("0")))
+                    g.drawString(format.format(xmin+4*dx), (int)xc(xmin+4*dx)-20, dimension.height-15);
+            } else if (yc(0)+25 > dimension.height) {
                 g.drawString("O", (int)xc(0)+5, (int)yc(0)-5);
                 
                 if (!(format.format(xmin).equals("0")))
-                g.drawString(format.format(xmin), (int)xc(xmin), (int)yc(0)-5);
+                    g.drawString(format.format(xmin), (int)xc(xmin), (int)yc(0)-5);
                 if (!(format.format(xmin+dx).equals("0")))
-                g.drawString(format.format(xmin + dx), (int)xc(xmin + dx), (int)yc(0)-5);
+                    g.drawString(format.format(xmin + dx), (int)xc(xmin + dx), (int)yc(0)-5);
                 if (!(format.format(xmin+dx*2).equals("0")))
-                g.drawString(format.format(xmin + 2*dx), (int)xc(xmin + 2*dx), (int)yc(0)-5);
+                    g.drawString(format.format(xmin + 2*dx), (int)xc(xmin + 2*dx), (int)yc(0)-5);
                 if (!(format.format(xmin+dx*3).equals("0")))
-                g.drawString(format.format(xmin + 3*dx), (int)xc(xmin + 3*dx), (int)yc(0)-5);
+                    g.drawString(format.format(xmin + 3*dx), (int)xc(xmin + 3*dx), (int)yc(0)-5);
                 if (!(format.format(xmin+dx*4).equals("0")))
-                g.drawString(format.format(xmin + 4*dx), (int)xc(xmin + 4*dx)-20, (int)yc(0)-5);
+                    g.drawString(format.format(xmin + 4*dx), (int)xc(xmin + 4*dx)-20, (int)yc(0)-5);
+            } else if (yc(0) < 10) {
+                g.drawLine((int)xc(xmin),8,(int)xc(xmin),12);
+                g.drawLine((int)xc(xmin + dx),8,(int)xc(xmin + dx),12);
+                g.drawLine((int)xc(xmin + dx * 2),8,(int)xc(xmin + dx * 2),12);
+                g.drawLine((int)xc(xmin + dx * 3),8,(int)xc(xmin + dx * 3),12);
+                g.drawLine((int)xc(xmin + dx * 4),8,(int)xc(xmin + dx * 4),12);
+                g.drawLine((int)xc(xmin),10,(int)xc(xmax),10);
+                
+                if (!(format.format(xmin).equals("0")))
+                    g.drawString(format.format(xmin), (int)xc(xmin), 25);
+                if (!(format.format(xmin+dx).equals("0")))
+                    g.drawString(format.format(xmin + dx), (int)xc(xmin + dx), 25);
+                if (!(format.format(xmin+dx*2).equals("0")))
+                    g.drawString(format.format(xmin + 2*dx), (int)xc(xmin + 2*dx), 25);
+                if (!(format.format(xmin+dx*3).equals("0")))
+                    g.drawString(format.format(xmin + 3*dx), (int)xc(xmin + 3*dx), 25);
+                if (!(format.format(xmin+dx*4).equals("0")))
+                    g.drawString(format.format(xmin + 4*dx), (int)xc(xmin + 4*dx)-20, 25);
             } else {
                 g.drawString("O", (int)xc(0)+5, (int)yc(0)+15);
                 
                 if (!(format.format(xmin).equals("0")))
-                g.drawString(format.format(xmin), (int)xc(xmin), (int)yc(0)+15);
+                    g.drawString(format.format(xmin), (int)xc(xmin), (int)yc(0)+15);
                 if (!(format.format(xmin+dx).equals("0")))
-                g.drawString(format.format(xmin + dx), (int)xc(xmin + dx), (int)yc(0)+15);
+                    g.drawString(format.format(xmin + dx), (int)xc(xmin + dx), (int)yc(0)+15);
                 if (!(format.format(xmin+dx*2).equals("0")))
-                g.drawString(format.format(xmin + 2*dx), (int)xc(xmin + 2*dx), (int)yc(0)+15);
+                    g.drawString(format.format(xmin + 2*dx), (int)xc(xmin + 2*dx), (int)yc(0)+15);
                 if (!(format.format(xmin+dx*3).equals("0")))
-                g.drawString(format.format(xmin + 3*dx), (int)xc(xmin + 3*dx), (int)yc(0)+15);
+                    g.drawString(format.format(xmin + 3*dx), (int)xc(xmin + 3*dx), (int)yc(0)+15);
                 if (!(format.format(xmin+dx*4).equals("0")))
-                g.drawString(format.format(xmin + 4*dx), (int)xc(xmin + 4*dx)-20, (int)yc(0)+15);
+                    g.drawString(format.format(xmin + 4*dx), (int)xc(xmin + 4*dx)-20, (int)yc(0)+15);
             }
             
-            if (!(format.format(ymin+dy*4).equals("0")))
-            g.drawString(format.format(ymin + 4*dy), (int)xc(0)+5, (int)yc(ymin + 4*dy)+15);
-            if (!(format.format(ymin+dy*3).equals("0")))
-            g.drawString(format.format(ymin + 3*dy), (int)xc(0)+5, (int)yc(ymin + 3*dy)+10);
-            if (!(format.format(ymin+dy*2).equals("0")))
-            g.drawString(format.format(ymin + 2*dy), (int)xc(0)+5, (int)yc(ymin + 2*dy)+10);
-            if (!(format.format(ymin+dy*1).equals("0")))
-            g.drawString(format.format(ymin + dy), (int)xc(0)+5, (int)yc(ymin + dy)+10);
-            if (!(format.format(ymin).equals("0")))
-            g.drawString(format.format(ymin), (int)xc(0)+5, (int)yc(ymin)-5);
+            if (xc(0) > dimension.width-10) {
+                g.drawLine(dimension.width-10,(int)yc(ymin),dimension.width-10,(int)yc(ymax));
+                g.drawLine(dimension.width-12,(int)yc(ymin),dimension.width-8,(int)yc(ymin));
+                g.drawLine(dimension.width-12,(int)yc(ymin + dy),dimension.width-8,(int)yc(ymin + dy));
+                g.drawLine(dimension.width-12,(int)yc(ymin + dy * 2),dimension.width-8,(int)yc(ymin + dy * 2));
+                g.drawLine(dimension.width-12,(int)yc(ymin + dy * 3),dimension.width-8,(int)yc(ymin + dy * 3));
+                g.drawLine(dimension.width-12,(int)yc(ymin + dy * 4),dimension.width-8,(int)yc(ymin + dy * 4));
+                if (!(format.format(ymin+dy*4).equals("0")))
+                    g.drawString(format.format(ymin + 4*dy), dimension.width-30, (int)yc(ymin + 4*dy)+15);
+                if (!(format.format(ymin+dy*3).equals("0")))
+                    g.drawString(format.format(ymin + 3*dy), dimension.width-30, (int)yc(ymin + 3*dy)+10);
+                if (!(format.format(ymin+dy*2).equals("0")))
+                    g.drawString(format.format(ymin + 2*dy), dimension.width-30, (int)yc(ymin + 2*dy)+10);
+                if (!(format.format(ymin+dy*1).equals("0")))
+                    g.drawString(format.format(ymin + dy), dimension.width-30, (int)yc(ymin + dy)+10);
+                if (!(format.format(ymin).equals("0")))
+                    g.drawString(format.format(ymin), dimension.width-30, (int)yc(ymin)-5);
+            } else if (xc(0) < 10) {
+                g.drawLine(10,(int)yc(ymin),10,(int)yc(ymax));
+                g.drawLine(8,(int)yc(ymin),12,(int)yc(ymin));
+                g.drawLine(8,(int)yc(ymin + dy),12,(int)yc(ymin + dy));
+                g.drawLine(8,(int)yc(ymin + dy * 2),12,(int)yc(ymin + dy * 2));
+                g.drawLine(8,(int)yc(ymin + dy * 3),12,(int)yc(ymin + dy * 3));
+                g.drawLine(8,(int)yc(ymin + dy * 4),12,(int)yc(ymin + dy * 4));
+                
+                if (!(format.format(ymin+dy*4).equals("0")))
+                    g.drawString(format.format(ymin + 4*dy), 15, (int)yc(ymin + 4*dy)+15);
+                if (!(format.format(ymin+dy*3).equals("0")))
+                    g.drawString(format.format(ymin + 3*dy), 15, (int)yc(ymin + 3*dy)+10);
+                if (!(format.format(ymin+dy*2).equals("0")))
+                    g.drawString(format.format(ymin + 2*dy), 15, (int)yc(ymin + 2*dy)+10);
+                if (!(format.format(ymin+dy*1).equals("0")))
+                    g.drawString(format.format(ymin + dy), 15, (int)yc(ymin + dy)+10);
+                if (!(format.format(ymin).equals("0")))
+                    g.drawString(format.format(ymin), 15, (int)yc(ymin)-5);
+            } else {
+                if (!(format.format(ymin+dy*4).equals("0")))
+                    g.drawString(format.format(ymin + 4*dy), (int)xc(0)+5, (int)yc(ymin + 4*dy)+15);
+                if (!(format.format(ymin+dy*3).equals("0")))
+                    g.drawString(format.format(ymin + 3*dy), (int)xc(0)+5, (int)yc(ymin + 3*dy)+10);
+                if (!(format.format(ymin+dy*2).equals("0")))
+                    g.drawString(format.format(ymin + 2*dy), (int)xc(0)+5, (int)yc(ymin + 2*dy)+10);
+                if (!(format.format(ymin+dy*1).equals("0")))
+                    g.drawString(format.format(ymin + dy), (int)xc(0)+5, (int)yc(ymin + dy)+10);
+                if (!(format.format(ymin).equals("0")))
+                    g.drawString(format.format(ymin), (int)xc(0)+5, (int)yc(ymin)-5);
+            }
             
             
             g.setColor(Color.blue);
