@@ -148,6 +148,15 @@ public class Calc {
 		} else if (op.equals("tan")) {
 			a = StackPop(stack);
 			stack.push(Math.tan(a));
+		} else if (op.equals("sinh")) {
+			a = StackPop(stack);
+			stack.push(Math.sinh(a));
+		} else if (op.equals("cosh")) {
+			a = StackPop(stack);
+			stack.push(Math.cosh(a));
+		} else if (op.equals("tanh")) {
+			a = StackPop(stack);
+			stack.push(Math.tanh(a));
 		} else if (op.equals("atan")) {
 			a = StackPop(stack);
 			stack.push(Math.atan(a));

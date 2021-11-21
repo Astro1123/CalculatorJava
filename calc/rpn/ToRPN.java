@@ -165,6 +165,9 @@ public class ToRPN {
 			opl.list.add(opl.InputOperatorList("sqrt",100));
 			opl.list.add(opl.InputOperatorList("sin",100));
 			opl.list.add(opl.InputOperatorList("cos",100));
+			opl.list.add(opl.InputOperatorList("sinh",100));
+			opl.list.add(opl.InputOperatorList("cosh",100));
+			opl.list.add(opl.InputOperatorList("tanh",100));
 			opl.list.add(opl.InputOperatorList("tan",100));
 			opl.list.add(opl.InputOperatorList("asin",100));
 			opl.list.add(opl.InputOperatorList("acos",100));
@@ -220,6 +223,9 @@ public class ToRPN {
 			opl.list.add(opl.InputOperatorList("sin",10));
 			opl.list.add(opl.InputOperatorList("cos",10));
 			opl.list.add(opl.InputOperatorList("tan",10));
+			opl.list.add(opl.InputOperatorList("sinh",10));
+			opl.list.add(opl.InputOperatorList("cosh",10));
+			opl.list.add(opl.InputOperatorList("tanh",10));
 			opl.list.add(opl.InputOperatorList("asin",10));
 			opl.list.add(opl.InputOperatorList("acos",10));
 			opl.list.add(opl.InputOperatorList("atan",10));
