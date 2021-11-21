@@ -9,7 +9,6 @@ public class ToRPN {
 	OperatorList opl;
 	public ArrayList<String> toRPN(ArrayList<String> inlist,ArrayList<String> typelist,boolean mode) {
 		int tp1=0,tp2=0;
-		String tp2s = "";
 		stack = new ArrayDeque<>();
 		opl = new OperatorList();
 		list = new ArrayList<>();
@@ -55,16 +54,11 @@ public class ToRPN {
 					for ( int j = 0; j < opl.list.size(); j++ ) {
 						if ( opl.list.get(j).op.equals(stack.peek())) {
 							tp2 = opl.list.get(j).rank;
-							tp2s = opl.list.get(j).op;
 							break;
 						}
 					}
 					if (mode)
-						if (tp1 > tp2) break;
-						else if(tp1 == tp2) {
-							if ( !(tp2s.equals("-")) )
-								break;
-						}
+						if (tp1 >= tp2) break;
 					else
 						if (tp1 > tp2) break;
 					if (stack.size()==0) break;
@@ -156,17 +150,71 @@ public class ToRPN {
 	
 	private void oplinit(OperatorList opl, boolean mode) {
 		if (mode == true) {
-			opl.list.add(opl.InputOperatorList("*",7));
-			opl.list.add(opl.InputOperatorList("/",7));
-			opl.list.add(opl.InputOperatorList("//",7));
-			opl.list.add(opl.InputOperatorList("%",7));
-			opl.list.add(opl.InputOperatorList("%%",7));
-			opl.list.add(opl.InputOperatorList("+",6));
-			opl.list.add(opl.InputOperatorList("-",6));
+			opl.list.add(opl.InputOperatorList("*",70));
+			opl.list.add(opl.InputOperatorList("/",71));
+			opl.list.add(opl.InputOperatorList("//",71));
+			opl.list.add(opl.InputOperatorList("%",71));
+			opl.list.add(opl.InputOperatorList("%%",71));
+			opl.list.add(opl.InputOperatorList("+",60));
+			opl.list.add(opl.InputOperatorList("-",61));
 			opl.list.add(opl.InputOperatorList("=",0));
 			opl.list.add(opl.InputOperatorList("(",0));
 			opl.list.add(opl.InputOperatorList(",",0));
-			opl.list.add(opl.InputOperatorList("^",8));
+			opl.list.add(opl.InputOperatorList("^",80));
+			opl.list.add(opl.InputOperatorList("abs",100));
+			opl.list.add(opl.InputOperatorList("sqrt",100));
+			opl.list.add(opl.InputOperatorList("sin",100));
+			opl.list.add(opl.InputOperatorList("cos",100));
+			opl.list.add(opl.InputOperatorList("tan",100));
+			opl.list.add(opl.InputOperatorList("asin",100));
+			opl.list.add(opl.InputOperatorList("acos",100));
+			opl.list.add(opl.InputOperatorList("atan",100));
+			opl.list.add(opl.InputOperatorList("exp",100));
+			opl.list.add(opl.InputOperatorList("log",100));
+			opl.list.add(opl.InputOperatorList("deg",100));
+			opl.list.add(opl.InputOperatorList("rad",100));
+			opl.list.add(opl.InputOperatorList("sum",100));
+			opl.list.add(opl.InputOperatorList("fact",100));
+			opl.list.add(opl.InputOperatorList("atan2",100));
+			opl.list.add(opl.InputOperatorList("mod",100));
+			opl.list.add(opl.InputOperatorList("mod2",100));
+			opl.list.add(opl.InputOperatorList("floor",100));
+			opl.list.add(opl.InputOperatorList("ceil",100));
+			opl.list.add(opl.InputOperatorList("int",100));
+			opl.list.add(opl.InputOperatorList("rinf",100));
+			opl.list.add(opl.InputOperatorList("round",100));
+			opl.list.add(opl.InputOperatorList("revn",100));
+			opl.list.add(opl.InputOperatorList("pm",100));
+			opl.list.add(opl.InputOperatorList("percent",100));
+			opl.list.add(opl.InputOperatorList("pc",100));
+			opl.list.add(opl.InputOperatorList("tenexp",100));
+			opl.list.add(opl.InputOperatorList("lcm",100));
+			opl.list.add(opl.InputOperatorList("gcd",100));
+			opl.list.add(opl.InputOperatorList("fibonacci",100));
+			opl.list.add(opl.InputOperatorList("fib",100));
+			opl.list.add(opl.InputOperatorList("H",100));
+			opl.list.add(opl.InputOperatorList("C",100));
+			opl.list.add(opl.InputOperatorList("P",100));
+			opl.list.add(opl.InputOperatorList("NOT",50));
+			opl.list.add(opl.InputOperatorList("XOR",20));
+			opl.list.add(opl.InputOperatorList("XNOR",20));
+			opl.list.add(opl.InputOperatorList("OR",10));
+			opl.list.add(opl.InputOperatorList("AND",30));
+			opl.list.add(opl.InputOperatorList("SL",40));
+			opl.list.add(opl.InputOperatorList("SR",40));
+			opl.list.add(opl.InputOperatorList("SRNS",40));
+		} else {
+			opl.list.add(opl.InputOperatorList("*",10));
+			opl.list.add(opl.InputOperatorList("/",10));
+			opl.list.add(opl.InputOperatorList("//",10));
+			opl.list.add(opl.InputOperatorList("%",10));
+			opl.list.add(opl.InputOperatorList("%%",10));
+			opl.list.add(opl.InputOperatorList("+",10));
+			opl.list.add(opl.InputOperatorList("-",10));
+			opl.list.add(opl.InputOperatorList("=",0));
+			opl.list.add(opl.InputOperatorList("(",0));
+			opl.list.add(opl.InputOperatorList(",",0));
+			opl.list.add(opl.InputOperatorList("^",10));
 			opl.list.add(opl.InputOperatorList("abs",10));
 			opl.list.add(opl.InputOperatorList("sqrt",10));
 			opl.list.add(opl.InputOperatorList("sin",10));
@@ -190,9 +238,9 @@ public class ToRPN {
 			opl.list.add(opl.InputOperatorList("rinf",10));
 			opl.list.add(opl.InputOperatorList("round",10));
 			opl.list.add(opl.InputOperatorList("revn",10));
-			opl.list.add(opl.InputOperatorList("pm",10));
-			opl.list.add(opl.InputOperatorList("percent",10));
-			opl.list.add(opl.InputOperatorList("pc",10));
+			opl.list.add(opl.InputOperatorList("pm",100));
+			opl.list.add(opl.InputOperatorList("percent",100));
+			opl.list.add(opl.InputOperatorList("pc",100));
 			opl.list.add(opl.InputOperatorList("tenexp",10));
 			opl.list.add(opl.InputOperatorList("lcm",10));
 			opl.list.add(opl.InputOperatorList("gcd",10));
@@ -201,68 +249,14 @@ public class ToRPN {
 			opl.list.add(opl.InputOperatorList("H",10));
 			opl.list.add(opl.InputOperatorList("C",10));
 			opl.list.add(opl.InputOperatorList("P",10));
-			opl.list.add(opl.InputOperatorList("NOT",5));
-			opl.list.add(opl.InputOperatorList("XOR",2));
-			opl.list.add(opl.InputOperatorList("XNOR",2));
-			opl.list.add(opl.InputOperatorList("OR",1));
-			opl.list.add(opl.InputOperatorList("AND",3));
-			opl.list.add(opl.InputOperatorList("SL",4));
-			opl.list.add(opl.InputOperatorList("SR",4));
-			opl.list.add(opl.InputOperatorList("SRNS",4));
-		} else {
-			opl.list.add(opl.InputOperatorList("*",1));
-			opl.list.add(opl.InputOperatorList("/",1));
-			opl.list.add(opl.InputOperatorList("//",1));
-			opl.list.add(opl.InputOperatorList("%",1));
-			opl.list.add(opl.InputOperatorList("%%",1));
-			opl.list.add(opl.InputOperatorList("+",1));
-			opl.list.add(opl.InputOperatorList("-",1));
-			opl.list.add(opl.InputOperatorList("=",0));
-			opl.list.add(opl.InputOperatorList("(",0));
-			opl.list.add(opl.InputOperatorList(",",0));
-			opl.list.add(opl.InputOperatorList("^",1));
-			opl.list.add(opl.InputOperatorList("abs",1));
-			opl.list.add(opl.InputOperatorList("sqrt",1));
-			opl.list.add(opl.InputOperatorList("sin",1));
-			opl.list.add(opl.InputOperatorList("cos",1));
-			opl.list.add(opl.InputOperatorList("tan",1));
-			opl.list.add(opl.InputOperatorList("asin",1));
-			opl.list.add(opl.InputOperatorList("acos",1));
-			opl.list.add(opl.InputOperatorList("atan",1));
-			opl.list.add(opl.InputOperatorList("exp",1));
-			opl.list.add(opl.InputOperatorList("log",1));
-			opl.list.add(opl.InputOperatorList("deg",1));
-			opl.list.add(opl.InputOperatorList("rad",1));
-			opl.list.add(opl.InputOperatorList("sum",1));
-			opl.list.add(opl.InputOperatorList("fact",1));
-			opl.list.add(opl.InputOperatorList("atan2",1));
-			opl.list.add(opl.InputOperatorList("mod",1));
-			opl.list.add(opl.InputOperatorList("mod2",1));
-			opl.list.add(opl.InputOperatorList("floor",1));
-			opl.list.add(opl.InputOperatorList("ceil",1));
-			opl.list.add(opl.InputOperatorList("int",1));
-			opl.list.add(opl.InputOperatorList("rinf",1));
-			opl.list.add(opl.InputOperatorList("round",1));
-			opl.list.add(opl.InputOperatorList("revn",1));
-			opl.list.add(opl.InputOperatorList("pm",10));
-			opl.list.add(opl.InputOperatorList("percent",10));
-			opl.list.add(opl.InputOperatorList("pc",10));
-			opl.list.add(opl.InputOperatorList("tenexp",1));
-			opl.list.add(opl.InputOperatorList("lcm",1));
-			opl.list.add(opl.InputOperatorList("gcd",1));
-			opl.list.add(opl.InputOperatorList("fibonacci",1));
-			opl.list.add(opl.InputOperatorList("fib",1));
-			opl.list.add(opl.InputOperatorList("H",1));
-			opl.list.add(opl.InputOperatorList("C",1));
-			opl.list.add(opl.InputOperatorList("P",1));
-			opl.list.add(opl.InputOperatorList("NOT",1));
-			opl.list.add(opl.InputOperatorList("XOR",1));
-			opl.list.add(opl.InputOperatorList("XNOR",1));
-			opl.list.add(opl.InputOperatorList("OR",1));
-			opl.list.add(opl.InputOperatorList("AND",1));
-			opl.list.add(opl.InputOperatorList("SL",1));
-			opl.list.add(opl.InputOperatorList("SR",1));
-			opl.list.add(opl.InputOperatorList("SRNS",1));
+			opl.list.add(opl.InputOperatorList("NOT",10));
+			opl.list.add(opl.InputOperatorList("XOR",10));
+			opl.list.add(opl.InputOperatorList("XNOR",10));
+			opl.list.add(opl.InputOperatorList("OR",10));
+			opl.list.add(opl.InputOperatorList("AND",10));
+			opl.list.add(opl.InputOperatorList("SL",10));
+			opl.list.add(opl.InputOperatorList("SR",10));
+			opl.list.add(opl.InputOperatorList("SRNS",10));
 		}
 	}
 }
