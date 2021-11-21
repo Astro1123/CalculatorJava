@@ -126,6 +126,7 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
     JPanel p7;
     Object pcomboselected;
     ArrayList<Double> graphout = new ArrayList<Double>();
+    GCanvas canv;
 	
     public static void main(String args[]){
         frame = new Calculator();
@@ -133,7 +134,7 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
     }
 
     Calculator() {
-        frame2 = new JFrame();
+        frame2 = GWindow();
         
         setBounds(100, 100, 640, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -263,8 +264,7 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
         if (cmd.equals("Quit")) {
             System.exit(0);
         } else if (cmd.equals("GraphOpen")) {
-            frame2.setVisible(false);
-            frame2 = GWindow(pro.graphequal(this, textc9in1.getText(), Double.parseDouble(textc9in2.getText()), Double.parseDouble(textc9in3.getText()), Integer.parseInt(textc9in4.getText())));
+            GWindowRepaint(pro.graphequal(this, textc9in1.getText(), Double.parseDouble(textc9in2.getText()), Double.parseDouble(textc9in3.getText()), Integer.parseInt(textc9in4.getText())));
             frame2.setVisible(true);
             return;
         } else if (cmd.equals("GraphClose")) {
@@ -650,7 +650,7 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
 	public void keyReleased(KeyEvent e) {
 	}
 
-    private JFrame GWindow(ArrayList<Double> data) {
+    private JFrame GWindow() {
         JFrame frame2 = new JFrame();
         frame2.setTitle("Graph");
         frame2.setBounds(150, 150, 640, 500);
@@ -660,14 +660,18 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
         p.setLayout(new BorderLayout());
         frame2.add(p);
         
-        GCanvas c = new GCanvas(data);
-        p.add(c, BorderLayout.CENTER);
+        canv = new GCanvas();
+        p.add(canv, BorderLayout.CENTER);
         JButton btn = new JButton("Close");
         btn.addActionListener(this);
         btn.setActionCommand("GraphClose");
         p.add(btn, BorderLayout.SOUTH);
         
         return frame2;
+    }
+
+    private void GWindowRepaint(ArrayList<Double> data) {
+        canv.rp(data);
     }
     
     static class GCanvas extends Canvas {
@@ -677,10 +681,15 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
         ArrayList<Double> y;
         double xmin,ymin,xmax,ymax;
         
-        GCanvas(ArrayList<Double> data) {
+        GCanvas() {
             dimension = getSize();
             setBackground(Color.lightGray);
             
+            x = new ArrayList<>();
+            y = new ArrayList<>();
+        }
+        
+        void rp(ArrayList<Double> data) {
             x = new ArrayList<>();
             y = new ArrayList<>();
             ymin=data.get(2);
@@ -712,6 +721,7 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
                 xmin -= 1;
             }
             //*/
+            repaint();
         }
         
         private double yc(double y) {
