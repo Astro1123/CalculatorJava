@@ -133,6 +133,8 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
     }
 
     Calculator() {
+        frame2 = new JFrame();
+        
         setBounds(100, 100, 640, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
@@ -261,6 +263,7 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
         if (cmd.equals("Quit")) {
             System.exit(0);
         } else if (cmd.equals("GraphOpen")) {
+            frame2.setVisible(false);
             frame2 = GWindow(pro.graphequal(this, textc9in1.getText(), Double.parseDouble(textc9in2.getText()), Double.parseDouble(textc9in3.getText()), Integer.parseInt(textc9in4.getText())));
             frame2.setVisible(true);
             return;
