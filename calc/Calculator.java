@@ -700,13 +700,13 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
             xmax = x.get(x.size()-1);
             
             if ((ymax - ymin) < 0.001) {
-                ymax = 1;
-                ymin = -1;
+                ymax += 1;
+                ymin -= 1;
             }
             
             if ((xmax - xmin) < 0.001) {
-                xmax = 1;
-                xmin = -1;
+                xmax += 1;
+                xmin -= 1;
             }
             //*/
         }
