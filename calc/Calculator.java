@@ -735,28 +735,60 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
             //y軸
             g.drawLine((int)xc(0),(int)yc(ymin),(int)xc(0),(int)yc(ymax));
             
-            g.drawLine((int)xc(0)-2,(int)yc(ymin/2),(int)xc(0)+2,(int)yc(ymin/2));
-            g.drawLine((int)xc(0)-2,(int)yc(ymax/2),(int)xc(0)+2,(int)yc(ymax/2));
+            double dx = (xmax-xmin) / 4;
+            double dy = (ymax-ymin) / 4;
+            
             g.drawLine((int)xc(0)-2,(int)yc(ymin),(int)xc(0)+2,(int)yc(ymin));
-            g.drawLine((int)xc(0)-2,(int)yc(ymax),(int)xc(0)+2,(int)yc(ymax));
+            g.drawLine((int)xc(0)-2,(int)yc(ymin + dy),(int)xc(0)+2,(int)yc(ymin + dy));
+            g.drawLine((int)xc(0)-2,(int)yc(ymin + dy * 2),(int)xc(0)+2,(int)yc(ymin + dy * 2));
+            g.drawLine((int)xc(0)-2,(int)yc(ymin + dy * 3),(int)xc(0)+2,(int)yc(ymin + dy * 3));
+            g.drawLine((int)xc(0)-2,(int)yc(ymin + dy * 4),(int)xc(0)+2,(int)yc(ymin + dy * 4));
             
-            g.drawLine((int)xc(xmin/2),(int)yc(0)-2,(int)xc(xmin/2),(int)yc(0)+2);
-            g.drawLine((int)xc(xmax/2),(int)yc(0)-2,(int)xc(xmax/2),(int)yc(0)+2);
             g.drawLine((int)xc(xmin),(int)yc(0)-2,(int)xc(xmin),(int)yc(0)+2);
-            g.drawLine((int)xc(xmax),(int)yc(0)-2,(int)xc(xmax),(int)yc(0)+2);
+            g.drawLine((int)xc(xmin + dx),(int)yc(0)-2,(int)xc(xmin + dx),(int)yc(0)+2);
+            g.drawLine((int)xc(xmin + dx * 2),(int)yc(0)-2,(int)xc(xmin + dx * 2),(int)yc(0)+2);
+            g.drawLine((int)xc(xmin + dx * 3),(int)yc(0)-2,(int)xc(xmin + dx * 3),(int)yc(0)+2);
+            g.drawLine((int)xc(xmin + dx * 4),(int)yc(0)-2,(int)xc(xmin + dx * 4),(int)yc(0)+2);
             
-            g.setColor(Color.black);
-            g.drawString("O", (int)xc(0)+5, (int)yc(0)+15);
+            if ((int)yc(0)+25 > dimension.height) {
+                g.drawString("O", (int)xc(0)+5, (int)yc(0)-5);
+                
+                if (xmin != 0)
+                g.drawString(String.valueOf(xmin), (int)xc(xmin), (int)yc(0)-5);
+                if (xmin + dx != 0)
+                g.drawString(String.valueOf(xmin + dx), (int)xc(xmin + dx), (int)yc(0)-5);
+                if (xmin + 2*dx != 0)
+                g.drawString(String.valueOf(xmin + 2*dx), (int)xc(xmin + 2*dx), (int)yc(0)-5);
+                if (xmin + 3*dx != 0)
+                g.drawString(String.valueOf(xmin + 3*dx), (int)xc(xmin + 3*dx), (int)yc(0)-5);
+                if (xmin + 4*dx != 0)
+                g.drawString(String.valueOf(xmin + 4*dx), (int)xc(xmin + 4*dx)-20, (int)yc(0)-5);
+            } else {
+                g.drawString("O", (int)xc(0)+5, (int)yc(0)+15);
+                
+                if (xmin != 0)
+                g.drawString(String.valueOf(xmin), (int)xc(xmin), (int)yc(0)+15);
+                if (xmin + dx != 0)
+                g.drawString(String.valueOf(xmin + dx), (int)xc(xmin + dx), (int)yc(0)+15);
+                if (xmin + 2*dx != 0)
+                g.drawString(String.valueOf(xmin + 2*dx), (int)xc(xmin + 2*dx), (int)yc(0)+15);
+                if (xmin + 3*dx != 0)
+                g.drawString(String.valueOf(xmin + 3*dx), (int)xc(xmin + 3*dx), (int)yc(0)+15);
+                if (xmin + 4*dx != 0)
+                g.drawString(String.valueOf(xmin + 4*dx), (int)xc(xmin + 4*dx)-20, (int)yc(0)+15);
+            }
             
-            g.drawString(String.valueOf(xmin), (int)xc(xmin), (int)yc(0)+15);
-            g.drawString(String.valueOf(xmin/2), (int)xc(xmin/2), (int)yc(0)+15);
-            g.drawString(String.valueOf(xmax/2), (int)xc(xmax/2), (int)yc(0)+15);
-            g.drawString(String.valueOf(xmax), (int)xc(xmax)-20, (int)yc(0)+15);
-            
-            g.drawString(String.valueOf(ymax), (int)xc(0)+5, (int)yc(ymax)+15);
-            g.drawString(String.valueOf(ymax/2), (int)xc(0)+5, (int)yc(ymax/2)+10);
-            g.drawString(String.valueOf(ymin/2), (int)xc(0)+5, (int)yc(ymin/2)+10);
+            if (ymin + 4*dy != 0)
+            g.drawString(String.valueOf(ymin + 4*dy), (int)xc(0)+5, (int)yc(ymin + 4*dy)+15);
+            if (ymin + 3*dy != 0)
+            g.drawString(String.valueOf(ymin + 3*dy), (int)xc(0)+5, (int)yc(ymin + 3*dy)+10);
+            if (ymin + 2*dy != 0)
+            g.drawString(String.valueOf(ymin + 2*dy), (int)xc(0)+5, (int)yc(ymin + 2*dy)+10);
+            if (ymin + dy != 0)
+            g.drawString(String.valueOf(ymin + dy), (int)xc(0)+5, (int)yc(ymin + dy)+10);
+            if (ymin != 0)
             g.drawString(String.valueOf(ymin), (int)xc(0)+5, (int)yc(ymin)-5);
+            
             
             g.setColor(Color.blue);
             for(int i=0;i<x.size()-1;i++) {
