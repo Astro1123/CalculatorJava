@@ -57,12 +57,16 @@ public class ToRPN {
 							break;
 						}
 					}
+					if (tp1 > tp2) break;
+					/*
 					if (mode) {
 						if (tp1 >= tp2) break;
 					} else {
 						if (tp1 > tp2) break;
 					}
+					//*/
 					if (stack.size()==0) break;
+					if (mode && tp2 == 100 && tp1 == 100) break;
 					list.add(stack.pop());
 				}
 				stack.push(inlist.get(i));
@@ -152,12 +156,12 @@ public class ToRPN {
 	private void oplinit(OperatorList opl, boolean mode) {
 		if (mode == true) {
 			opl.list.add(opl.InputOperatorList("*",70));
-			opl.list.add(opl.InputOperatorList("/",71));
-			opl.list.add(opl.InputOperatorList("//",71));
-			opl.list.add(opl.InputOperatorList("%",71));
-			opl.list.add(opl.InputOperatorList("%%",71));
+			opl.list.add(opl.InputOperatorList("/",70));
+			opl.list.add(opl.InputOperatorList("//",70));
+			opl.list.add(opl.InputOperatorList("%",70));
+			opl.list.add(opl.InputOperatorList("%%",70));
 			opl.list.add(opl.InputOperatorList("+",60));
-			opl.list.add(opl.InputOperatorList("-",61));
+			opl.list.add(opl.InputOperatorList("-",60));
 			opl.list.add(opl.InputOperatorList("=",0));
 			opl.list.add(opl.InputOperatorList("(",0));
 			opl.list.add(opl.InputOperatorList(",",0));
