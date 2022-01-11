@@ -68,7 +68,7 @@ public class Draw {
     	btnbs.setActionCommand("BS");
     	JButton btnC = Button("C");
     	btnC.addActionListener(calc);
-    	btnC.setActionCommand("C");
+    	btnC.setActionCommand("Cl");
     	JButton btnAC = Button("AC");
     	btnAC.addActionListener(calc);
     	btnAC.setActionCommand("AC");
@@ -249,7 +249,7 @@ public class Draw {
         btnbsc2.setActionCommand("BS");
         JButton btnCc2 = Button("C");
         btnCc2.addActionListener(calc);
-        btnCc2.setActionCommand("C");
+        btnCc2.setActionCommand("Cl");
         JButton btnACc2 = Button("AC");
         btnACc2.addActionListener(calc);
         btnACc2.setActionCommand("AC");
@@ -644,7 +644,7 @@ public class Draw {
     	btnbs.setActionCommand("BS");
     	JButton btnC = Button("C");
     	btnC.addActionListener(calc);
-    	btnC.setActionCommand("C");
+    	btnC.setActionCommand("Cl");
     	JButton btnAC = Button("AC");
     	btnAC.addActionListener(calc);
     	btnAC.setActionCommand("AC");

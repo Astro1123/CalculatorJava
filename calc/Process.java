@@ -96,7 +96,7 @@ public class Process {
 		return s;
     }
     
-	public String equalcalc(Calculator calc, String str, String outputType) {
+	public String equalcalc(Calculator calc, String str, String outputType,boolean bool) {
         Token t;
 		SignSymbols ss = new SignSymbols();
 	    ToRPN trpn = new ToRPN();
@@ -123,6 +123,24 @@ public class Process {
 		    calc.list.add("0");
 		    calc.typelist.add("整数");
 		}
+		
+		//System.out.println(calc.list);
+		//System.out.println(calc.typelist);
+		
+		for (int i = 0; i < calc.list.size(); i++) {
+			if (calc.typelist.get(i).equals("整数")) {
+				if (bool) {
+					if (outputType.equals("BIN")) {
+						calc.list.set(i, String.valueOf(Integer.parseInt(calc.list.get(i), 2)));
+					} else if (outputType.equals("OCT")) {
+						calc.list.set(i, String.valueOf(Integer.parseInt(calc.list.get(i), 8)));
+					} else if (outputType.equals("HEX")) {
+						calc.list.set(i, String.valueOf(Integer.parseInt(calc.list.get(i), 16)));
+					}
+				}
+			}
+		}
+		
 		cons.constant(calc.list,calc.typelist);
 		ss.signSymbols(calc.list,calc.typelist);
 		boolean mode;

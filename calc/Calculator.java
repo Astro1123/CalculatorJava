@@ -317,7 +317,7 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
             memory = 0;
         } else if (cmd.equals("AC")) {
             AllClear(this);
-        } else if (cmd.equals("C")) {
+        } else if (cmd.equals("Cl")) {
             setClear(this,text1);
         } else if (cmd.equals("BS")) {
             inputmem = false;
@@ -343,7 +343,7 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
             }
             list = ml.makeList(PushList);
             //System.out.println(list);
-            if (combo.getSelectedItem().equals("Programmer")) pro.equalcalc(this,ms.makeScript(list),pcombo.getSelectedItem().toString());
+            if (combo.getSelectedItem().equals("Programmer")) pro.equalcalc(this,ms.makeScript(list),pcombo.getSelectedItem().toString(),true);
             else pro.equalcalc(this,ms.makeScript(list));
             return;
         } else {
@@ -389,9 +389,40 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
                 eqnext(this);
                 if (inputmem == true) sb.delete(0, sb.length());
                 if (inputid == false) {
-                    if (cmd.equals("00") && sb.toString().equals("")) sb.append("0");
-                    else if ((cmd.equals("00") || cmd.equals("0") ) && sb.toString().equals("0")) sb.append("");
-                    else sb.append(cmd);
+                    if (cmd.equals("00") && sb.toString().equals("")) {
+                        sb.append("0");
+                    } else if ((cmd.equals("00") || cmd.equals("0") ) && sb.toString().equals("0")) {
+                        sb.append("");
+                    } else if (cmd.equals("1") && sb.toString().equals("0")) {
+                        sb.delete(0, sb.length());
+                        sb.append(cmd);
+                    } else if (cmd.equals("2") && sb.toString().equals("0")) {
+                        sb.delete(0, sb.length());
+                        sb.append(cmd);
+                    } else if (cmd.equals("3") && sb.toString().equals("0")) {
+                        sb.delete(0, sb.length());
+                        sb.append(cmd);
+                    } else if (cmd.equals("4") && sb.toString().equals("0")) {
+                        sb.delete(0, sb.length());
+                        sb.append(cmd);
+                    } else if (cmd.equals("5") && sb.toString().equals("0")) {
+                        sb.delete(0, sb.length());
+                        sb.append(cmd);
+                    } else if (cmd.equals("6") && sb.toString().equals("0")) {
+                        sb.delete(0, sb.length());
+                        sb.append(cmd);
+                    } else if (cmd.equals("7") && sb.toString().equals("0")) {
+                        sb.delete(0, sb.length());
+                        sb.append(cmd);
+                    } else if (cmd.equals("8") && sb.toString().equals("0")) {
+                        sb.delete(0, sb.length());
+                        sb.append(cmd);
+                    } else if (cmd.equals("9") && sb.toString().equals("0")) {
+                        sb.delete(0, sb.length());
+                        sb.append(cmd);
+                    } else {
+                        sb.append(cmd);
+                    }
                     text1.setText(sb.toString());
                     inputnum = true;
                     inputeq = false;
@@ -484,7 +515,7 @@ class Calculator extends JFrame implements KeyListener, ActionListener, ItemList
             }
             list = ml.makeList(PushList);
             //System.out.println(list);
-            pro.equalcalc(this,ms.makeScript(list),pcombo.getSelectedItem().toString());
+            pro.equalcalc(this,ms.makeScript(list),pcombo.getSelectedItem().toString(),false);
             btnenabled(this,pcombo.getSelectedItem());
         } else if (e.getItemSelectable() == combounit) {
             String str = (String)combounit.getSelectedItem();
