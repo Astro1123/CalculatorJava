@@ -1,6 +1,8 @@
 package calc.rpn;
 import java.util.ArrayList;
 
+import calc.*;
+
 public class SignSymbols {
 	public void signSymbols(ArrayList<String> list, ArrayList<String> typelist) {
 		int brackets;
@@ -23,25 +25,6 @@ public class SignSymbols {
 						typelist.add(j+1, "記号");
 						break;
 					}
-				}
-			} else if (list.size()-3>0) {
-				if (typelist.get(2).equals("識別子") && list.get(3).equals("(")) {
-					brackets = 0;
-					for(int j = 3; j < list.size(); j++) {
-						if (list.get(j).equals("(")) {
-							brackets++;
-						} else if (list.get(j).equals(")")) {
-							brackets--;
-						}
-						if (brackets == 0) {
-							list.add(j+1, ")");
-							typelist.add(j+1, "記号");
-							break;
-						}
-					}
-				} else {
-					list.add(2, ")");
-					typelist.add(2, "記号");
 				}
 			} else {
 				list.add(2, ")");
