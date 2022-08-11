@@ -53,22 +53,15 @@ public class ToRPN {
 				while (true) {
 					if (stack.peek() == null) {
 						tp2 = 0;
-						break;
-					}
-					for ( int j = 0; j < opl.list.size(); j++ ) {
-						if ( opl.list.get(j).op.equals(stack.peek())) {
-							tp2 = opl.list.get(j).rank;
-							break;
+					} else {
+						for ( int j = 0; j < opl.list.size(); j++ ) {
+							if ( opl.list.get(j).op.equals(stack.peek())) {
+								tp2 = opl.list.get(j).rank;
+								break;
+							}
 						}
 					}
 					if (tp1 >= tp2) break;
-					/*
-					if (mode) {
-						if (tp1 >= tp2) break;
-					} else {
-						if (tp1 > tp2) break;
-					}
-					//*/
 					if (stack.size()==0) break;
 					if (mode && tp2 == 100 && tp1 == 100) break;
 					list.add(stack.pop());
@@ -134,12 +127,12 @@ public class ToRPN {
 				while (true) {
 					if (stack.peek() == null) {
 						tp2 = 0;
-						break;
-					}
-					for ( int j = 0; j < opl.list.size(); j++ ) {
-						if ( opl.list.get(j).op.equals(stack.peek())) {
-							tp2 = opl.list.get(j).rank;
-							break;
+					} else {
+						for ( int j = 0; j < opl.list.size(); j++ ) {
+							if ( opl.list.get(j).op.equals(stack.peek())) {
+								tp2 = opl.list.get(j).rank;
+								break;
+							}
 						}
 					}
 					if (tp1 >= tp2) break;
