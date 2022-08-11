@@ -51,13 +51,17 @@ public class ToRPN {
 					}
 				}
 				while (true) {
+					if (stack.peek() == null) {
+						tp2 = 0;
+						break;
+					}
 					for ( int j = 0; j < opl.list.size(); j++ ) {
 						if ( opl.list.get(j).op.equals(stack.peek())) {
 							tp2 = opl.list.get(j).rank;
 							break;
 						}
 					}
-					if (tp1 > tp2) break;
+					if (tp1 >= tp2) break;
 					/*
 					if (mode) {
 						if (tp1 >= tp2) break;
@@ -128,6 +132,10 @@ public class ToRPN {
 					}
 				}
 				while (true) {
+					if (stack.peek() == null) {
+						tp2 = 0;
+						break;
+					}
 					for ( int j = 0; j < opl.list.size(); j++ ) {
 						if ( opl.list.get(j).op.equals(stack.peek())) {
 							tp2 = opl.list.get(j).rank;
