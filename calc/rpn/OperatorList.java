@@ -5,7 +5,11 @@ public class OperatorList {
 	String op;
 	int rank;
 	
-    static ArrayList<OperatorList> list = new ArrayList<>();
+    ArrayList<OperatorList> list;
+	
+	OperatorList() {
+		list = new ArrayList<>();
+	}
    	
 	public OperatorList InputOperatorList(String op, int rank) {
 		OperatorList oplist = new OperatorList();
