@@ -9,7 +9,7 @@ public class SignSymbols {
 		if(list.get(0).equals("+")) {
 			list.remove(0);
 			typelist.remove(0);
-		} else if (list.get(0).equals("-") && list.size()-1>0) {
+		} else if (list.get(0).equals("-") && list.size()>=2) {
 			list.set(0, "pm");
 			typelist.set(0, "識別子");
 			if (list.get(1).equals("(")) {
@@ -26,6 +26,22 @@ public class SignSymbols {
 						break;
 					}
 				}
+			} else if (typelist.get(1).equals("識別子") && list.size()>=3) {
+				if (list.get(2).equals("(")) {
+					brackets = 0;
+					for(int j = 1; j < list.size(); j++) {
+						if (list.get(j).equals("(")) {
+							brackets++;
+						} else if (list.get(j).equals(")")) {
+							brackets--;
+						}
+						if (brackets == 0) {
+							list.add(j+1, ")");
+							typelist.add(j+1, "記号");
+							break;
+						}
+					}
+				}
 			} else {
 				list.add(2, ")");
 				typelist.add(2, "記号");
@@ -38,7 +54,7 @@ public class SignSymbols {
 				if(list.get(i+1).equals("+")) {
 					list.remove(i+1);
 					typelist.remove(i+1);
-				} else if(list.get(i+1).equals("-") && list.size()-i-2>0) {
+				} else if(list.get(i+1).equals("-") && list.size()>=i+3) {
 					list.set(i+1, "pm");
 					typelist.set(i+1, "識別子");
 					if (list.get(i+2).equals("(")) {
@@ -55,7 +71,7 @@ public class SignSymbols {
 								break;
 							}
 						}
-					} else if (list.size()-i-3>0) {
+					} else if (list.size()>=i+4) {
 						if (typelist.get(i+2).equals("識別子") && list.get(i+3).equals("(")) {
 							brackets = 0;
 							for(int j = i + 3; j < list.size(); j++) {
