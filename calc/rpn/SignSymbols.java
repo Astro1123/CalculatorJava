@@ -29,7 +29,7 @@ public class SignSymbols {
 			} else if (typelist.get(1).equals("識別子") && list.size()>=3) {
 				if (list.get(2).equals("(")) {
 					brackets = 0;
-					for(int j = 1; j < list.size(); j++) {
+					for(int j = 2; j < list.size(); j++) {
 						if (list.get(j).equals("(")) {
 							brackets++;
 						} else if (list.get(j).equals(")")) {
