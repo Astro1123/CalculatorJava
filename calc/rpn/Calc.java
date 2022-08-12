@@ -11,7 +11,7 @@ public class Calc {
 	public BigDecimal calc(ArrayList<String> list) throws ArithmeticException {
 		Deque<Double> stack = new ArrayDeque<>();
 		for (int i = 0; i < list.size(); i++) {
-			//System.out.println(list.get(i));
+			System.out.println(list.get(i));
 			try {
 				stack.push(Double.parseDouble(list.get(i)));
 			}
@@ -182,7 +182,7 @@ public class Calc {
 			stack.push(com.atan(b,a));
 		} else if (op.equals("percent") || op.equals("pc")) {
 			a = StackPop(stack);
-			b = stack.peek();
+			b = (stack.size() > 0 ? stack.peek() : 0.0);
 			stack.push(b*a/100);
 		} else if (op.equals("rad")) {
 			a = StackPop(stack);
